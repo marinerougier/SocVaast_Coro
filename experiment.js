@@ -109,20 +109,22 @@ if(!is_compatible) {
   // Preload images in the VAAST 
 // Preload faces
   var faces = [
-      "stimuli/FlurmitGruppe.png",
-      "stimuli/Frau_1.png",
-      "stimuli/Frau_2.png",
-      "stimuli/Frau_3.png",
-      "stimuli/Mann_1.png",
-      "stimuli/Mann_2.png",
-      "stimuli/Mann_3.png",
-      "stimuli/Mann_4.png",
+      "stimuli/pair1_female.png",
+      "stimuli/pair1_male_v2.png",
+      "stimuli/pair2_female.png",
+      "stimuli/pair2_male.png",
+      "stimuli/pair3_female.png",
+      "stimuli/pair3_male.png",
+      "stimuli/pair4_female.png",
+      "stimuli/pair4_male.png",
       "stimuli/Pflanze1.png",
       "stimuli/Pflanze2.png",
       "stimuli/Pflanze3.png",
       "stimuli/Pflanze4.png",
       "stimuli/Pflanze5.png",
-      "stimuli/Pflanzengruppe1.jpg"
+      "stimuli/Pflanze6.jpg",
+      "stimuli/Pflanze7.jpg",
+      "stimuli/Pflanze8.jpg"
   ];
 
  preloadimages.push(faces);
@@ -197,51 +199,43 @@ switch(vaast_first_block) {
 // Ici, on ajoute un nouveau mouvement, en fonction du bloc de la vaast on appellera soit
 // movement_1 ou movement_2.
 
-  var faces = [
-      "stimuli/Frau_1.png",
-      "stimuli/Frau_2.png",
-      "stimuli/Frau_3.png",
-      "stimuli/Mann_1.png",
-      "stimuli/Mann_2.png",
-      "stimuli/Mann_3.png",
-      "stimuli/Mann_4.png",
-      "stimuli/Pflanze1.png",
-      "stimuli/Pflanze2.png",
-      "stimuli/Pflanze3.png",
-      "stimuli/Pflanze4.png",
-      "stimuli/Pflanze5.png",
-  ];
-
-
 
 var vaast_stim_training = [
-  {movement_1: movement_human_1, movement_2: movement_human_2,  group: "human",  stimulus: "stimuli/Frau_1.png"},
-  //{movement_1: movement_human_1, movement_2: movement_human_2,  group: "human",  stimulus: "stimuli/Frau_2.png"},
-  //{movement_1: movement_human_1, movement_2: movement_human_2,  group: "human",  stimulus: "stimuli/Frau_3.png"},
-  //{movement_1: movement_human_1, movement_2: movement_human_2,  group: "human",  stimulus: "stimuli/Mann_1.png"},
-  //{movement_1: movement_human_1, movement_2: movement_human_2,  group: "human",  stimulus: "stimuli/Mann_2.png"},
-  //{movement_1: movement_human_1, movement_2: movement_human_2,  group: "human",  stimulus: "stimuli/Mann_3.png"},
-  //{movement_1: movement_human_1, movement_2: movement_human_2,  group: "human",  stimulus: "stimuli/Mann_4.png"},
-  //{movement_1: movement_plant_1, movement_2: movement_plant_2,  group: "plant",  stimulus: "stimuli/Pflanze1.png"},
-  //{movement_1: movement_plant_1, movement_2: movement_plant_2,  group: "plant",  stimulus: "stimuli/Pflanze2.png"},
-  //{movement_1: movement_plant_1, movement_2: movement_plant_2,  group: "plant",  stimulus: "stimuli/Pflanze3.png"},
-  //{movement_1: movement_plant_1, movement_2: movement_plant_2,  group: "plant",  stimulus: "stimuli/Pflanze4.png"},
+  {movement_1: movement_human_1, movement_2: movement_human_2,  group: "human",  stimulus: "stimuli/pair1_female.png"},
+  {movement_1: movement_human_1, movement_2: movement_human_2,  group: "human",  stimulus: "stimuli/pair1_male_v2.png"},
+  {movement_1: movement_human_1, movement_2: movement_human_2,  group: "human",  stimulus: "stimuli/pair2_female.png"},
+  {movement_1: movement_human_1, movement_2: movement_human_2,  group: "human",  stimulus: "stimuli/pair2_male.png"},
+  {movement_1: movement_human_1, movement_2: movement_human_2,  group: "human",  stimulus: "stimuli/pair3_female.png"},
+  {movement_1: movement_human_1, movement_2: movement_human_2,  group: "human",  stimulus: "stimuli/pair3_male.png"},
+  {movement_1: movement_human_1, movement_2: movement_human_2,  group: "human",  stimulus: "stimuli/pair4_female.png"},
+  {movement_1: movement_human_1, movement_2: movement_human_2,  group: "human",  stimulus: "stimuli/pair4_male.png"},
+  {movement_1: movement_plant_1, movement_2: movement_plant_2,  group: "plant",  stimulus: "stimuli/Pflanze1.png"},
+  {movement_1: movement_plant_1, movement_2: movement_plant_2,  group: "plant",  stimulus: "stimuli/Pflanze2.png"},
+  {movement_1: movement_plant_1, movement_2: movement_plant_2,  group: "plant",  stimulus: "stimuli/Pflanze3.png"},
+  {movement_1: movement_plant_1, movement_2: movement_plant_2,  group: "plant",  stimulus: "stimuli/Pflanze4.png"},
   {movement_1: movement_plant_1, movement_2: movement_plant_2,  group: "plant",  stimulus: "stimuli/Pflanze5.png"},
+  {movement_1: movement_plant_1, movement_2: movement_plant_2,  group: "plant",  stimulus: "stimuli/Pflanze6.png"},
+  {movement_1: movement_plant_1, movement_2: movement_plant_2,  group: "plant",  stimulus: "stimuli/Pflanze7.png"},
+  {movement_1: movement_plant_1, movement_2: movement_plant_2,  group: "plant",  stimulus: "stimuli/Pflanze8.png"}
 ]
 
 var vaast_stim = [
-  {movement_1: movement_human_1, movement_2: movement_human_2,  group: "human",  stimulus: "stimuli/Frau_1.png"},
-  //{movement_1: movement_human_1, movement_2: movement_human_2,  group: "human",  stimulus: "stimuli/Frau_2.png"},
-  //{movement_1: movement_human_1, movement_2: movement_human_2,  group: "human",  stimulus: "stimuli/Frau_3.png"},
-  //{movement_1: movement_human_1, movement_2: movement_human_2,  group: "human",  stimulus: "stimuli/Mann_1.png"},
-  //{movement_1: movement_human_1, movement_2: movement_human_2,  group: "human",  stimulus: "stimuli/Mann_2.png"},
-  //{movement_1: movement_human_1, movement_2: movement_human_2,  group: "human",  stimulus: "stimuli/Mann_3.png"},
-  //{movement_1: movement_human_1, movement_2: movement_human_2,  group: "human",  stimulus: "stimuli/Mann_4.png"},
-  //{movement_1: movement_plant_1, movement_2: movement_plant_2,  group: "plant",  stimulus: "stimuli/Pflanze1.png"},
-  //{movement_1: movement_plant_1, movement_2: movement_plant_2,  group: "plant",  stimulus: "stimuli/Pflanze2.png"},
-  //{movement_1: movement_plant_1, movement_2: movement_plant_2,  group: "plant",  stimulus: "stimuli/Pflanze3.png"},
-  //{movement_1: movement_plant_1, movement_2: movement_plant_2,  group: "plant",  stimulus: "stimuli/Pflanze4.png"},
+  {movement_1: movement_human_1, movement_2: movement_human_2,  group: "human",  stimulus: "stimuli/pair1_female.png"},
+  {movement_1: movement_human_1, movement_2: movement_human_2,  group: "human",  stimulus: "stimuli/pair1_male_v2.png"},
+  {movement_1: movement_human_1, movement_2: movement_human_2,  group: "human",  stimulus: "stimuli/pair2_female.png"},
+  {movement_1: movement_human_1, movement_2: movement_human_2,  group: "human",  stimulus: "stimuli/pair2_male.png"},
+  {movement_1: movement_human_1, movement_2: movement_human_2,  group: "human",  stimulus: "stimuli/pair3_female.png"},
+  {movement_1: movement_human_1, movement_2: movement_human_2,  group: "human",  stimulus: "stimuli/pair3_male.png"},
+  {movement_1: movement_human_1, movement_2: movement_human_2,  group: "human",  stimulus: "stimuli/pair4_female.png"},
+  {movement_1: movement_human_1, movement_2: movement_human_2,  group: "human",  stimulus: "stimuli/pair4_male.png"},
+  {movement_1: movement_plant_1, movement_2: movement_plant_2,  group: "plant",  stimulus: "stimuli/Pflanze1.png"},
+  {movement_1: movement_plant_1, movement_2: movement_plant_2,  group: "plant",  stimulus: "stimuli/Pflanze2.png"},
+  {movement_1: movement_plant_1, movement_2: movement_plant_2,  group: "plant",  stimulus: "stimuli/Pflanze3.png"},
+  {movement_1: movement_plant_1, movement_2: movement_plant_2,  group: "plant",  stimulus: "stimuli/Pflanze4.png"},
   {movement_1: movement_plant_1, movement_2: movement_plant_2,  group: "plant",  stimulus: "stimuli/Pflanze5.png"},
+  {movement_1: movement_plant_1, movement_2: movement_plant_2,  group: "plant",  stimulus: "stimuli/Pflanze6.png"},
+  {movement_1: movement_plant_1, movement_2: movement_plant_2,  group: "plant",  stimulus: "stimuli/Pflanze7.png"},
+  {movement_1: movement_plant_1, movement_2: movement_plant_2,  group: "plant",  stimulus: "stimuli/Pflanze8.png"}
 ];
 
 // vaast background images --------------------------------------------------------------,
