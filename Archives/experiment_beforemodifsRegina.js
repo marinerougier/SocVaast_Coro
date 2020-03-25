@@ -387,18 +387,14 @@ var save_extra = {
     stimulus:
       "<h1 class ='custom-title'> Welcome </h1>" +
       "<p class='instructions'>Thank you for taking part in this study.<p>" +
-      "<p class='instructions'><b>With your participation, you make a valuable contribution to scientific research on social " +
-      "consequences of the corona crisis. </b></p>" +
-      "<p class='instructions'>During this study, you will be asked to complete a simple video game task. We " +
+      "<p class='instructions'>During this study, you will have to complete a categorization task. We " +
       " will record your performance on this task but " +
       "we will not collect any personally identifying information.</p>" +
       "<p class='instructions'>Because we rely on third party services to gather data, ad-blocking " +
       "softwares might interfere with data collection. Therefore, please  " +
       "disable your ad-blocking software during this study. </p>" +
-      "<p class='instructions'>Please minimize any potential distractors (close other computer programs, silence your cell  " +
-      "phone, etc.), because distractions distort the performance on the task. </p>" +
       "<p class='instructions'>If you have any question related to this research, please " +
-      "e-mail us at marine.rougier@uclouvain.be.</p>" + // here modify as a function of country !!!!
+      "e-mail us at marine.rougier@uclouvain.be.</p>" +
       "<p class = 'continue-instructions'>Press <strong>space</strong> to start the study.</p>",
     choices: [32]
   };
@@ -412,8 +408,8 @@ var save_extra = {
           "<li>You know you can stop your participation at any time, without having to justify yourself. </li>" +
           "<li>You know you can contact our team for any questions or dissatisfaction related to your " +
           "participation in the research via the following email address: marine.rougier@uclouvain.be.</li>" +
-          "<li>You know the data collected will be strictly confidential and will only be accessible to researchers.</li>" +
-          "<li>You know we do not record any data that allows to personally identify you. We do not record your IP address.</li>" +
+          "<li>You know the data collected will be strictly confidential and it will be impossible for " +
+          "any unauthorized third party to identify you.</li>" +
         "</ul>" +
       "<p class='instructions'>By clicking on the \"I confirm\" button, you give your free and informed consent to participate " +
       "in this research.</p>",
@@ -451,11 +447,11 @@ var vaast_instructions_1 = {
     type: "html-keyboard-response",
     stimulus:
       "<h1 class ='custom-title'>Video Game task </h1>" +
-      "<p class='instructions'>Items (drawings of plants or persons) will appear in the corridor. </p>" +
-      "<p class='instructions'> Your task is to move toward or away from the items as a function of their category " +
-      "(more specific instructions following). To do so, use the following keys on your keyboard: </p>" +
+      "<p class='instructions'>Items (drawings of plants or persons) will appear in the environment. </p>" +
+      "<p class='instructions'> Your task is to move forward or backward as a function of the category of the item " +
+      "(more specific instructions following) and this by using the following keys on your keyboard: </p>" +
       "<p class='instructions'><center>" +
-        "<img src = 'media/keyboard-vaastt_YHN_towardaway.png'>" +
+        "<img src = 'media/keyboard-vaastt.png'>" +
       "</center></p>" +
       "<p class = 'continue-instructions'>Press <strong>space</strong> to continue.</p>",
     choices: [32]
@@ -468,9 +464,9 @@ var vaast_instructions_3 = {
     "<p class='instructions'>At the beginning of each trial, you will see the “O” symbol. " +
     "This symbol indicates that you have to press the <b>START key</b> (namely the <b>D key</b>) to start the trial. </p>" +
     "<p class='instructions'>Then, you will see a fixation cross (+) in the center of the screen followed by an item (a plant or a person).</p>" +
-    "<p class='instructions'>Your task is to move toward or away by pressing the <b>MOVE TOWARD key</b> (the <b>Y key</b>) " +
-    "or the <b>MOVE AWAY key</b> (the <b>N key</b>) as fast as possible." +
-    "<p class='instructions'>For all of these actions, please only use the index finger of your dominant hand.</p>" +
+    "<p class='instructions'>Your task is to move forward or backward by pressing the <b>MOVE FORWARD key</b> (the <b>Y key</b>) " +
+    "or the <b>MOVE BACKWARD key</b> (the <b>N key</b>) as fast as possible." +
+    "<p class='instructions'>For all of these actions, please only use the index of your dominant hand.</p>" +
     "<br>" +
     "<p class = 'continue-instructions'>Press <strong>space</strong> to" +
     " continue.</p>",
@@ -483,9 +479,9 @@ var vaast_instructions_4 = {
     "<h1 class ='custom-title'> Video Game task - Section 1</h1>" +
     "<p class='instructions'>In this section, you have to: " +
     "<ul class='instructions'>" +
-    "<li><strong>Approach (move toward) " + group_to_approach_1 + " by pressing the Y key </strong></li>" +
+    "<li><strong>Approach (move forward) " + group_to_approach_1 + " by pressing the Y key </strong></li>" +
     "<strong>  </strong>" +
-    "<li><strong>Avoid (move away from) " + group_to_avoid_1 + " by pressing the N key </strong></li>" +
+    "<li><strong>Avoid (move backward) " + group_to_avoid_1 + " by pressing the N key </strong></li>" +
     "<strong> </strong>" +
     "</ul>" +
     "<p class='instructions'>It is very important to remember which action you will " +
@@ -497,9 +493,9 @@ var vaast_instructions_4 = {
     "so read and memorize the instructions above. " + 
     "If your response is false, you will have to start again the trial and make the correct action. " +
     "<br>" +
-    "<p class = 'continue-instructions'>Press <strong>space</strong> to" +
-    " continue.</p>",
-  choices: [32]
+    "<p class = 'continue-instructions'>Press <strong>enter</strong> to " +
+    "begin the training.</p>",
+  choices: [13]
 };
 
 
@@ -508,14 +504,15 @@ var vaast_instructions_5 = {
   stimulus:
     "<h1 class ='custom-title'> Video Game task - Section 1 </h1>" +
     "<p class='instructions'>The training is now completed. </p>" +
+    "<p class='instructions'><u>WARNING</u>: You will no longer have messages to report your errors.</p>" +
     "<p class='instructions'>As a reminder, in this section you have to:</p>" +
     "<ul class='instructions'>" +
      "<li>" +
-      "<strong>Approach (move toward) " + group_to_approach_1 + " by pressing the Y key </strong>" +
+      "<strong>Approach (move forward) " + group_to_approach_1 + " by pressing the Y key </strong>" +
       "<strong> </strong>" +
      "</li>" +
      "<li>" +
-      "<strong>Avoid (move away from) " + group_to_avoid_1 + " by pressing the N key </strong>" +
+      "<strong>Avoid (move backward) " + group_to_avoid_1 + " by pressing the N key </strong>" +
       "<strong> </strong>" +
      "</li>" +
     "</ul>" +
@@ -531,9 +528,9 @@ var vaast_instructions_6 = {
     "<h1 class ='custom-title'> Video Game task - Section 2</h1>" +
     "<p class='instructions'>In this section, you have to: " +
     "<ul class='instructions'>" +
-    "<li><strong>Approach (move toward) " + group_to_approach_2 + " by pressing the Y key </strong></li>" +
+    "<li><strong>Approach (move forward) " + group_to_approach_2 + " by pressing the Y key </strong></li>" +
     "<strong>  </strong>" +
-    "<li><strong>Avoid (move away from) " + group_to_avoid_2 + " by pressing the N key </strong></li>" +
+    "<li><strong>Avoid (move backward) " + group_to_avoid_2 + " by pressing the N key </strong></li>" +
     "<strong> </strong>" +
     "</ul>" +
     "<p class='instructions'>It is very important to remember which action you will " +
@@ -546,9 +543,9 @@ var vaast_instructions_6 = {
     "If your response is false, you will have to start again the trial and make the correct action. " +
     "<br>" +
     "<br>" +
-    "<p class = 'continue-instructions'>Press <strong>space</strong> to" +
-    " continue.</p>",
-  choices: [32]
+    "<p class = 'continue-instructions'>Press <strong>enter</strong> to " +
+    "begin the training.</p>",
+  choices: [13]
 };
 
 
@@ -557,14 +554,15 @@ var vaast_instructions_7 = {
   stimulus:
     "<h1 class ='custom-title'> Video Game task - Section 2 </h1>" +
     "<p class='instructions'>The training is now completed. </p>" +
+    "<p class='instructions'><u>WARNING</u>: You will no longer have messages to report your errors.</p>" +
     "<p class='instructions'>As a reminder, in this section you have to:</p>" +
     "<ul class='instructions'>" +
      "<li>" +
-      "<strong>Approach (move toward) " + group_to_approach_2 + " by pressing the Y key </strong>" +
+      "<strong>Approach (move forward) " + group_to_approach_2 + " by pressing the Y key </strong>" +
       "<strong> </strong>" +
      "</li>" +
      "<li>" +
-      "<strong>Avoid (move away from) " + group_to_avoid_2 + " by pressing the N key </strong>" +
+      "<strong>Avoid (move backward) " + group_to_avoid_2 + " by pressing the N key </strong>" +
       "<strong> </strong>" +
      "</li>" +
     "</ul>" +
@@ -732,8 +730,8 @@ var vaast_test_block_1 = {
   timeline: [
     vaast_start,
     vaast_fixation,
-    vaast_first_step_training_1,
-    vaast_second_step_training_1,
+    vaast_first_step_1,
+    vaast_second_step_1,
     save_vaast_trial
   ],
   timeline_variables: vaast_stim,
@@ -770,8 +768,8 @@ var vaast_test_block_2 = {
   timeline: [
     vaast_start,
     vaast_fixation,
-    vaast_first_step_training_2,
-    vaast_second_step_training_2,
+    vaast_first_step_2,
+    vaast_second_step_2,
     save_vaast_trial
   ],
   timeline_variables: vaast_stim,
