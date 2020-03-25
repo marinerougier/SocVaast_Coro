@@ -294,8 +294,8 @@ var next_position = function(){
   var current_position = jsPsych.data.getLastTrialData().values()[0].position;
   var last_keypress = jsPsych.data.getLastTrialData().values()[0].key_press;
 
-  var approach_key = jsPsych.pluginAPI.convertKeyCharacterToKeyCode('uparrow');
-  var avoidance_key = jsPsych.pluginAPI.convertKeyCharacterToKeyCode('downarrow');
+  var approach_key = jsPsych.pluginAPI.convertKeyCharacterToKeyCode('y');
+  var avoidance_key = jsPsych.pluginAPI.convertKeyCharacterToKeyCode('n');
 
   var position = current_position;
 
@@ -588,7 +588,7 @@ var vaast_start = {
   position: 2,
   background_images: background,
   font_sizes:  stim_sizes,
-  approach_key: "uparrow",
+  approach_key: "h",
   stim_movement: "approach",
   html_when_wrong: '<span style="color: red; font-size: 80px">&times;</span>',
   force_correct_key_press: true,
@@ -610,8 +610,8 @@ var vaast_first_step_training_1 = {
   position: 2,
   background_images: background,
   font_sizes:  image_sizes,
-  approach_key: "uparrow",
-  avoidance_key: "downarrow",
+  approach_key: "y",
+  avoidance_key: "n",
   stim_movement: jsPsych.timelineVariable('movement_1'),
   html_when_wrong: '<span style="color: red; font-size: 80px">&times;</span>',
   force_correct_key_press: true,
@@ -636,8 +636,8 @@ var vaast_first_step_1 = {
   position: 2,
   background_images: background,
   font_sizes:  image_sizes,
-  approach_key: "uparrow",
-  avoidance_key: "downarrow",
+  approach_key: "y",
+  avoidance_key: "n",
   stim_movement: jsPsych.timelineVariable('movement_1'),
   html_when_wrong: '<span style="color: red; font-size: 80px">&times;</span>',
   force_correct_key_press: false,
@@ -662,8 +662,8 @@ var vaast_first_step_training_2 = {
   position: 2,
   background_images: background,
   font_sizes:  image_sizes,
-  approach_key: "uparrow",
-  avoidance_key: "downarrow",
+  approach_key: "y",
+  avoidance_key: "n",
   stim_movement: jsPsych.timelineVariable('movement_2'),
   html_when_wrong: '<span style="color: red; font-size: 80px">&times;</span>',
   force_correct_key_press: true,
@@ -688,8 +688,8 @@ var vaast_first_step_2 = {
   position: 2,
   background_images: background,
   font_sizes:  image_sizes,
-  approach_key: "uparrow",
-  avoidance_key: "downarrow",
+  approach_key: "y",
+  avoidance_key: "n",
   stim_movement: jsPsych.timelineVariable('movement_2'),
   html_when_wrong: '<span style="color: red; font-size: 80px">&times;</span>',
   force_correct_key_press: false,
@@ -711,7 +711,7 @@ var vaast_second_step_2 = {
 
 var vaast_training_block_1 = {
   timeline: [
-    //vaast_start,
+    vaast_start,
     vaast_fixation,
     vaast_first_step_training_1,
     vaast_second_step_training_1,
@@ -730,7 +730,7 @@ var vaast_training_block_1 = {
 
 var vaast_test_block_1 = {
   timeline: [
-    //vaast_start,
+    vaast_start,
     vaast_fixation,
     vaast_first_step_training_1,
     vaast_second_step_training_1,
@@ -749,7 +749,7 @@ var vaast_test_block_1 = {
 
 var vaast_training_block_2 = {
   timeline: [
-    //vaast_start,
+    vaast_start,
     vaast_fixation,
     vaast_first_step_training_2,
     vaast_second_step_training_2,
@@ -768,7 +768,7 @@ var vaast_training_block_2 = {
 
 var vaast_test_block_2 = {
   timeline: [
-    //vaast_start,
+    vaast_start,
     vaast_fixation,
     vaast_first_step_training_2,
     vaast_second_step_training_2,
