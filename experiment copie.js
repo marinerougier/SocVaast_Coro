@@ -22,9 +22,6 @@
 // OVERVIEW -----------------------------------------------------------------------------
 //
 // TODO:
-//
-//
-// adress : https://marinerougier.github.io/SocVaast_Coro/index.html
 // 
 // dirty hack to lock scrolling ---------------------------------------------------------
 // note that jquery needs to be loaded.
@@ -110,7 +107,8 @@ if(!is_compatible) {
   });
 
   // Preload images in the VAAST 
-  var stim_vaast = [
+// Preload faces
+  var faces = [
       "stimuli/pair1_female.png",
       "stimuli/pair1_male_v2.png",
       "stimuli/pair2_female.png",
@@ -129,8 +127,8 @@ if(!is_compatible) {
       "stimuli/Pflanze8.jpg"
   ];
 
- //preloadimages.push(stim_vaast);
-jsPsych.pluginAPI.preloadImages(stim_vaast);
+ preloadimages.push(faces);
+
 
     // counter variables
   var vaast_trial_n    = 1;
@@ -230,25 +228,25 @@ var vaast_stim_training = [];
 
 var vaast_stim = [
   {movement_1: movement_human_1, movement_2: movement_human_2,  movement_3: movement_human_3, movement_4: movement_human_4, group: "human",  stimulus: "stimuli/pair1_female.png"},
-  //{movement_1: movement_human_1, movement_2: movement_human_2,  movement_3: movement_human_3, movement_4: movement_human_4, group: "human",  stimulus: "stimuli/pair1_male_v2.png"},
-  //{movement_1: movement_human_1, movement_2: movement_human_2,  movement_3: movement_human_3, movement_4: movement_human_4, group: "human",  stimulus: "stimuli/pair2_female.png"},
-  //{movement_1: movement_human_1, movement_2: movement_human_2,  movement_3: movement_human_3, movement_4: movement_human_4, group: "human",  stimulus: "stimuli/pair2_male.png"},
-  //{movement_1: movement_human_1, movement_2: movement_human_2,  movement_3: movement_human_3, movement_4: movement_human_4, group: "human",  stimulus: "stimuli/pair3_female.png"},
-  //{movement_1: movement_human_1, movement_2: movement_human_2,  movement_3: movement_human_3, movement_4: movement_human_4, group: "human",  stimulus: "stimuli/pair3_male.png"},
-  //{movement_1: movement_human_1, movement_2: movement_human_2,  movement_3: movement_human_3, movement_4: movement_human_4, group: "human",  stimulus: "stimuli/pair4_female.png"},
-  //{movement_1: movement_human_1, movement_2: movement_human_2,  movement_3: movement_human_3, movement_4: movement_human_4, group: "human",  stimulus: "stimuli/pair4_male.png"},
-  //{movement_1: movement_plant_1, movement_2: movement_plant_2,  movement_3: movement_plant_3, movement_4: movement_plant_4, group: "plant",  stimulus: "stimuli/Pflanze1.png"},
- // {movement_1: movement_plant_1, movement_2: movement_plant_2,  movement_3: movement_plant_3, movement_4: movement_plant_4, group: "plant",  stimulus: "stimuli/Pflanze2.png"},
- // {movement_1: movement_plant_1, movement_2: movement_plant_2,  movement_3: movement_plant_3, movement_4: movement_plant_4, group: "plant",  stimulus: "stimuli/Pflanze3.png"},
- // {movement_1: movement_plant_1, movement_2: movement_plant_2,  movement_3: movement_plant_3, movement_4: movement_plant_4, group: "plant",  stimulus: "stimuli/Pflanze4.png"},
- // {movement_1: movement_plant_1, movement_2: movement_plant_2,  movement_3: movement_plant_3, movement_4: movement_plant_4, group: "plant",  stimulus: "stimuli/Pflanze5.png"},
- // {movement_1: movement_plant_1, movement_2: movement_plant_2,  movement_3: movement_plant_3, movement_4: movement_plant_4, group: "plant",  stimulus: "stimuli/Pflanze6.png"},
- // {movement_1: movement_plant_1, movement_2: movement_plant_2,  movement_3: movement_plant_3, movement_4: movement_plant_4, group: "plant",  stimulus: "stimuli/Pflanze7.png"},
+  {movement_1: movement_human_1, movement_2: movement_human_2,  movement_3: movement_human_3, movement_4: movement_human_4, group: "human",  stimulus: "stimuli/pair1_male_v2.png"},
+  {movement_1: movement_human_1, movement_2: movement_human_2,  movement_3: movement_human_3, movement_4: movement_human_4, group: "human",  stimulus: "stimuli/pair2_female.png"},
+  {movement_1: movement_human_1, movement_2: movement_human_2,  movement_3: movement_human_3, movement_4: movement_human_4, group: "human",  stimulus: "stimuli/pair2_male.png"},
+  {movement_1: movement_human_1, movement_2: movement_human_2,  movement_3: movement_human_3, movement_4: movement_human_4, group: "human",  stimulus: "stimuli/pair3_female.png"},
+  {movement_1: movement_human_1, movement_2: movement_human_2,  movement_3: movement_human_3, movement_4: movement_human_4, group: "human",  stimulus: "stimuli/pair3_male.png"},
+  {movement_1: movement_human_1, movement_2: movement_human_2,  movement_3: movement_human_3, movement_4: movement_human_4, group: "human",  stimulus: "stimuli/pair4_female.png"},
+  {movement_1: movement_human_1, movement_2: movement_human_2,  movement_3: movement_human_3, movement_4: movement_human_4, group: "human",  stimulus: "stimuli/pair4_male.png"},
+  {movement_1: movement_plant_1, movement_2: movement_plant_2,  movement_3: movement_plant_3, movement_4: movement_plant_4, group: "plant",  stimulus: "stimuli/Pflanze1.png"},
+  {movement_1: movement_plant_1, movement_2: movement_plant_2,  movement_3: movement_plant_3, movement_4: movement_plant_4, group: "plant",  stimulus: "stimuli/Pflanze2.png"},
+  {movement_1: movement_plant_1, movement_2: movement_plant_2,  movement_3: movement_plant_3, movement_4: movement_plant_4, group: "plant",  stimulus: "stimuli/Pflanze3.png"},
+  {movement_1: movement_plant_1, movement_2: movement_plant_2,  movement_3: movement_plant_3, movement_4: movement_plant_4, group: "plant",  stimulus: "stimuli/Pflanze4.png"},
+  {movement_1: movement_plant_1, movement_2: movement_plant_2,  movement_3: movement_plant_3, movement_4: movement_plant_4, group: "plant",  stimulus: "stimuli/Pflanze5.png"},
+  {movement_1: movement_plant_1, movement_2: movement_plant_2,  movement_3: movement_plant_3, movement_4: movement_plant_4, group: "plant",  stimulus: "stimuli/Pflanze6.png"},
+  {movement_1: movement_plant_1, movement_2: movement_plant_2,  movement_3: movement_plant_3, movement_4: movement_plant_4, group: "plant",  stimulus: "stimuli/Pflanze7.png"},
   {movement_1: movement_plant_1, movement_2: movement_plant_2,  movement_3: movement_plant_3, movement_4: movement_plant_4, group: "plant",  stimulus: "stimuli/Pflanze8.png"}
 ];
 
-var vaast_stim_human = _.sampleSize(_.filter(vaast_stim, { 'group': 'human'}), 1); //here, put 4
-var vaast_stim_plant = _.sampleSize(_.filter(vaast_stim, { 'group': 'plant'}), 1); // here, put 4
+var vaast_stim_human = _.sampleSize(_.filter(vaast_stim, { 'group': 'human'}), 4);
+var vaast_stim_plant = _.sampleSize(_.filter(vaast_stim, { 'group': 'plant'}), 4);
 
 vaast_stim_training.push(vaast_stim_human);
 vaast_stim_training.push(vaast_stim_plant);
@@ -473,9 +471,9 @@ var vaast_instructions_1 = {
       "<h1 class ='custom-title'>Video Game task </h1>" +
       "<p class='instructions'>Items (drawings of plants or persons) will appear in the corridor. </p>" +
       "<p class='instructions'> Your task is to move toward or away from the items as a function of their category " +
-      "(more specific instructions following). To do so, use the upward and downward arrow keys on your keyboard: </p>" +
+      "(more specific instructions following). To do so, use the following keys on your keyboard: </p>" +
       "<p class='instructions'><center>" +
-        "<img src = 'media/keyboard-vaastt.png'>" +
+        "<img src = 'media/keyboard-vaastt_YHN_towardaway.png'>" +
       "</center></p>" +
       "<p class = 'continue-instructions'>Press <strong>space</strong> to continue.</p>",
     choices: [32]
@@ -485,9 +483,11 @@ var vaast_instructions_3 = {
   type: "html-keyboard-response",
   stimulus:
     "<h1 class ='custom-title'> Video Game task </h1>" +
-    "<p class='instructions'>At the beginning of each trial, you will see a fixation cross (+) in the center of the screen followed by an item (a plant or a person).</p>" +
-    "<p class='instructions'>Your task is to move toward or away by pressing the <b>MOVE TOWARD key</b> (the <b>upward arrow key</b>) " +
-    "or the <b>MOVE AWAY key</b> (the <b>downward arrow key</b>) as fast as possible." +
+    "<p class='instructions'>At the beginning of each trial, you will see the “O” symbol. " +
+    "This symbol indicates that you have to press the <b>START key</b> (namely the <b>D key</b>) to start the trial. </p>" +
+    "<p class='instructions'>Then, you will see a fixation cross (+) in the center of the screen followed by an item (a plant or a person).</p>" +
+    "<p class='instructions'>Your task is to move toward or away by pressing the <b>MOVE TOWARD key</b> (the <b>Y key</b>) " +
+    "or the <b>MOVE AWAY key</b> (the <b>N key</b>) as fast as possible." +
     "<p class='instructions'>For all of these actions, please only use the index finger of your dominant hand.</p>" +
     "<br>" +
     "<p class = 'continue-instructions'>Press <strong>space</strong> to" +
@@ -501,95 +501,96 @@ var vaast_instructions_4 = {
     "<h1 class ='custom-title'> Video Game task - Section 1</h1>" +
     "<p class='instructions'>In this section, you have to: " +
     "<ul class='instructions'>" +
-    "<li><strong>Approach (move toward) " + group_to_approach_1 + " by pressing the upward arrow key </strong></li>" +
+    "<li><strong>Approach (move toward) " + group_to_approach_1 + " by pressing the Y key </strong></li>" +
     "<strong>  </strong>" +
-    "<li><strong>Avoid (move away from) " + group_to_avoid_1 + " by pressing the downward arrow key </strong></li>" +
+    "<li><strong>Avoid (move away from) " + group_to_avoid_1 + " by pressing the N key </strong></li>" +
     "<strong> </strong>" +
     "</ul>" +
     "<p class='instructions'>It is very important to remember which action you will " +
     "have to perform for each category. You need this information to complete the " +
     "task successfully.</p>" +
     "<strong> Also, it is EXTREMELY IMPORTANT that you try to respond as fast and as correctly as possible. </strong>." +
-    "<p class ='instructions'>Note that if your response is false, you will have to start again the trial and make the correct action. " +
+    "<p class ='instructions'>You will start with a training phase.</p>" +
+    "<p class ='instructions'><u>WARNING</u>: we will report your errors ONLY in the training phase,  " +
+    "so read and memorize the instructions above. " + 
+    "If your response is false, you will have to start again the trial and make the correct action. " +
     "<br>" +
     "<p class = 'continue-instructions'>Press <strong>space</strong> to" +
     " continue.</p>",
   choices: [32]
 };
-
 
 
 var vaast_instructions_5 = {
   type: "html-keyboard-response",
   stimulus:
-    "<h1 class ='custom-title'> Video Game task - Section 2</h1>" +
-    "<p class='instructions'>In this section, you have to: " +
+    "<h1 class ='custom-title'> Video Game task - Section 1 </h1>" +
+    "<p class='instructions'>The training is now completed. </p>" +
+    "<p class='instructions'>As a reminder, in this section you have to:</p>" +
     "<ul class='instructions'>" +
-    "<li><strong>Approach (move toward) " + group_to_approach_2 + " by pressing the upward arrow key </strong></li>" +
-    "<strong>  </strong>" +
-    "<li><strong>Avoid (move away from) " + group_to_avoid_2 + " by pressing the downward arrow key </strong></li>" +
-    "<strong> </strong>" +
+     "<li>" +
+      "<strong>Approach (move toward) " + group_to_approach_1 + " by pressing the Y key </strong>" +
+      "<strong> </strong>" +
+     "</li>" +
+     "<li>" +
+      "<strong>Avoid (move away from) " + group_to_avoid_1 + " by pressing the N key </strong>" +
+      "<strong> </strong>" +
+     "</li>" +
     "</ul>" +
-    "<p class='instructions'>It is very important to remember which action you will " +
-    "have to perform for each category. You need this information to complete the " +
-    "task successfully.</p>" +
-    "<strong> Also, it is EXTREMELY IMPORTANT that you try to respond as fast and as correctly as possible. </strong>." +
-    "<p class ='instructions'>Note that if your response is false, you will have to start again the trial and make the correct action. " +
     "<br>" +
     "<p class = 'continue-instructions'>Press <strong>space</strong> to" +
     " continue.</p>",
   choices: [32]
 };
-
 
 var vaast_instructions_6 = {
   type: "html-keyboard-response",
   stimulus:
-    "<h1 class ='custom-title'> Video Game task - Section 3</h1>" +
-    "<p class='instructions'>In this section, as in Section 1, you have to: " +
+    "<h1 class ='custom-title'> Video Game task - Section 2</h1>" +
+    "<p class='instructions'>In this section, you have to: " +
     "<ul class='instructions'>" +
-    "<li><strong>Approach (move toward) " + group_to_approach_3 + " by pressing the upward arrow key </strong></li>" +
+    "<li><strong>Approach (move toward) " + group_to_approach_2 + " by pressing the Y key </strong></li>" +
     "<strong>  </strong>" +
-    "<li><strong>Avoid (move away from) " + group_to_avoid_3 + " by pressing the downward arrow key </strong></li>" +
+    "<li><strong>Avoid (move away from) " + group_to_avoid_2 + " by pressing the N key </strong></li>" +
     "<strong> </strong>" +
     "</ul>" +
     "<p class='instructions'>It is very important to remember which action you will " +
     "have to perform for each category. You need this information to complete the " +
     "task successfully.</p>" +
     "<strong> Also, it is EXTREMELY IMPORTANT that you try to respond as fast and as correctly as possible. </strong>." +
-    "<p class ='instructions'>Note that if your response is false, you will have to start again the trial and make the correct action. " +
+    "<p class ='instructions'>You will start with a training phase.</p>" +
+    "<p class ='instructions'><u>WARNING</u>: we will report your errors ONLY in the training phase,  " +
+    "so read and memorize the instructions above. " + 
+    "If your response is false, you will have to start again the trial and make the correct action. " +
+    "<br>" +
     "<br>" +
     "<p class = 'continue-instructions'>Press <strong>space</strong> to" +
     " continue.</p>",
   choices: [32]
 };
-
 
 
 var vaast_instructions_7 = {
   type: "html-keyboard-response",
   stimulus:
-    "<h1 class ='custom-title'> Video Game task - Section 4</h1>" +
-    "<p class='instructions'>In this section, as in Section 2, you have to: " +
+    "<h1 class ='custom-title'> Video Game task - Section 2 </h1>" +
+    "<p class='instructions'>The training is now completed. </p>" +
+    "<p class='instructions'>As a reminder, in this section you have to:</p>" +
     "<ul class='instructions'>" +
-    "<li><strong>Approach (move toward) " + group_to_approach_4 + " by pressing the upward arrow key </strong></li>" +
-    "<strong>  </strong>" +
-    "<li><strong>Avoid (move away from) " + group_to_avoid_4 + " by pressing the downward arrow key </strong></li>" +
-    "<strong> </strong>" +
+     "<li>" +
+      "<strong>Approach (move toward) " + group_to_approach_2 + " by pressing the Y key </strong>" +
+      "<strong> </strong>" +
+     "</li>" +
+     "<li>" +
+      "<strong>Avoid (move away from) " + group_to_avoid_2 + " by pressing the N key </strong>" +
+      "<strong> </strong>" +
+     "</li>" +
     "</ul>" +
-    "<p class='instructions'>It is very important to remember which action you will " +
-    "have to perform for each category. You need this information to complete the " +
-    "task successfully.</p>" +
-    "<strong> Also, it is EXTREMELY IMPORTANT that you try to respond as fast and as correctly as possible. </strong>." +
-    "<p class ='instructions'>Note that if your response is false, you will have to start again the trial and make the correct action. " +
     "<br>" +
     "<p class = 'continue-instructions'>Press <strong>space</strong> to" +
     " continue.</p>",
   choices: [32]
 };
-
-
-
 
 // Creating a trial ---------------------------------------------------------------------
 // Note: vaast_start trial is a dirty hack which uses a regular vaast trial. The correct
@@ -647,6 +648,32 @@ var vaast_second_step_training_1 = {
   trial_duration: 650
 }
 
+var vaast_first_step_1 = {
+  type: 'vaast-image',
+  stimulus: jsPsych.timelineVariable('stimulus'),
+  position: 2,
+  background_images: background,
+  font_sizes:  image_sizes,
+  approach_key: "uparrow",
+  avoidance_key: "downarrow",
+  stim_movement: jsPsych.timelineVariable('movement_1'),
+  html_when_wrong: '<span style="color: red; font-size: 80px">&times;</span>',
+  force_correct_key_press: false,
+  display_feedback: false,
+  response_ends_trial: true
+}
+
+var vaast_second_step_1 = {
+  type: 'vaast-image',
+  position: next_position,
+  stimulus: jsPsych.timelineVariable('stimulus'),
+  background_images: background,
+  font_sizes:  image_sizes,
+  stim_movement: jsPsych.timelineVariable('movement_1'),
+  response_ends_trial: false,
+  trial_duration: 650
+}
+
 var vaast_first_step_training_2 = {
   type: 'vaast-image',
   stimulus: jsPsych.timelineVariable('stimulus'),
@@ -673,7 +700,7 @@ var vaast_second_step_training_2 = {
   trial_duration: 650
 }
 
-var vaast_first_step_training_3 = {
+var vaast_first_step_2 = {
   type: 'vaast-image',
   stimulus: jsPsych.timelineVariable('stimulus'),
   position: 2,
@@ -681,50 +708,23 @@ var vaast_first_step_training_3 = {
   font_sizes:  image_sizes,
   approach_key: "uparrow",
   avoidance_key: "downarrow",
-  stim_movement: jsPsych.timelineVariable('movement_3'),
+  stim_movement: jsPsych.timelineVariable('movement_2'),
   html_when_wrong: '<span style="color: red; font-size: 80px">&times;</span>',
-  force_correct_key_press: true,
-  display_feedback: true,
+  force_correct_key_press: false,
+  display_feedback: false,
   response_ends_trial: true
 }
 
-var vaast_second_step_training_3 = {
+var vaast_second_step_2 = {
   type: 'vaast-image',
-  position: next_position_training,
+  position: next_position,
   stimulus: jsPsych.timelineVariable('stimulus'),
   background_images: background,
   font_sizes:  image_sizes,
-  stim_movement: jsPsych.timelineVariable('movement_3'),
+  stim_movement: jsPsych.timelineVariable('movement_2'),
   response_ends_trial: false,
   trial_duration: 650
 }
-
-var vaast_first_step_training_4 = {
-  type: 'vaast-image',
-  stimulus: jsPsych.timelineVariable('stimulus'),
-  position: 2,
-  background_images: background,
-  font_sizes:  image_sizes,
-  approach_key: "uparrow",
-  avoidance_key: "downarrow",
-  stim_movement: jsPsych.timelineVariable('movement_4'),
-  html_when_wrong: '<span style="color: red; font-size: 80px">&times;</span>',
-  force_correct_key_press: true,
-  display_feedback: true,
-  response_ends_trial: true
-}
-
-var vaast_second_step_training_4 = {
-  type: 'vaast-image',
-  position: next_position_training,
-  stimulus: jsPsych.timelineVariable('stimulus'),
-  background_images: background,
-  font_sizes:  image_sizes,
-  stim_movement: jsPsych.timelineVariable('movement_4'),
-  response_ends_trial: false,
-  trial_duration: 650
-}
-
 // VAAST training block -----------------------------------------------------------------
 
 var vaast_training_block_1 = {
@@ -799,44 +799,6 @@ var vaast_test_block_2 = {
     phase:    "test",
     stimulus: jsPsych.timelineVariable('stimulus'),
     movement: jsPsych.timelineVariable('movement_2'),
-    group:    jsPsych.timelineVariable('group'),
-  }
-};
-
-var vaast_test_block_3 = {
-  timeline: [
-    //vaast_start,
-    vaast_fixation,
-    vaast_first_step_training_3,
-    vaast_second_step_training_3,
-    save_vaast_trial
-  ],
-  timeline_variables: vaast_stim,
-  repetitions: 1,  //here, put 2
-  randomize_order: true,
-  data: {
-    phase:    "test",
-    stimulus: jsPsych.timelineVariable('stimulus'),
-    movement: jsPsych.timelineVariable('movement_3'),
-    group:    jsPsych.timelineVariable('group'),
-  }
-};
-
-var vaast_test_block_4 = {
-  timeline: [
-    //vaast_start,
-    vaast_fixation,
-    vaast_first_step_training_4,
-    vaast_second_step_training_4,
-    save_vaast_trial
-  ],
-  timeline_variables: vaast_stim,
-  repetitions: 1,  //here, put 2
-  randomize_order: true,
-  data: {
-    phase:    "test",
-    stimulus: jsPsych.timelineVariable('stimulus'),
-    movement: jsPsych.timelineVariable('movement_4'),
     group:    jsPsych.timelineVariable('group'),
   }
 };
@@ -952,14 +914,12 @@ timeline.push(vaast_instructions_1,
               vaast_instructions_3, 
               vaast_instructions_4,
               vaast_training_block_1,
-              vaast_test_block_1,
               vaast_instructions_5,
-              vaast_training_block_2,
-              vaast_test_block_2,
+              vaast_test_block_1,
               vaast_instructions_6,
-              vaast_test_block_3,
+              vaast_training_block_2,
               vaast_instructions_7,
-              vaast_test_block_4);
+              vaast_test_block_2);
 
 timeline.push(showing_cursor,
               fullscreen_trial_exit);
