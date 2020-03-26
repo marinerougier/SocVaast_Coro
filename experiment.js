@@ -401,44 +401,6 @@ var save_extra = {
 
 // EXPERIMENT ---------------------------------------------------------------------------
 
-  // initial instructions -----------------------------------------------------------------
-  var welcome = {
-    type: "html-keyboard-response",
-    stimulus:
-      "<h1 class ='custom-title'> Welcome </h1>" +
-      "<p class='instructions'>Thank you for taking part in this study.<p>" +
-      "<p class='instructions'><b>With your participation, you make a valuable contribution to scientific research on social " +
-      "consequences of the corona crisis. </b></p>" +
-      "<p class='instructions'>During this study, you will be asked to complete a simple video game task. We " +
-      " will record your performance on this task but " +
-      "we will not collect any personally identifying information.</p>" +
-      "<p class='instructions'>Because we rely on third party services to gather data, ad-blocking " +
-      "softwares might interfere with data collection. Therefore, please  " +
-      "disable your ad-blocking software during this study. </p>" +
-      "<p class='instructions'>Please minimize any potential distractors (close other computer programs, silence your cell  " +
-      "phone, etc.), because distractions distort the performance on the task. </p>" +
-      "<p class='instructions'>If you have any question related to this research, please " +
-      "e-mail us at marine.rougier@uclouvain.be.</p>" + // here modify as a function of country !!!!
-      "<p class = 'continue-instructions'>Press <strong>space</strong> to start the study.</p>",
-    choices: [32]
-  };
-
-    var consent = {
-    type: "html-button-response",
-    stimulus:
-    "<h1 class ='custom-title'> Informed consent </h1>" +
-      "<p class='instructions'>By clicking below to start the study, you recognize that:</p>" +
-        "<ul class='instructions'>" +
-          "<li>You know you can stop your participation at any time, without having to justify yourself. </li>" +
-          "<li>You know you can contact our team for any questions or dissatisfaction related to your " +
-          "participation in the research via the following email address: marine.rougier@uclouvain.be.</li>" +
-          "<li>You know the data collected will be strictly confidential and will only be accessible to researchers.</li>" +
-          "<li>You know we do not record any data that allows to personally identify you. We do not record your IP address.</li>" +
-        "</ul>" +
-      "<p class='instructions'>By clicking on the \"I confirm\" button, you give your free and informed consent to participate " +
-      "in this research.</p>",
-    choices: ['I confirm']
-  }
 // Switching to fullscreen --------------------------------------------------------------
   var fullscreen_trial = {
     type: 'fullscreen',
@@ -447,16 +409,50 @@ var save_extra = {
     fullscreen_mode: true
   }
 
+  // initial instructions -----------------------------------------------------------------
+  var welcome = {
+    type: "html-button-response",
+    stimulus:
+      "<p class='instructions'><center>" +
+      "<img src = 'media/UHH.png'>" +
+      "<img src = 'media/UCL.jpg'>" +
+      "<img src = 'media/UR.png'>" +
+      "<br><b>SIC-Project (Social Interaction during the Corona-Crisis)</b>" + 
+      "</center></p>" +
+      "<p class='instructions'>Thank you for taking part in this study. <b>With your participation, you make a valuable contribution to scientific research on social " +
+      "consequences of the corona crisis. </b></p>" +
+      "<p class='instructions'>During this study, you will be asked to complete a simple video game task. By clicking below to start the study, you recognize that you know:</p>" +
+        "<ul class='instructions'>" +
+          "<li>You can stop your participation at any time </li>" +
+          "<li>You can contact our team for any questions or dissatisfaction related to your " +
+          "participation: EMAIL ADRESS.</li>" +
+          "<li>The data collected will be strictly confidential and will only be accessible to researchers.</li>" +
+          "<li>We do not record any data that allows to personally identify you. We do not record your IP address.</li>" +
+        "</ul>" +
+      "<p class='instructions'>By clicking on the \"I confirm\" button, you give your free and informed consent to participate " +
+      "in this research.</p>",
+    choices: ['I confirm']
+  };
+
+  var welcome_2 = {
+  type: "html-keyboard-response",
+  stimulus:
+    "<h1 class ='custom-title'> Before you start...<br><br></h1>" +
+          "<li>Minimize any potential distractor (close other computer programs, silence your cell phone, etc.) </li>" +
+          "<li>Disable your ad-blocking software, because ad-blocking softwares interfere with data collection</li>" +
+        "</ul><br><br>" +
+    "<p class = 'continue-instructions'>Press <strong>space</strong> to" +
+    " continue.</p>",
+  choices: [32]
+};
 
 // VAAST --------------------------------------------------------------------------------
 var vaast_instructions_1 = {
   type: "html-keyboard-response",
   stimulus:
     "<h1 class ='custom-title'> Video Game task</h1>" +
-    "<p class='instructions'>In this task, just like in a video game, you " +
-    "will find yourself within the environment presented below." +
-   "<p class='instructions'> You will be able to move forward and backward" +
-    " using keys on your keyboard.</p>" +
+    "<p class='instructions'>In this task, just like in a video game, you will find yourself within the corridor presented below.</p> " +
+   "<p class='instructions'> A drawing of an item (a person or a plant) will appear in the corridor. </p>" +
     "<br>" +
     "<img src = 'media/vaast-background.png'>" +
     "<br>" +
@@ -471,12 +467,12 @@ var vaast_instructions_1 = {
     type: "html-keyboard-response",
     stimulus:
       "<h1 class ='custom-title'>Video Game task </h1>" +
-      "<p class='instructions'>Items (drawings of plants or persons) will appear in the corridor. </p>" +
       "<p class='instructions'> Your task is to move toward or away from the items as a function of their category " +
       "(more specific instructions following). To do so, use the upward and downward arrow keys on your keyboard: </p>" +
       "<p class='instructions'><center>" +
         "<img src = 'media/keyboard-vaastt.png'>" +
       "</center></p>" +
+          "<br>" +
       "<p class = 'continue-instructions'>Press <strong>space</strong> to continue.</p>",
     choices: [32]
   };
@@ -498,19 +494,16 @@ var vaast_instructions_3 = {
 var vaast_instructions_4 = {
   type: "html-keyboard-response",
   stimulus:
-    "<h1 class ='custom-title'> Video Game task - Section 1</h1>" +
+    "<h1 class ='custom-title'> Video Game task - Section 1/4</h1>" +
     "<p class='instructions'>In this section, you have to: " +
     "<ul class='instructions'>" +
-    "<li><strong>Approach (move toward) " + group_to_approach_1 + " by pressing the upward arrow key </strong></li>" +
+    "<li><strong>Move toward " + group_to_approach_1 + " by pressing the upward arrow key </strong></li>" +
     "<strong>  </strong>" +
-    "<li><strong>Avoid (move away from) " + group_to_avoid_1 + " by pressing the downward arrow key </strong></li>" +
+    "<li><strong>Move away from " + group_to_avoid_1 + " by pressing the downward arrow key </strong></li>" +
     "<strong> </strong>" +
     "</ul>" +
-    "<p class='instructions'>It is very important to remember which action you will " +
-    "have to perform for each category. You need this information to complete the " +
-    "task successfully.</p>" +
-    "<strong> Also, it is EXTREMELY IMPORTANT that you try to respond as fast and as correctly as possible. </strong>." +
-    "<p class ='instructions'>Note that if your response is false, you will have to start again the trial and make the correct action. " +
+    "<strong> EXTREMELY IMPORTANT: respond as fast and as correctly as possible! <br><br></strong>" +
+    "<p class ='instructions'>If you make an error, a red x appears (correct you answer with the other key). Use the index finger of your preferred hand to respond. " +
     "<br>" +
     "<p class = 'continue-instructions'>Press <strong>space</strong> to" +
     " continue.</p>",
@@ -522,19 +515,15 @@ var vaast_instructions_4 = {
 var vaast_instructions_5 = {
   type: "html-keyboard-response",
   stimulus:
-    "<h1 class ='custom-title'> Video Game task - Section 2</h1>" +
-    "<p class='instructions'>In this section, you have to: " +
+    "<h1 class ='custom-title'> Video Game task - Section 2/4</h1>" +
+    "<p class='instructions'>Warning! Instructions are changing. Now, you have to: " +
     "<ul class='instructions'>" +
-    "<li><strong>Approach (move toward) " + group_to_approach_2 + " by pressing the upward arrow key </strong></li>" +
+    "<li><strong>Move toward " + group_to_approach_2 + " by pressing the upward arrow key </strong></li>" +
     "<strong>  </strong>" +
-    "<li><strong>Avoid (move away from) " + group_to_avoid_2 + " by pressing the downward arrow key </strong></li>" +
+    "<li><strong>Move away from " + group_to_avoid_2 + " by pressing the downward arrow key </strong></li>" +
     "<strong> </strong>" +
     "</ul>" +
-    "<p class='instructions'>It is very important to remember which action you will " +
-    "have to perform for each category. You need this information to complete the " +
-    "task successfully.</p>" +
-    "<strong> Also, it is EXTREMELY IMPORTANT that you try to respond as fast and as correctly as possible. </strong>." +
-    "<p class ='instructions'>Note that if your response is false, you will have to start again the trial and make the correct action. " +
+    "<strong> EXTREMELY IMPORTANT: respond as fast and as correctly as possible! <br><br></strong>" +
     "<br>" +
     "<p class = 'continue-instructions'>Press <strong>space</strong> to" +
     " continue.</p>",
@@ -545,19 +534,15 @@ var vaast_instructions_5 = {
 var vaast_instructions_6 = {
   type: "html-keyboard-response",
   stimulus:
-    "<h1 class ='custom-title'> Video Game task - Section 3</h1>" +
-    "<p class='instructions'>In this section, as in Section 1, you have to: " +
+    "<h1 class ='custom-title'> Video Game task - Section 3/4</h1>" +
+    "<p class='instructions'>Warning! Instructions are changing. Now, you have to: " +
     "<ul class='instructions'>" +
-    "<li><strong>Approach (move toward) " + group_to_approach_3 + " by pressing the upward arrow key </strong></li>" +
+    "<li><strong>Move toward " + group_to_approach_3 + " by pressing the upward arrow key </strong></li>" +
     "<strong>  </strong>" +
-    "<li><strong>Avoid (move away from) " + group_to_avoid_3 + " by pressing the downward arrow key </strong></li>" +
+    "<li><strong>Move away from " + group_to_avoid_3 + " by pressing the downward arrow key </strong></li>" +
     "<strong> </strong>" +
     "</ul>" +
-    "<p class='instructions'>It is very important to remember which action you will " +
-    "have to perform for each category. You need this information to complete the " +
-    "task successfully.</p>" +
-    "<strong> Also, it is EXTREMELY IMPORTANT that you try to respond as fast and as correctly as possible. </strong>." +
-    "<p class ='instructions'>Note that if your response is false, you will have to start again the trial and make the correct action. " +
+    "<strong> EXTREMELY IMPORTANT: respond as fast and as correctly as possible! <br><br></strong>" +
     "<br>" +
     "<p class = 'continue-instructions'>Press <strong>space</strong> to" +
     " continue.</p>",
@@ -569,19 +554,15 @@ var vaast_instructions_6 = {
 var vaast_instructions_7 = {
   type: "html-keyboard-response",
   stimulus:
-    "<h1 class ='custom-title'> Video Game task - Section 4</h1>" +
-    "<p class='instructions'>In this section, as in Section 2, you have to: " +
+    "<h1 class ='custom-title'> Video Game task - Section 4/4</h1>" +
+    "<p class='instructions'>Warning! Instructions are changing. Now, you have to: " +
     "<ul class='instructions'>" +
-    "<li><strong>Approach (move toward) " + group_to_approach_4 + " by pressing the upward arrow key </strong></li>" +
+    "<li><strong>Move toward " + group_to_approach_4 + " by pressing the upward arrow key </strong></li>" +
     "<strong>  </strong>" +
-    "<li><strong>Avoid (move away from) " + group_to_avoid_4 + " by pressing the downward arrow key </strong></li>" +
+    "<li><strong>Move away from " + group_to_avoid_4 + " by pressing the downward arrow key </strong></li>" +
     "<strong> </strong>" +
     "</ul>" +
-    "<p class='instructions'>It is very important to remember which action you will " +
-    "have to perform for each category. You need this information to complete the " +
-    "task successfully.</p>" +
-    "<strong> Also, it is EXTREMELY IMPORTANT that you try to respond as fast and as correctly as possible. </strong>." +
-    "<p class ='instructions'>Note that if your response is false, you will have to start again the trial and make the correct action. " +
+    "<strong> EXTREMELY IMPORTANT: respond as fast and as correctly as possible! <br><br></strong>" +
     "<br>" +
     "<p class = 'continue-instructions'>Press <strong>space</strong> to" +
     " continue.</p>",
@@ -939,9 +920,10 @@ var fullscreen_trial_exit = {
 var timeline = [];
 
 // fullscreen
-timeline.push(welcome,
-              consent,
+timeline.push(
               fullscreen_trial,
+              welcome,
+              welcome_2,
 			        hiding_cursor);
 
 // prolific verification
@@ -949,7 +931,7 @@ timeline.push(save_id);
 
 timeline.push(vaast_instructions_1,
               vaast_instructions_2,
-              vaast_instructions_3, 
+              //vaast_instructions_3, 
               vaast_instructions_4,
               vaast_training_block_1,
               vaast_test_block_1,
@@ -982,7 +964,10 @@ timeline.push(extra_information,
 // In principle, it should have ended when participants starts VAAST procedure (which)
 // contains most of the image that have to be pre-loaded.
 var loading_gif               = ["media/loading.gif"]
-var vaast_instructions_images = ["media/vaast-background.png", "media/keyboard-vaastt.png"];
+var vaast_instructions_images = ["media/UHH.png",
+                                 "media/UCL.jpg",
+                                 "media/UR.png",
+                                 "media/vaast-background.png", "media/keyboard-vaastt.png"];
 var vaast_bg_filename         = background;
 
 jsPsych.pluginAPI.preloadImages(loading_gif);
