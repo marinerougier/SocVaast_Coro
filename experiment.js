@@ -124,9 +124,9 @@ if(!is_compatible) {
       "stimuli/Pflanze3.png",
       "stimuli/Pflanze4.png",
       "stimuli/Pflanze5.png",
-      "stimuli/Pflanze6.jpg",
-      "stimuli/Pflanze7.jpg",
-      "stimuli/Pflanze8.jpg"
+      "stimuli/Pflanze6.png",
+      "stimuli/Pflanze7.png",
+      "stimuli/Pflanze8.png"
   ];
 
  preloadimages.push(stim_vaast);
