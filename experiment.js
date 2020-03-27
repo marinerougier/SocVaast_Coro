@@ -476,18 +476,6 @@ var save_extra = {
 
 // EXPERIMENT ---------------------------------------------------------------------------
 
-// Switching to fullscreen --------------------------------------------------------------
-  var fullscreen_trial = {
-    type: 'fullscreen',
-    message:  '<p><b>Before you start...</b></p>' + 
-    		  '<li>Minimize any potential distractor (close other computer programs, silence your cell phone, etc.) </li>'+
-    		  '<li>Disable your ad-blocking software, because ad-blocking softwares interfere with data collection <br><br></li>'+
-    		  '<p>To take part in this study, your browser needs to be set to fullscreen.<br></p>',
-    button_label: 'Switch to fullscreen',
-    fullscreen_mode: true
-  }
-
-
   // initial instructions -----------------------------------------------------------------
   var welcome = {
     type: "html-button-response",
@@ -496,9 +484,9 @@ var save_extra = {
       "<img src = 'media/UHH.png'>" +
       "<img src = 'media/UCL.jpg'>" +
       "<img src = 'media/UR.png'>" +
-      "<br><b>SIC-Project (Social Interaction during the Corona-Crisis)</b>" + 
+      "<br><b>SCC-Project (Social Contact during the Corona-crisis)</b>" + 
       "</center></p>" +
-      "<p class='instructions'>Thank you for taking part in this study. <b>With your participation, you make a valuable contribution to scientific research on social " +
+      "<p class='instructions'>Thank you for taking part in this study: <b>You make a valuable contribution to scientific research on social " +
       "consequences of the corona crisis. </b></p>" +
       "<p class='instructions'>During this study, you will be asked to complete a simple video game task. By clicking below to start the study, you recognize that you know:</p>" +
         "<ul class='instructions'>" +
@@ -507,11 +495,21 @@ var save_extra = {
           "participation: EMAIL ADRESS.</li>" +
           "<li>The data collected will be strictly confidential and will only be accessible to researchers.</li>" +
           "<li>We do not record any data that allows to personally identify you. We do not record your IP address.</li>" +
-        "</ul>" +
-      "<p class='instructions'>By clicking on the \"I confirm\" button, you give your free and informed consent to participate " +
-      "in this research.</p>",
-    choices: ['I confirm']
+        "</ul>" ,
+    choices: ['I confirm that I give my free and informed consent to participate']
   };
+
+// Switching to fullscreen --------------------------------------------------------------
+  var fullscreen_trial = {
+    type: 'fullscreen',
+    message:  '<p><b>Before you start...</b></p>' + 
+          '<li>Minimize any potential distractor (close other computer programs, silence your cell phone, etc.) </li>'+
+          '<li>Disable your ad-blocking software, because ad-blocking softwares interfere with data collection <br><br></li>'+
+          '<p>To take part in this study, your browser needs to be set to fullscreen.<br></p>',
+    button_label: 'Switch to fullscreen',
+    fullscreen_mode: true
+  }
+
 
 // VAAST --------------------------------------------------------------------------------
 var vaast_instructions_1 = {
@@ -987,10 +985,9 @@ var fullscreen_trial_exit = {
 var timeline = [];
 
 // fullscreen
-timeline.push(
+timeline.push(welcome,
               fullscreen_trial,
-              welcome,
-			  hiding_cursor);
+			        hiding_cursor);
 
 // prolific verification
 timeline.push(save_id);
