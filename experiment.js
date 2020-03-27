@@ -129,8 +129,8 @@ if(!is_compatible) {
       "stimuli/Pflanze8.jpg"
   ];
 
- //preloadimages.push(stim_vaast);
-jsPsych.pluginAPI.preloadImages(stim_vaast);
+ preloadimages.push(stim_vaast);
+//jsPsych.pluginAPI.preloadImages(stim_vaast);
 
     // counter variables
   var vaast_trial_n    = 1;
@@ -404,10 +404,14 @@ var save_extra = {
 // Switching to fullscreen --------------------------------------------------------------
   var fullscreen_trial = {
     type: 'fullscreen',
-    message:  '<p>To take part in this study, your browser needs to be set to fullscreen.</p>',
+    message:  '<p><b>Before you start...</b></p>' + 
+    		  '<li>Minimize any potential distractor (close other computer programs, silence your cell phone, etc.) </li>'+
+    		  '<li>Disable your ad-blocking software, because ad-blocking softwares interfere with data collection <br><br></li>'+
+    		  '<p>To take part in this study, your browser needs to be set to fullscreen.<br></p>',
     button_label: 'Switch to fullscreen',
     fullscreen_mode: true
   }
+
 
   // initial instructions -----------------------------------------------------------------
   var welcome = {
@@ -433,18 +437,6 @@ var save_extra = {
       "in this research.</p>",
     choices: ['I confirm']
   };
-
-  var welcome_2 = {
-  type: "html-keyboard-response",
-  stimulus:
-    "<h1 class ='custom-title'> Before you start...<br><br></h1>" +
-          "<li>Minimize any potential distractor (close other computer programs, silence your cell phone, etc.) </li>" +
-          "<li>Disable your ad-blocking software, because ad-blocking softwares interfere with data collection</li>" +
-        "</ul><br><br>" +
-    "<p class = 'continue-instructions'>Press <strong>space</strong> to" +
-    " continue.</p>",
-  choices: [32]
-};
 
 // VAAST --------------------------------------------------------------------------------
 var vaast_instructions_1 = {
@@ -923,8 +915,7 @@ var timeline = [];
 timeline.push(
               fullscreen_trial,
               welcome,
-              welcome_2,
-			        hiding_cursor);
+			  hiding_cursor);
 
 // prolific verification
 timeline.push(save_id);
@@ -978,10 +969,16 @@ jsPsych.pluginAPI.preloadImages(vaast_bg_filename);
 
 if(is_compatible) {
   jsPsych.init({
-      timeline: timeline,
-      on_interaction_data_update: function() {
-        saving_browser_events(completion = false);
-      },
+    timeline: timeline,
+    preload_images: preloadimages,
+    max_load_time: 1000 * 500,
+    exclusions: {
+      min_width: 800,
+      min_height: 600,
+    },
+    on_interaction_data_update: function () {
+      saving_browser_events(completion = false);
+    },
     on_finish: function() {
         saving_browser_events(completion = true);
         jsPsych.data.addProperties({
