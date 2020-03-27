@@ -32,13 +32,13 @@
       min_duration: {
         type: jsPsych.plugins.parameterType.INTEGER,
         pretty_name: 'Minimal duration',
-        default: 800,
+        default: 500,  //normally, 800
         description: 'Minimal duration (in ms).'
       },
       max_duration: {
         type: jsPsych.plugins.parameterType.INTEGER,
         pretty_name: 'Maximal duration',
-        default: 2000,
+        default: 1700, // normally, 2000
         description: 'Maximal duration (in ms).'
       },
       position: {
