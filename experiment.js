@@ -204,6 +204,24 @@ var group_to_avoid_4_en    = undefined;
 var group_to_approach_4_fr = undefined;
 var group_to_avoid_4_fr    = undefined;
 
+// Feedback variables - set after every trial, displayed in the feedback pages
+var FeedbackMeanReactionTime = undefined;
+var FeedbackNumberOfWrongResponses = undefined;
+var FeedbackNumberOfCorrectResponses = undefined;
+
+function updateFeedback(numberOfTrials) {
+  // Update the global Feedback variables - call this function after every trial
+  var responses = jsPsych.data.get().filter([{'key_press': 38}, {'key_press': 40}]);
+  // due to the experiment setup, on_finish is also called when no key presses have happend yet.
+  // naturally, we need to ignore these cases
+  if (responses.values().length < numberOfTrials) {
+    return
+  }
+  FeedbackMeanReactionTime = responses.last(numberOfTrials).select('rt').mean();
+  FeedbackNumberOfWrongResponses = responses.last(numberOfTrials).filter({'correct': false}).count();
+  FeedbackNumberOfCorrectResponses = responses.last(numberOfTrials).filter({'correct': true}).count();
+}
+
 switch(vaast_first_block) {
   case "approach_human":
     movement_human_1    = "approach";
@@ -574,7 +592,7 @@ var save_extra = {
           '<li>Disable your ad-blocking software, because ad-blocking softwares interfere with data collection. <br><br></li>'+
           '<p>To take part in this study, your browser needs to be set to fullscreen.<br></p>',
     button_label: 'Switch to fullscreen',
-    fullscreen_mode: true
+    fullscreen_mode: false //true
   }
 
   var fullscreen_trial_fr = {
@@ -934,7 +952,7 @@ var vaast_second_step_training_4 = {
 }
 
 // VAAST training block -----------------------------------------------------------------
-
+var NUMBEROFREPETITIONS_TRAINING_BLOCK_1 = 1;
 var vaast_training_block_1 = {
   timeline: [
     //vaast_start,
@@ -944,16 +962,19 @@ var vaast_training_block_1 = {
     save_vaast_trial
   ],
   timeline_variables: vaast_stim_training,
-  repetitions: 1, //here, put 2
+  repetitions: NUMBEROFREPETITIONS_TRAINING_BLOCK_1, //here, put 2
   randomize_order: true,
   data: {
     phase:    "training",
     stimulus: jsPsych.timelineVariable('stimulus'),
     movement: jsPsych.timelineVariable('movement_1'),
     group:   jsPsych.timelineVariable('group'),
-  }
+  },
+  // Note: you need to multiply by 2, because there are two examples for every repetition
+  on_finish: function(data) { updateFeedback(2 * NUMBEROFREPETITIONS_TRAINING_BLOCK_1); }
 };
 
+var NUMBEROFREPETITIONS_TEST_BLOCK_1 = 1;
 var vaast_test_block_1 = {
   timeline: [
     //vaast_start,
@@ -963,14 +984,16 @@ var vaast_test_block_1 = {
     save_vaast_trial
   ],
   timeline_variables: sample_n(vaast_stim, 2),
-  //repetitions: 1,  //here, put 2
+  //repetitions: NUMBEROFREPETITIONS_TEST_BLOCK_1,  //here, put 2
   randomize_order: true,
   data: {
     phase:    "test",
     stimulus: jsPsych.timelineVariable('stimulus'),
     movement: jsPsych.timelineVariable('movement_1'),
     group:   jsPsych.timelineVariable('group'),
-  }
+  },
+  // I'm not sure, I'm using NUMBEROFREPETITIONS_TEST_BLOCK_1 correctly here, but I'm sure you can verify.
+  on_finish: function(data) { updateFeedback(2 * NUMBEROFREPETITIONS_TEST_BLOCK_1); }
 };
 
 var vaast_training_block_2 = {
@@ -1224,6 +1247,24 @@ var fullscreen_trial_exit = {
     choices: [32]
   };
 
+  var feedback_en = {
+    type: "html-keyboard-response",
+    on_load: function() {
+      document.getElementById('FeedbackMeanReactionTime').innerHTML = FeedbackMeanReactionTime;
+      document.getElementById('FeedbackNumberOfCorrectRespones').innerHTML = FeedbackNumberOfCorrectResponses;
+      document.getElementById('FeedbackNumberOfTotalRespones').innerHTML = FeedbackNumberOfCorrectResponses + FeedbackNumberOfWrongResponses;
+    },
+    stimulus:
+      "<p class='instructions'>" + 
+      "Mean Reaction Time: <span id='FeedbackMeanReactionTime'></span> milli seconds" +
+      "</p><p class='instructions'>" +
+      "You reacted <span id='FeedbackNumberOfCorrectRespones'></span> of " +
+      "<span id='FeedbackNumberOfTotalRespones'></span> times correctly." +
+      "</p>" +
+      "<p class = 'continue-instructions'>Press <strong>space</strong> to continue</p>",
+    choices: [32]
+  };
+
 // procedure ----------------------------------------------------------------------------
 // Initialize timeline ------------------------------------------------------------------
 
@@ -1237,32 +1278,39 @@ var timeline = [];
 timeline.push(save_id);
 
 
-    timeline.push(welcome_en,
-                fullscreen_trial_en,
-                hiding_cursor,
-                vaast_instructions_1_en,
-                vaast_instructions_2_en,
-                vaast_instructions_4_en,
-                vaast_training_block_1,
-                vaast_test_block_1,
-                vaast_instructions_5_en,
-                vaast_training_block_2,
-                vaast_test_block_2,
-                vaast_instructions_6_en,
-                vaast_test_block_3,
-                vaast_instructions_7_en,
-                vaast_test_block_4,
-                showing_cursor,
-                fullscreen_trial_exit,
-                extra_information_en,
-                extra_information_2_en,
-                extra_information_3_en,
-                extra_information_4_en,
-                extra_information_5_en,
-                extra_information_6_en,
-                extra_information_7_en,
-                save_extra,
-                ending_en);
+timeline.push(
+
+  welcome_en,
+  fullscreen_trial_en,
+  hiding_cursor,
+  vaast_instructions_1_en,
+  vaast_instructions_2_en,
+  vaast_instructions_4_en,
+  vaast_training_block_1,
+  feedback_en,
+  vaast_test_block_1,
+  feedback_en,
+  /*
+  vaast_instructions_5_en,
+  vaast_training_block_2,
+  vaast_test_block_2,
+  vaast_instructions_6_en,
+  vaast_test_block_3,
+  vaast_instructions_7_en,
+  vaast_test_block_4,
+  showing_cursor,
+  fullscreen_trial_exit,
+  extra_information_en,
+  extra_information_2_en,
+  extra_information_3_en,
+  extra_information_4_en,
+  extra_information_5_en,
+  extra_information_6_en,
+  extra_information_7_en,
+  save_extra,
+  */
+  ending_en
+);
 
 // Launch experiment --------------------------------------------------------------------
 // preloading ---------------------------------------------------------------------------
@@ -1301,7 +1349,7 @@ if(is_compatible) {
         jsPsych.data.addProperties({
         vaast_first_block: vaast_first_block,
         });
-        window.location.href = "https://google.com";
+        //window.location.href = "https://google.com";
     }
   });
 }
