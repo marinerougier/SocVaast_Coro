@@ -1262,7 +1262,7 @@ timeline.push(save_id);
                 extra_information_6_en,
                 extra_information_7_en,
                 save_extra,
-                ending_fr);
+                ending_en);
 
 // Launch experiment --------------------------------------------------------------------
 // preloading ---------------------------------------------------------------------------
