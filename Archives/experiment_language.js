@@ -1230,13 +1230,42 @@ var fullscreen_trial_exit = {
 var timeline = [];
 
 // fullscreen
-//timeline.push(language,
-//              language_2);
+timeline.push(language,
+              language_2);
 
 // prolific verification
 timeline.push(save_id);
 
-
+switch(language_2) {
+  case "Français":
+    timeline.push(welcome_fr,
+                fullscreen_trial_fr,
+                hiding_cursor,
+                vaast_instructions_1_fr,
+                vaast_instructions_2_fr,
+                vaast_instructions_4_fr,
+                vaast_training_block_1,
+                vaast_test_block_1,
+                vaast_instructions_5_fr,
+                vaast_training_block_2,
+                vaast_test_block_2,
+                vaast_instructions_6_fr,
+                vaast_test_block_3,
+                vaast_instructions_7_fr,
+                vaast_test_block_4,
+                showing_cursor,
+                fullscreen_trial_exit,
+                extra_information_fr,
+                extra_information_2_fr,
+                extra_information_3_fr,
+                extra_information_4_fr,
+                extra_information_5_fr,
+                extra_information_6_fr,
+                extra_information_7_fr,
+                save_extra,
+                ending_fr);
+    break;
+  case "English":
     timeline.push(welcome_en,
                 fullscreen_trial_en,
                 hiding_cursor,
@@ -1263,6 +1292,9 @@ timeline.push(save_id);
                 extra_information_7_en,
                 save_extra,
                 ending_fr);
+    break;
+}
+
 
 // Launch experiment --------------------------------------------------------------------
 // preloading ---------------------------------------------------------------------------
