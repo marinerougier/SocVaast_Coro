@@ -24,8 +24,7 @@
 // TODO:
 //
 //
-// adress : https://marinerougier.github.io/SocVaast_Coro/index.html
-// 
+// address : https://marinerougier.github.io/SocVaast_Coro/index.html
 // dirty hack to lock scrolling ---------------------------------------------------------
 // note that jquery needs to be loaded.
 $('body').css({'overflow':'hidden'});
@@ -200,9 +199,6 @@ var group_to_avoid_4_en    = undefined;
 var FeedbackMeanReactionTime = undefined;
 var FeedbackNumberOfWrongResponses = undefined;
 var FeedbackNumberOfCorrectResponses = undefined;
-var FeedbackMeanReactionTime_train = undefined;
-var FeedbackNumberOfWrongResponses_train = undefined;
-var FeedbackNumberOfCorrectResponses_train = undefined;
 
 function updateFeedback(numberOfTrials) {
   // Update the global Feedback variables - call this function after every trial
@@ -215,19 +211,6 @@ function updateFeedback(numberOfTrials) {
   FeedbackMeanReactionTime = responses.last(numberOfTrials).select('rt').mean();
   FeedbackNumberOfWrongResponses = responses.last(numberOfTrials).filter({'correct': false}).count();
   FeedbackNumberOfCorrectResponses = responses.last(numberOfTrials).filter({'correct': true}).count();
-}
-
-function updateFeedback_train(numberOfTrials) {
-  // Update the global Feedback variables - call this function after every trial
-  var responses = jsPsych.data.get().filter([{'key_press': 38}, {'key_press': 40}]);
-  // due to the experiment setup, on_finish is also called when no key presses have happend yet.
-  // naturally, we need to ignore these cases
-  if (responses.values().length < numberOfTrials) {
-    return
-  }
-  FeedbackMeanReactionTime_train = responses.last(numberOfTrials).select('rt').mean();
-  FeedbackNumberOfWrongResponses_train = responses.last(numberOfTrials).filter({'correct': false}).count();
-  FeedbackNumberOfCorrectResponses_train = responses.last(numberOfTrials).filter({'correct': true}).count();
 }
 
 switch(vaast_first_block) {
@@ -484,45 +467,25 @@ var save_extra = {
     stimulus: "<p class='instructions'><center>Please choose a language:</p></center>",
     choices: ['English', 'Français'],
   };
-
+  // english as default
+  var instructions = englishInstructions;
+  
   var language_2 = function(){
     var data = jsPsych.data.getLastTrialData().values()[0].button_pressed;
 
     if(data == 0) {
       language_2 = "English";
+      instructions = englishInstructions;
     }
 
     if(data == 1) {
       language_2 = "Français";
+      instructions = frenchInstructions;
     }
 
     return(language_2)
   }
-
-
-  // initial instructions -----------------------------------------------------------------
-  var welcome_en = {
-    type: "html-button-response",
-    stimulus:
-      "<p class='instructions'><center>" +
-      "<img src = 'media/UHH.png'>" +
-      "<img src = 'media/UCL.jpg'>" +
-      "<img src = 'media/UR.png'>" +
-      "<br><b>SCC-Project (Social Contact during the Corona-crisis)</b>" + 
-      "</center></p>" +
-      "<p class='instructions'>Thank you for taking part in this study: <b>You make a valuable contribution to scientific research on social " +
-      "consequences of the corona crisis. </b></p>" +
-      "<p class='instructions'>During this study, you will be asked to complete a simple video game task. By clicking below to start the study, you recognize that you know:</p>" +
-        "<ul class='instructions'>" +
-          "<li>You can stop your participation at any time </li>" +
-          "<li>You can contact our team for any questions or dissatisfaction related to your " +
-          "participation: EMAIL ADRESS.</li>" +
-          "<li>The data collected will be strictly confidential and will only be accessible to researchers.</li>" +
-          "<li>We do not record any data that allows to personally identify you. We do not record your IP address.</li>" +
-        "</ul>" ,
-    choices: ['I confirm that I give my free and informed consent to participate']
-  };
-
+  
 // Switching to fullscreen --------------------------------------------------------------
   var fullscreen_trial_en = {
     type: 'fullscreen',
@@ -535,111 +498,6 @@ var save_extra = {
   }
 
 // VAAST --------------------------------------------------------------------------------
-var vaast_instructions_1_en = {
-  type: "html-keyboard-response",
-  stimulus:
-    "<h1 class ='custom-title'> Video Game task</h1>" +
-    "<p class='instructions'>In this task, just like in a video game, you will find yourself within the corridor presented below.</p> " +
-   "<p class='instructions'> Drawings of items (representing a person or a plant) will appear in the corridor. </p>" +
-    "<br>" +
-    "<img src = 'media/vaast-background.png'>" +
-    "<br>" +
-    "<br>" +
-    "<p class = 'continue-instructions'>Press <strong>space</strong> to" +
-    " continue.</p>",
-  choices: [32]
-};
-
- var vaast_instructions_2_en = {
-    type: "html-keyboard-response",
-    stimulus:
-      "<h1 class ='custom-title'>Video Game task </h1>" +
-      "<p class='instructions'> Your task is to move toward or away from the items as a function of their category " +
-      "(more specific instructions following). To do so, use the upward and downward arrow keys on your keyboard: </p>" +
-      "<p class='instructions'><center>" +
-        "<img src = 'media/keyboard-vaastt_en.png'>" +
-      "</center></p>" +
-          "<br>" +
-      "<p class = 'continue-instructions'>Press <strong>space</strong> to continue.</p>",
-    choices: [32]
-  };
-
-
-var vaast_instructions_4_en = {
-  type: "html-keyboard-response",
-  stimulus:
-    "<h1 class ='custom-title'> Video Game task - Section 1/4</h1>" +
-    "<p class='instructions'>In this section, you have to: " +
-    "<ul class='instructions'>" +
-    "<li><strong>Move toward " + group_to_approach_1_en + " by pressing the upward arrow key </strong></li>" +
-    "<strong>  </strong>" +
-    "<li><strong>Move away from " + group_to_avoid_1_en + " by pressing the downward arrow key </strong></li>" +
-    "<strong> </strong>" +
-    "</ul>" +
-    "<strong> EXTREMELY IMPORTANT: respond as fast and as correctly as possible! <br><br></strong>" +
-    "<p class ='instructions'>If you make an error, a red x appears (correct you answer with the other key). Use the index finger of your preferred hand to respond. " +
-    "<br>" +
-    "<p class = 'continue-instructions'>Press <strong>space</strong> to" +
-    " continue.</p>",
-  choices: [32]
-};
-
-
-var vaast_instructions_5_en = {
-  type: "html-keyboard-response",
-  stimulus:
-    "<h1 class ='custom-title'> Video Game task - Section 2/4</h1>" +
-    "<p class='instructions'>Warning! Instructions are changing. Now, you have to: " +
-    "<ul class='instructions'>" +
-    "<li><strong>Move toward " + group_to_approach_2_en + " by pressing the upward arrow key </strong></li>" +
-    "<strong>  </strong>" +
-    "<li><strong>Move away from " + group_to_avoid_2_en + " by pressing the downward arrow key </strong></li>" +
-    "<strong> </strong>" +
-    "</ul>" +
-    "<strong> EXTREMELY IMPORTANT: respond as fast and as correctly as possible! <br><br></strong>" +
-    "<br>" +
-    "<p class = 'continue-instructions'>Press <strong>space</strong> to" +
-    " continue.</p>",
-  choices: [32]
-};
-
-var vaast_instructions_6_en = {
-  type: "html-keyboard-response",
-  stimulus:
-    "<h1 class ='custom-title'> Video Game task - Section 3/4</h1>" +
-    "<p class='instructions'>Warning! Instructions are changing. Now, you have to: " +
-    "<ul class='instructions'>" +
-    "<li><strong>Move toward " + group_to_approach_3_en + " by pressing the upward arrow key </strong></li>" +
-    "<strong>  </strong>" +
-    "<li><strong>Move away from " + group_to_avoid_3_en + " by pressing the downward arrow key </strong></li>" +
-    "<strong> </strong>" +
-    "</ul>" +
-    "<strong> EXTREMELY IMPORTANT: respond as fast and as correctly as possible! <br><br></strong>" +
-    "<br>" +
-    "<p class = 'continue-instructions'>Press <strong>space</strong> to" +
-    " continue.</p>",
-  choices: [32]
-};
-
-
-var vaast_instructions_7_en = {
-  type: "html-keyboard-response",
-  stimulus:
-    "<h1 class ='custom-title'> Video Game task - Section 4/4</h1>" +
-    "<p class='instructions'>Warning! Instructions are changing. Now, you have to: " +
-    "<ul class='instructions'>" +
-    "<li><strong>Move toward " + group_to_approach_4_en + " by pressing the upward arrow key </strong></li>" +
-    "<strong>  </strong>" +
-    "<li><strong>Move away from " + group_to_avoid_4_en + " by pressing the downward arrow key </strong></li>" +
-    "<strong> </strong>" +
-    "</ul>" +
-    "<strong> EXTREMELY IMPORTANT: respond as fast and as correctly as possible! <br><br></strong>" +
-    "<br>" +
-    "<p class = 'continue-instructions'>Press <strong>space</strong> to" +
-    " continue.</p>",
-  choices: [32]
-};
-
 
 // Creating a trial ---------------------------------------------------------------------
 // Note: vaast_start trial is a dirty hack which uses a regular vaast trial. The correct
@@ -776,7 +634,7 @@ var vaast_second_step_training_4 = {
 }
 
 // VAAST training block -----------------------------------------------------------------
-var NUMBEROFREPETITIONS_TRAINING_BLOCK_1 = 1;
+const NUMBEROFREPETITIONS_TRAINING_BLOCK_1 = 1;
 var vaast_training_block_1 = {
   timeline: [
     //vaast_start,
@@ -795,10 +653,10 @@ var vaast_training_block_1 = {
     group:   jsPsych.timelineVariable('group'),
   },
   // Note: you need to multiply by 2, because there are two examples for every repetition
-  on_finish: function(data) { updateFeedback_train(2 * NUMBEROFREPETITIONS_TRAINING_BLOCK_1); }
+  on_finish: function(data) { updateFeedback(2 * NUMBEROFREPETITIONS_TRAINING_BLOCK_1); }
 };
 
-var NUMBEROFREPETITIONS_TEST_BLOCK_1 = 1;
+const NUMBEROFREPETITIONS_TEST_BLOCK_1 = 1;
 var vaast_test_block_1 = {
   timeline: [
     //vaast_start,
@@ -817,9 +675,10 @@ var vaast_test_block_1 = {
     group:   jsPsych.timelineVariable('group'),
   },
   // I'm not sure, I'm using NUMBEROFREPETITIONS_TEST_BLOCK_1 correctly here, but I'm sure you can verify.
-  on_finish: function(data) { updateFeedback(2 * NUMBEROFREPETITIONS_TEST_BLOCK_1); }
+  on_finish: function(data) { updateFeedback(2 * (NUMBEROFREPETITIONS_TRAINING_BLOCK_1 + NUMBEROFREPETITIONS_TEST_BLOCK_1)); }
 };
 
+const NUMBEROFREPETITIONS_TRAINING_BLOCK_2 = 1;
 var vaast_training_block_2 = {
   timeline: [
     //vaast_start,
@@ -829,16 +688,18 @@ var vaast_training_block_2 = {
     save_vaast_trial
   ],
   timeline_variables: vaast_stim_training,
-  repetitions: 1,  //here, put 2
+  repetitions: NUMBEROFREPETITIONS_TRAINING_BLOCK_2,  //here, put 2
   randomize_order: true,
   data: {
     phase:    "training",
     stimulus: jsPsych.timelineVariable('stimulus'),
     movement: jsPsych.timelineVariable('movement_2'),
     group:    jsPsych.timelineVariable('group'),
-  }
+  },
+  on_finish: function(data) { updateFeedback(2 * NUMBEROFREPETITIONS_TRAINING_BLOCK_2); }
 };
 
+const NUMBEROFREPETITIONS_TEST_BLOCK_2 = 1;
 var vaast_test_block_2 = {
   timeline: [
     //vaast_start,
@@ -848,16 +709,18 @@ var vaast_test_block_2 = {
     save_vaast_trial
   ],
   timeline_variables: sample_n(vaast_stim, 2),
-  //repetitions: 1,  //here, put 2
+  //repetitions: NUMBEROFREPETITIONS_TEST_BLOCK_2,  //here, put 2
   randomize_order: true,
   data: {
     phase:    "test",
     stimulus: jsPsych.timelineVariable('stimulus'),
     movement: jsPsych.timelineVariable('movement_2'),
     group:    jsPsych.timelineVariable('group'),
-  }
+  },
+  on_finish: function(data) { updateFeedback(2 * (NUMBEROFREPETITIONS_TRAINING_BLOCK_2 + NUMBEROFREPETITIONS_TEST_BLOCK_2)); }
 };
 
+const NUMBEROFREPETITIONS_TEST_BLOCK_3 = 1;
 var vaast_test_block_3 = {
   timeline: [
     //vaast_start,
@@ -867,16 +730,19 @@ var vaast_test_block_3 = {
     save_vaast_trial
   ],
   timeline_variables: sample_n(vaast_stim, 2),
-  //repetitions: 1,  //here, put 2
+  //repetitions: NUMBEROFREPETITIONS_TEST_BLOCK_3,  //here, put 2
   randomize_order: true,
   data: {
     phase:    "test",
     stimulus: jsPsych.timelineVariable('stimulus'),
     movement: jsPsych.timelineVariable('movement_3'),
     group:    jsPsych.timelineVariable('group'),
-  }
+  },
+  // we had no training here, so only the test repetitions
+  on_finish: function(data) { updateFeedback(2 * NUMBEROFREPETITIONS_TEST_BLOCK_3); }
 };
 
+const NUMBEROFREPETITIONS_TEST_BLOCK_4 = 1;
 var vaast_test_block_4 = {
   timeline: [
     //vaast_start,
@@ -886,14 +752,16 @@ var vaast_test_block_4 = {
     save_vaast_trial
   ],
   timeline_variables: sample_n(vaast_stim, 2),
-  //repetitions: 1,  //here, put 2
+  //repetitions: NUMBEROFREPETITIONS_TEST_BLOCK_3,  //here, put 2
   randomize_order: true,
   data: {
     phase:    "test",
     stimulus: jsPsych.timelineVariable('stimulus'),
     movement: jsPsych.timelineVariable('movement_4'),
     group:    jsPsych.timelineVariable('group'),
-  }
+  },
+  // no training here
+  on_finish: function(data) { updateFeedback(2 * NUMBEROFREPETITIONS_TEST_BLOCK_4); }
 };
 
 // end fullscreen -----------------------------------------------------------------------
@@ -987,40 +855,6 @@ var fullscreen_trial_exit = {
     choices: [32]
   };
 
-  var feedback_en_block12 = {
-    type: "html-keyboard-response",
-    on_load: function() {
-      document.getElementById('FeedbackMeanReactionTime').innerHTML = (FeedbackMeanReactionTime + FeedbackMeanReactionTime_train)/2;
-      document.getElementById('FeedbackNumberOfCorrectRespones').innerHTML = FeedbackNumberOfCorrectResponses + FeedbackNumberOfCorrectResponses_train;
-      document.getElementById('FeedbackNumberOfTotalRespones').innerHTML = (FeedbackNumberOfCorrectResponses + FeedbackNumberOfCorrectResponses_train) + (FeedbackNumberOfWrongResponses + FeedbackNumberOfWrongResponses_train);
-    },
-    stimulus:
-      "<p class='instructions'><center>Good job!<br><br>" + 
-      "Here is your average Reaction Time: <span id='FeedbackMeanReactionTime'></span> milli seconds<br>" +
-      "You reacted <span id='FeedbackNumberOfCorrectRespones'></span> of " +
-      "<span id='FeedbackNumberOfTotalRespones'></span> times correctly." +
-      "</p></center>" +
-      "<p class = 'continue-instructions'>Press <strong>space</strong> to continue</p>",
-    choices: [32]
-  };
-
-  var feedback_en_block34 = {
-    type: "html-keyboard-response",
-    on_load: function() {
-      document.getElementById('FeedbackMeanReactionTime').innerHTML = FeedbackMeanReactionTime;
-      document.getElementById('FeedbackNumberOfCorrectRespones').innerHTML = FeedbackNumberOfCorrectResponses ;
-      document.getElementById('FeedbackNumberOfTotalRespones').innerHTML = FeedbackNumberOfCorrectResponses + FeedbackNumberOfWrongResponses;
-    },
-    stimulus:
-      "<p class='instructions'><center>Good job!<br><br>" + 
-      "Here is your average Reaction Time: <span id='FeedbackMeanReactionTime'></span> milli seconds<br>" +
-      "You reacted <span id='FeedbackNumberOfCorrectRespones'></span> of " +
-      "<span id='FeedbackNumberOfTotalRespones'></span> times correctly." +
-      "</p></center>" +
-      "<p class = 'continue-instructions'>Press <strong>space</strong> to continue</p>",
-    choices: [32]
-  };
-
 // procedure ----------------------------------------------------------------------------
 // Initialize timeline ------------------------------------------------------------------
 
@@ -1036,25 +870,25 @@ timeline.push(save_id);
 
 timeline.push(
 
-  welcome_en,
+  instructions.welcome,
   fullscreen_trial_en,
   hiding_cursor,
-  vaast_instructions_1_en,
-  vaast_instructions_2_en,
-  vaast_instructions_4_en,
+  instructions.vaast_instructions_1,
+  instructions.vaast_instructions_2,
+  instructions.vaast_instructions_4,
   vaast_training_block_1,
   vaast_test_block_1,
-  feedback_en_block12,
-  vaast_instructions_5_en,
+  instructions.feedback,
+  instructions.vaast_instructions_5,
   vaast_training_block_2,
   vaast_test_block_2,
-  feedback_en_block12,
-  vaast_instructions_6_en,
+  instructions.feedback,
+  instructions.vaast_instructions_6,
   vaast_test_block_3,
-  feedback_en_block34,
-  vaast_instructions_7_en,
+  instructions.feedback,
+  instructions.vaast_instructions_7,
   vaast_test_block_4,
-  feedback_en_block34,
+  instructions.feedback,
   showing_cursor,
   fullscreen_trial_exit,
   extra_information_en,
