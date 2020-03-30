@@ -222,7 +222,6 @@ function updateFeedback(numberOfTrials) {
   FeedbackNumberOfCorrectResponses = responses.last(numberOfTrials).filter({'correct': true}).count();
 }
 
-
 switch(vaast_first_block) {
   case "approach_human":
     movement_human_1    = "approach";
@@ -375,6 +374,16 @@ var background = [
 
 // vaast stimuli sizes -------------------------------------------------------------------
 
+//var stim_sizes = [
+//    34,
+//    38,
+//    42,
+//    46,
+//    52,
+//    60,
+//    70
+//  ];
+
 var stim_sizes = [
     26,
     32,
@@ -408,6 +417,27 @@ var next_position_training = function(){
 
   return(position)
 }
+
+var next_position = function(){
+  var current_position = jsPsych.data.getLastTrialData().values()[0].position;
+  var last_keypress = jsPsych.data.getLastTrialData().values()[0].key_press;
+
+  var approach_key = jsPsych.pluginAPI.convertKeyCharacterToKeyCode('uparrow');
+  var avoidance_key = jsPsych.pluginAPI.convertKeyCharacterToKeyCode('downarrow');
+
+  var position = current_position;
+
+  if(last_keypress == approach_key) {
+    position = position + 1;
+  }
+
+  if(last_keypress == avoidance_key) {
+    position = position -1;
+  }
+
+  return(position)
+}
+
 
   // Sampling function ----------------------------------------------------------------
   var sample_n = function(list, n) {
