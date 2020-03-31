@@ -23,16 +23,6 @@ englishInstructions.welcome = {
     choices: ['I confirm that I give my free and informed consent to participate']
 };
 
-englishInstructions.fullscreen_trial = {
-    type: 'fullscreen',
-    message:  '<p><b>Before you start...</b></p>' + 
-          '<li>Minimize any potential distractor (close other computer programs, silence your cell phone, etc.). </li>'+
-          '<li>Disable your ad-blocking software, because ad-blocking softwares interfere with data collection. <br><br></li>'+
-          '<p>To take part in this study, your browser needs to be set to fullscreen.<br></p>',
-    button_label: 'Switch to fullscreen',
-    fullscreen_mode: false //true
-  }
-
 englishInstructions.vaast_instructions_1 = {
   type: "html-keyboard-response",
   stimulus:
@@ -167,4 +157,5 @@ englishInstructions.feedback = {
     "<p class = 'continue-instructions'>Press <strong>space</strong> to continue</p>",
   choices: [32]
 };
+
 

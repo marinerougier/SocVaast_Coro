@@ -110,38 +110,38 @@ if(!is_compatible) {
 
   // Preload images in the VAAST 
   var stim_vaast = [
-      "stimuli/Gruppe1.png",
-      "stimuli/Gruppe2.png",
-      "stimuli/Gruppe3.png",
-      "stimuli/Gruppe4.png",
-      "stimuli/Gruppe5.png",
-      "stimuli/Gruppe6.png",
-      "stimuli/Gruppe7.png",
-      "stimuli/Gruppe8.png",
-      "stimuli/pair1_female.png",
-      "stimuli/pair1_male.png",
-      "stimuli/pair2_female.png",
-      "stimuli/pair2_male.png",
-      "stimuli/pair3_female.png",
-      "stimuli/pair3_male.png",
-      "stimuli/pair4_female.png",
-      "stimuli/pair4_male.png",
-      "stimuli/PGruppe1.png",
-      "stimuli/PGruppe2.png",
-      "stimuli/PGruppe3.png",
-      "stimuli/PGruppe4.png",
-      "stimuli/PGruppe5.png",
-      "stimuli/PGruppe6.png",
-      "stimuli/PGruppe7.png",
-      "stimuli/PGruppe8.png",
-      "stimuli/Pflanze1.png",
-      "stimuli/Pflanze2.png",
-      "stimuli/Pflanze3.png",
-      "stimuli/Pflanze4.png",
-      "stimuli/Pflanze5.png",
-      "stimuli/Pflanze6.png",
-      "stimuli/Pflanze7.png",
-      "stimuli/Pflanze8.png"
+      "stimuli/people_female1.png",
+      "stimuli/people_female2.png",
+      "stimuli/people_female3.png",
+      "stimuli/people_female4.png",
+      "stimuli/people_group1.png",
+      "stimuli/people_group2.png",
+      "stimuli/people_group3.png",
+      "stimuli/people_group4.png",
+      "stimuli/people_group7.png",
+      "stimuli/people_group8.png",
+      "stimuli/people_group1.png",
+      "stimuli/people_group1.png",
+      "stimuli/people_male1.png",
+      "stimuli/people_male2.png",
+      "stimuli/people_male3.png",
+      "stimuli/people_male4.png",
+      "stimuli/plant_group1.png",
+      "stimuli/plant_group2.png",
+      "stimuli/plant_group3.png",
+      "stimuli/plant_group4.png",
+      "stimuli/plant_group5.png",
+      "stimuli/plant_group6.png",
+      "stimuli/plant_group7.png",
+      "stimuli/plant_group8.png",
+      "stimuli/plant1.png",
+      "stimuli/plant2.png",
+      "stimuli/plant3.png",
+      "stimuli/plant4.png",
+      "stimuli/plant5.png",
+      "stimuli/plant6.png",
+      "stimuli/plant7.png",
+      "stimuli/plant8.png"
   ];
 
  preloadimages.push(stim_vaast);
@@ -320,38 +320,38 @@ switch(vaast_first_block) {
 var vaast_stim_training = [];
 
 var vaast_stim = [
-  {movement_1: movement_human_1, movement_2: movement_human_2,  movement_3: movement_human_3, movement_4: movement_human_4, group: "human",  stimulus: "stimuli/Gruppe1.png"},
-  {movement_1: movement_human_1, movement_2: movement_human_2,  movement_3: movement_human_3, movement_4: movement_human_4, group: "human",  stimulus: "stimuli/Gruppe2.png"},
-  {movement_1: movement_human_1, movement_2: movement_human_2,  movement_3: movement_human_3, movement_4: movement_human_4, group: "human",  stimulus: "stimuli/Gruppe3.png"},
-  {movement_1: movement_human_1, movement_2: movement_human_2,  movement_3: movement_human_3, movement_4: movement_human_4, group: "human",  stimulus: "stimuli/Gruppe4.png"},
-  {movement_1: movement_human_1, movement_2: movement_human_2,  movement_3: movement_human_3, movement_4: movement_human_4, group: "human",  stimulus: "stimuli/Gruppe5.png"},
-  {movement_1: movement_human_1, movement_2: movement_human_2,  movement_3: movement_human_3, movement_4: movement_human_4, group: "human",  stimulus: "stimuli/Gruppe6.png"},
-  {movement_1: movement_human_1, movement_2: movement_human_2,  movement_3: movement_human_3, movement_4: movement_human_4, group: "human",  stimulus: "stimuli/Gruppe7.png"},
-  {movement_1: movement_human_1, movement_2: movement_human_2,  movement_3: movement_human_3, movement_4: movement_human_4, group: "human",  stimulus: "stimuli/Gruppe8.png"},
-  {movement_1: movement_human_1, movement_2: movement_human_2,  movement_3: movement_human_3, movement_4: movement_human_4, group: "human",  stimulus: "stimuli/pair1_female.png"},
-  {movement_1: movement_human_1, movement_2: movement_human_2,  movement_3: movement_human_3, movement_4: movement_human_4, group: "human",  stimulus: "stimuli/pair1_male.png"},
-  {movement_1: movement_human_1, movement_2: movement_human_2,  movement_3: movement_human_3, movement_4: movement_human_4, group: "human",  stimulus: "stimuli/pair2_female.png"},
-  {movement_1: movement_human_1, movement_2: movement_human_2,  movement_3: movement_human_3, movement_4: movement_human_4, group: "human",  stimulus: "stimuli/pair2_male.png"},
-  {movement_1: movement_human_1, movement_2: movement_human_2,  movement_3: movement_human_3, movement_4: movement_human_4, group: "human",  stimulus: "stimuli/pair3_female.png"},
-  {movement_1: movement_human_1, movement_2: movement_human_2,  movement_3: movement_human_3, movement_4: movement_human_4, group: "human",  stimulus: "stimuli/pair3_male.png"},
-  {movement_1: movement_human_1, movement_2: movement_human_2,  movement_3: movement_human_3, movement_4: movement_human_4, group: "human",  stimulus: "stimuli/pair4_female.png"},
-  {movement_1: movement_human_1, movement_2: movement_human_2,  movement_3: movement_human_3, movement_4: movement_human_4, group: "human",  stimulus: "stimuli/pair4_male.png"},
-  {movement_1: movement_plant_1, movement_2: movement_plant_2,  movement_3: movement_plant_3, movement_4: movement_plant_4, group: "plant",  stimulus: "stimuli/PGruppe1.png"},
-  {movement_1: movement_plant_1, movement_2: movement_plant_2,  movement_3: movement_plant_3, movement_4: movement_plant_4, group: "plant",  stimulus: "stimuli/PGruppe2.png"},
-  {movement_1: movement_plant_1, movement_2: movement_plant_2,  movement_3: movement_plant_3, movement_4: movement_plant_4, group: "plant",  stimulus: "stimuli/PGruppe3.png"},
-  {movement_1: movement_plant_1, movement_2: movement_plant_2,  movement_3: movement_plant_3, movement_4: movement_plant_4, group: "plant",  stimulus: "stimuli/PGruppe4.png"},
-  {movement_1: movement_plant_1, movement_2: movement_plant_2,  movement_3: movement_plant_3, movement_4: movement_plant_4, group: "plant",  stimulus: "stimuli/PGruppe5.png"},
-  {movement_1: movement_plant_1, movement_2: movement_plant_2,  movement_3: movement_plant_3, movement_4: movement_plant_4, group: "plant",  stimulus: "stimuli/PGruppe6.png"},
-  {movement_1: movement_plant_1, movement_2: movement_plant_2,  movement_3: movement_plant_3, movement_4: movement_plant_4, group: "plant",  stimulus: "stimuli/PGruppe7.png"},
-  {movement_1: movement_plant_1, movement_2: movement_plant_2,  movement_3: movement_plant_3, movement_4: movement_plant_4, group: "plant",  stimulus: "stimuli/PGruppe8.png"},
-  {movement_1: movement_plant_1, movement_2: movement_plant_2,  movement_3: movement_plant_3, movement_4: movement_plant_4, group: "plant",  stimulus: "stimuli/Pflanze1.png"},
-  {movement_1: movement_plant_1, movement_2: movement_plant_2,  movement_3: movement_plant_3, movement_4: movement_plant_4, group: "plant",  stimulus: "stimuli/Pflanze2.png"},
-  {movement_1: movement_plant_1, movement_2: movement_plant_2,  movement_3: movement_plant_3, movement_4: movement_plant_4, group: "plant",  stimulus: "stimuli/Pflanze3.png"},
-  {movement_1: movement_plant_1, movement_2: movement_plant_2,  movement_3: movement_plant_3, movement_4: movement_plant_4, group: "plant",  stimulus: "stimuli/Pflanze4.png"},
-  {movement_1: movement_plant_1, movement_2: movement_plant_2,  movement_3: movement_plant_3, movement_4: movement_plant_4, group: "plant",  stimulus: "stimuli/Pflanze5.png"},
-  {movement_1: movement_plant_1, movement_2: movement_plant_2,  movement_3: movement_plant_3, movement_4: movement_plant_4, group: "plant",  stimulus: "stimuli/Pflanze6.png"},
-  {movement_1: movement_plant_1, movement_2: movement_plant_2,  movement_3: movement_plant_3, movement_4: movement_plant_4, group: "plant",  stimulus: "stimuli/Pflanze7.png"},
-  {movement_1: movement_plant_1, movement_2: movement_plant_2,  movement_3: movement_plant_3, movement_4: movement_plant_4, group: "plant",  stimulus: "stimuli/Pflanze8.png"}
+  {movement_1: movement_human_1, movement_2: movement_human_2,  movement_3: movement_human_3, movement_4: movement_human_4, group: "human",  stimulus: "stimuli/people_female1.png"},
+  {movement_1: movement_human_1, movement_2: movement_human_2,  movement_3: movement_human_3, movement_4: movement_human_4, group: "human",  stimulus: "stimuli/people_female2.png"},
+  {movement_1: movement_human_1, movement_2: movement_human_2,  movement_3: movement_human_3, movement_4: movement_human_4, group: "human",  stimulus: "stimuli/people_female3.png"},
+  {movement_1: movement_human_1, movement_2: movement_human_2,  movement_3: movement_human_3, movement_4: movement_human_4, group: "human",  stimulus: "stimuli/people_female4.png"},
+  {movement_1: movement_human_1, movement_2: movement_human_2,  movement_3: movement_human_3, movement_4: movement_human_4, group: "human",  stimulus: "stimuli/people_group1.png"},
+  {movement_1: movement_human_1, movement_2: movement_human_2,  movement_3: movement_human_3, movement_4: movement_human_4, group: "human",  stimulus: "stimuli/people_group2.png"},
+  {movement_1: movement_human_1, movement_2: movement_human_2,  movement_3: movement_human_3, movement_4: movement_human_4, group: "human",  stimulus: "stimuli/people_group3.png"},
+  {movement_1: movement_human_1, movement_2: movement_human_2,  movement_3: movement_human_3, movement_4: movement_human_4, group: "human",  stimulus: "stimuli/people_group4.png"},
+  {movement_1: movement_human_1, movement_2: movement_human_2,  movement_3: movement_human_3, movement_4: movement_human_4, group: "human",  stimulus: "stimuli/people_group5.png"},
+  {movement_1: movement_human_1, movement_2: movement_human_2,  movement_3: movement_human_3, movement_4: movement_human_4, group: "human",  stimulus: "stimuli/people_group6.png"},
+  {movement_1: movement_human_1, movement_2: movement_human_2,  movement_3: movement_human_3, movement_4: movement_human_4, group: "human",  stimulus: "stimuli/people_group7.png"},
+  {movement_1: movement_human_1, movement_2: movement_human_2,  movement_3: movement_human_3, movement_4: movement_human_4, group: "human",  stimulus: "stimuli/people_group8.png"},
+  {movement_1: movement_human_1, movement_2: movement_human_2,  movement_3: movement_human_3, movement_4: movement_human_4, group: "human",  stimulus: "stimuli/people_male1.png"},
+  {movement_1: movement_human_1, movement_2: movement_human_2,  movement_3: movement_human_3, movement_4: movement_human_4, group: "human",  stimulus: "stimuli/people_male2.png"},
+  {movement_1: movement_human_1, movement_2: movement_human_2,  movement_3: movement_human_3, movement_4: movement_human_4, group: "human",  stimulus: "stimuli/people_male3.png"},
+  {movement_1: movement_human_1, movement_2: movement_human_2,  movement_3: movement_human_3, movement_4: movement_human_4, group: "human",  stimulus: "stimuli/people_male4.png"},
+  {movement_1: movement_plant_1, movement_2: movement_plant_2,  movement_3: movement_plant_3, movement_4: movement_plant_4, group: "plant",  stimulus: "stimuli/plant_group1.png"},
+  {movement_1: movement_plant_1, movement_2: movement_plant_2,  movement_3: movement_plant_3, movement_4: movement_plant_4, group: "plant",  stimulus: "stimuli/plant_group2.png"},
+  {movement_1: movement_plant_1, movement_2: movement_plant_2,  movement_3: movement_plant_3, movement_4: movement_plant_4, group: "plant",  stimulus: "stimuli/plant_group3.png"},
+  {movement_1: movement_plant_1, movement_2: movement_plant_2,  movement_3: movement_plant_3, movement_4: movement_plant_4, group: "plant",  stimulus: "stimuli/plant_group4.png"},
+  {movement_1: movement_plant_1, movement_2: movement_plant_2,  movement_3: movement_plant_3, movement_4: movement_plant_4, group: "plant",  stimulus: "stimuli/plant_group5.png"},
+  {movement_1: movement_plant_1, movement_2: movement_plant_2,  movement_3: movement_plant_3, movement_4: movement_plant_4, group: "plant",  stimulus: "stimuli/plant_group6.png"},
+  {movement_1: movement_plant_1, movement_2: movement_plant_2,  movement_3: movement_plant_3, movement_4: movement_plant_4, group: "plant",  stimulus: "stimuli/plant_group7.png"},
+  {movement_1: movement_plant_1, movement_2: movement_plant_2,  movement_3: movement_plant_3, movement_4: movement_plant_4, group: "plant",  stimulus: "stimuli/plant_group8.png"},
+  {movement_1: movement_plant_1, movement_2: movement_plant_2,  movement_3: movement_plant_3, movement_4: movement_plant_4, group: "plant",  stimulus: "stimuli/plant1.png"},
+  {movement_1: movement_plant_1, movement_2: movement_plant_2,  movement_3: movement_plant_3, movement_4: movement_plant_4, group: "plant",  stimulus: "stimuli/plant2.png"},
+  {movement_1: movement_plant_1, movement_2: movement_plant_2,  movement_3: movement_plant_3, movement_4: movement_plant_4, group: "plant",  stimulus: "stimuli/plant3.png"},
+  {movement_1: movement_plant_1, movement_2: movement_plant_2,  movement_3: movement_plant_3, movement_4: movement_plant_4, group: "plant",  stimulus: "stimuli/plant4.png"},
+  {movement_1: movement_plant_1, movement_2: movement_plant_2,  movement_3: movement_plant_3, movement_4: movement_plant_4, group: "plant",  stimulus: "stimuli/plant5.png"},
+  {movement_1: movement_plant_1, movement_2: movement_plant_2,  movement_3: movement_plant_3, movement_4: movement_plant_4, group: "plant",  stimulus: "stimuli/plant6.png"},
+  {movement_1: movement_plant_1, movement_2: movement_plant_2,  movement_3: movement_plant_3, movement_4: movement_plant_4, group: "plant",  stimulus: "stimuli/plant7.png"},
+  {movement_1: movement_plant_1, movement_2: movement_plant_2,  movement_3: movement_plant_3, movement_4: movement_plant_4, group: "plant",  stimulus: "stimuli/plant8.png"}
 ];
 
 var vaast_stim_human = _.sampleSize(_.filter(vaast_stim, { 'group': 'human'}), 1); //here, put 4
@@ -509,7 +509,16 @@ var save_extra = {
 
     return(language_2)
   }
-  
+
+var fullscreen_trial_en = {
+    type: 'fullscreen',
+    message:  '<p><b>Before you start...</b></p>' + 
+          '<li>Minimize any potential distractor (close other computer programs, silence your cell phone, etc.). </li>'+
+          '<li>Disable your ad-blocking software, because ad-blocking softwares interfere with data collection. <br><br></li>'+
+          '<p>To take part in this study, your browser needs to be set to fullscreen.<br></p>',
+    button_label: 'Switch to fullscreen',
+    fullscreen_mode: false //true
+  }
 
 // VAAST --------------------------------------------------------------------------------
 
@@ -875,15 +884,15 @@ var fullscreen_trial_exit = {
 var timeline = [];
 
 // fullscreen
-timeline.push(language,
-              language_2);
+//timeline.push(language,
+//              language_2);
 
 // prolific verification
 timeline.push(save_id);
 
 timeline.push(
   instructions.welcome,
-  instructions.fullscreen_trial,
+  fullscreen_trial_en,
   hiding_cursor,
   instructions.vaast_instructions_1,
   instructions.vaast_instructions_2,
@@ -902,7 +911,7 @@ timeline.push(
   vaast_test_block_4,
   instructions.feedback,
   showing_cursor,
-  fullscreen_trial_exit,
+  instructions.fullscreen_trial_exit,
   extra_information_en,
   extra_information_2_en,
   extra_information_3_en,
