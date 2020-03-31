@@ -182,18 +182,26 @@ var movement_human_1    = undefined;
 var movement_plant_1    = undefined;
 var group_to_approach_1_en = undefined;
 var group_to_avoid_1_en    = undefined;
+var group_to_approach_1_fr = undefined;
+var group_to_avoid_1_fr    = undefined;
 var movement_human_2    = undefined;
 var movement_plant_2    = undefined;
 var group_to_approach_2_en = undefined;
 var group_to_avoid_2_en    = undefined;
+var group_to_approach_2_fr = undefined;
+var group_to_avoid_2_fr    = undefined;
 var movement_human_3    = undefined;
 var movement_plant_3    = undefined;
 var group_to_approach_3_en = undefined;
 var group_to_avoid_3_en    = undefined;
+var group_to_approach_3_fr = undefined;
+var group_to_avoid_3_fr    = undefined;
 var movement_human_4    = undefined;
 var movement_plant_4    = undefined;
 var group_to_approach_4_en = undefined;
 var group_to_avoid_4_en    = undefined;
+var group_to_approach_4_fr = undefined;
+var group_to_avoid_4_fr    = undefined;
 
 // Feedback variables - set after every trial, displayed in the feedback pages
 var FeedbackMeanReactionTime = undefined;
@@ -219,18 +227,26 @@ switch(vaast_first_block) {
     movement_plant_1    = "avoidance";
     group_to_approach_1_en = "persons";
     group_to_avoid_1_en    = "plants";
+    group_to_approach_1_fr = "personnes";
+    group_to_avoid_1_fr    = "plantes";
     movement_human_2    = "avoidance";
     movement_plant_2    = "approach";
     group_to_approach_2_en = "plants";
     group_to_avoid_2_en    = "persons";
+    group_to_approach_2_fr = "plantes";
+    group_to_avoid_2_fr    = "personnes";
     movement_human_3    = "approach";
     movement_plant_3    = "avoidance";
     group_to_approach_3_en = "persons";
     group_to_avoid_3_en    = "plants";
+    group_to_approach_3_fr = "personnes";
+    group_to_avoid_3_fr    = "plantes";
     movement_human_4    = "avoidance";
     movement_plant_4    = "approach";
     group_to_approach_4_en = "plants";
     group_to_avoid_4_en    = "persons";
+    group_to_approach_4_fr = "plantes";
+    group_to_avoid_4_fr    = "personnes";
     break;
 
   case "approach_plant":
@@ -238,18 +254,26 @@ switch(vaast_first_block) {
     movement_plant_1    = "approach";
     group_to_approach_1_en = "plants";
     group_to_avoid_1_en    = "persons";
+    group_to_approach_1_fr = "plantes";
+    group_to_avoid_1_fr    = "personnes";
     movement_human_2    = "approach";
     movement_plant_2    = "avoidance";
     group_to_approach_2_en = "persons";
     group_to_avoid_2_en    = "plants";
+    group_to_approach_2_fr = "personnes";
+    group_to_avoid_2_fr    = "plantes";
     movement_human_3    = "avoidance";
     movement_plant_3    = "approach";
     group_to_approach_3_en = "plants";
     group_to_avoid_3_en    = "persons";
+    group_to_approach_3_fr = "plantes";
+    group_to_avoid_3_fr    = "personnes";
     movement_human_4    = "approach";
     movement_plant_4    = "avoidance";
     group_to_approach_4_en = "persons";
     group_to_avoid_4_en    = "plants";
+    group_to_approach_4_fr = "personnes";
+    group_to_avoid_4_fr    = "plantes";
     break;
 }
 
@@ -486,16 +510,6 @@ var save_extra = {
     return(language_2)
   }
   
-// Switching to fullscreen --------------------------------------------------------------
-  var fullscreen_trial_en = {
-    type: 'fullscreen',
-    message:  '<p><b>Before you start...</b></p>' + 
-          '<li>Minimize any potential distractor (close other computer programs, silence your cell phone, etc.). </li>'+
-          '<li>Disable your ad-blocking software, because ad-blocking softwares interfere with data collection. <br><br></li>'+
-          '<p>To take part in this study, your browser needs to be set to fullscreen.<br></p>',
-    button_label: 'Switch to fullscreen',
-    fullscreen_mode: false //true
-  }
 
 // VAAST --------------------------------------------------------------------------------
 
@@ -861,17 +875,15 @@ var fullscreen_trial_exit = {
 var timeline = [];
 
 // fullscreen
-//timeline.push(language,
-//              language_2);
+timeline.push(language,
+              language_2);
 
 // prolific verification
 timeline.push(save_id);
 
-
 timeline.push(
-
   instructions.welcome,
-  fullscreen_trial_en,
+  instructions.fullscreen_trial,
   hiding_cursor,
   instructions.vaast_instructions_1,
   instructions.vaast_instructions_2,
@@ -912,7 +924,8 @@ var vaast_instructions_images = ["media/UHH.png",
                                  "media/UCL.jpg",
                                  "media/UR.png",
                                  "media/vaast-background.png", 
-                                 "media/keyboard-vaastt_en.png"];
+                                 "media/keyboard-vaastt_en.png",
+                                 "media/keyboard-vaastt_fr.png"];
 var vaast_bg_filename         = background;
 
 jsPsych.pluginAPI.preloadImages(loading_gif);
