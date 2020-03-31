@@ -892,7 +892,7 @@ timeline.push(save_id);
 
 timeline.push(
   instructions.welcome,
-  fullscreen_trial_en,
+  fullscreen_trial_en, // doesn't work when we have this in the instructions variable
   hiding_cursor,
   instructions.vaast_instructions_1,
   instructions.vaast_instructions_2,
