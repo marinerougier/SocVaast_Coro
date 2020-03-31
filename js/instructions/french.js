@@ -1,6 +1,9 @@
 
 var frenchInstructions = {};
 
+frenchInstructions.persons = "personnes";
+frenchInstructions.plants = "plantes";
+
 frenchInstructions.welcome = {
     type: "html-button-response",
     stimulus:
@@ -63,14 +66,18 @@ frenchInstructions.vaast_instructions_2 = {
     choices: [32]
 };
 
-frenchInstructions.vaast_instructions_4 = {
-  type: "html-keyboard-response",
-  on_load: function() {
-    document.getElementById('GROUPTOAPPROACH').innerHTML = group_to_approach_1_fr;
-    document.getElementById('GROUPTOAVOID').innerHTML = group_to_avoid_1_fr;
-  },
-  stimulus:
-   "<h1 class ='custom-title'> Tâche du Jeu Vidéo - Section 1/4</h1>" +
+frenchInstructions.vaast_task_instructions = function(task_number, total_tasks) {
+  return {
+    type: "html-keyboard-response",
+    on_load: function() {
+      // this is a bit hacky, but works well with your nameing of variables
+      document.getElementById('GROUPTOAPPROACH').innerHTML = window['group_to_approach_' + task_number];
+      document.getElementById('GROUPTOAVOID').innerHTML = window['group_to_avoid_' + task_number];
+      document.getElementById('TASKNUMBER').innerHTML = task_number;
+      document.getElementById('TOTALTASKS').innerHTML = total_tasks;
+    },
+    stimulus:
+    "<h1 class ='custom-title'> Tâche du Jeu Vidéo - Section <span id='TASKNUMBER'></span>/<span id='TOTALTASKS'></span></h1>" +
     "<p class='instructions'>Dans cette section, vous devez : " +
     "<ul class='instructions'>" +
     "<li><strong>Aller vers les <span id='GROUPTOAPPROACH'></span> en appuyant sur la flèche du haut </strong></li>" +
@@ -83,73 +90,8 @@ frenchInstructions.vaast_instructions_4 = {
     "<br>" +
     "<p class = 'continue-instructions'>Appuyez sur <strong>espace</strong> pour" +
     " continuer.</p>",
-  choices: [32]
-};
-
-frenchInstructions.vaast_instructions_5 = {
-  type: "html-keyboard-response",
-  on_load: function() {
-    document.getElementById('GROUPTOAPPROACH').innerHTML = group_to_approach_2_fr;
-    document.getElementById('GROUPTOAVOID').innerHTML = group_to_avoid_2_fr;
-  },
-  stimulus:
-   "<h1 class ='custom-title'> Tâche du Jeu Vidéo - Section 2/4</h1>" +
-    "<p class='instructions'>Attention ! Les instructions changent. Maintenant, vous devez : " +
-    "<ul class='instructions'>" +
-    "<li><strong>Aller vers les <span id='GROUPTOAPPROACH'></span> en appuyant sur la flèche du haut </strong></li>" +
-    "<strong>  </strong>" +
-    "<li><strong>Vous éloigner des <span id='GROUPTOAVOID'></span> en appuyant sur la flèche du bas </strong></li>" +
-    "<strong> </strong>" +
-    "</ul>" +
-    "<strong> EXTRÊMEMENT IMPORTANT : répondez aussi rapidement et correctement que possible ! <br><br></strong>" +
-    "<br>" +
-    "<p class = 'continue-instructions'>Appuyez sur <strong>espace</strong> pour" +
-    " continuer.</p>",
-  choices: [32]
-};
-
-frenchInstructions.vaast_instructions_6 = {
-  type: "html-keyboard-response",
-  on_load: function() {
-    document.getElementById('GROUPTOAPPROACH').innerHTML = group_to_approach_3_fr;
-    document.getElementById('GROUPTOAVOID').innerHTML = group_to_avoid_3_fr;
-  },
-  stimulus:
-    "<h1 class ='custom-title'> Tâche du Jeu Vidéo - Section 3/4</h1>" +
-    "<p class='instructions'>Attention ! Les instructions changent. Maintenant, vous devez : " +
-    "<ul class='instructions'>" +
-    "<li><strong>Aller vers les <span id='GROUPTOAPPROACH'></span> en appuyant sur la flèche du haut </strong></li>" +
-    "<strong>  </strong>" +
-    "<li><strong>Vous éloigner des <span id='GROUPTOAVOID'></span> en appuyant sur la flèche du bas </strong></li>" +
-    "<strong> </strong>" +
-    "</ul>" +
-    "<strong> EXTRÊMEMENT IMPORTANT : répondez aussi rapidement et correctement que possible ! <br><br></strong>" +
-    "<br>" +
-    "<p class = 'continue-instructions'>Appuyez sur <strong>espace</strong> pour" +
-    " continuer.</p>",
-  choices: [32]
-};
-
-frenchInstructions.vaast_instructions_7 = {
-  type: "html-keyboard-response",
-  on_load: function() {
-    document.getElementById('GROUPTOAPPROACH').innerHTML = group_to_approach_4_fr;
-    document.getElementById('GROUPTOAVOID').innerHTML = group_to_avoid_4_fr;
-  },
-  stimulus:
-    "<h1 class ='custom-title'> Tâche du Jeu Vidéo - Section 4/4</h1>" +
-    "<p class='instructions'>Attention ! Les instructions changent. Maintenant, vous devez : " +
-    "<ul class='instructions'>" +
-    "<li><strong>Aller vers les <span id='GROUPTOAPPROACH'></span> en appuyant sur la flèche du haut </strong></li>" +
-    "<strong>  </strong>" +
-    "<li><strong>Vous éloigner des <span id='GROUPTOAVOID'></span> en appuyant sur la flèche du bas </strong></li>" +
-    "<strong> </strong>" +
-    "</ul>" +
-    "<strong> EXTRÊMEMENT IMPORTANT : répondez aussi rapidement et correctement que possible ! <br><br></strong>" +
-    "<br>" +
-    "<p class = 'continue-instructions'>Appuyez sur <strong>espace</strong> pour" +
-    " continuer.</p>",
-  choices: [32]
+    choices: [32]
+  };
 };
 
 frenchInstructions.feedback = {

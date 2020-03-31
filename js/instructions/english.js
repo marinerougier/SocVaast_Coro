@@ -1,6 +1,19 @@
 
 var englishInstructions = {};
 
+englishInstructions.persons = "persons";
+englishInstructions.plants = "plants";
+
+englishInstructions.fullscreen_trial = {
+  type: 'fullscreen',
+  message:  '<p><b>Before you start...</b></p>' + 
+        '<li>Minimize any potential distractor (close other computer programs, silence your cell phone, etc.). </li>'+
+        '<li>Disable your ad-blocking software, because ad-blocking softwares interfere with data collection. <br><br></li>'+
+        '<p>To take part in this study, your browser needs to be set to fullscreen.<br></p>',
+  button_label: 'Switch to fullscreen',
+  fullscreen_mode: true
+}
+
 englishInstructions.welcome = {
     type: "html-button-response",
     stimulus:
@@ -52,93 +65,32 @@ englishInstructions.vaast_instructions_2 = {
     choices: [32]
 };
 
-englishInstructions.vaast_instructions_4 = {
-  type: "html-keyboard-response",
-  on_load: function() {
-    document.getElementById('GROUPTOAPPROACH').innerHTML = group_to_approach_1_en;
-    document.getElementById('GROUPTOAVOID').innerHTML = group_to_avoid_1_en;
-  },
-  stimulus:
-    "<h1 class ='custom-title'> Video Game task - Section 1/4</h1>" +
-    "<p class='instructions'>In this section, you have to: " +
-    "<ul class='instructions'>" +
-    "<li><strong>Move toward <span id='GROUPTOAPPROACH'></span> by pressing the upward arrow key </strong></li>" +
-    "<strong>  </strong>" +
-    "<li><strong>Move away from <span id='GROUPTOAVOID'></span> by pressing the downward arrow key </strong></li>" +
-    "<strong> </strong>" +
-    "</ul>" +
-    "<strong> EXTREMELY IMPORTANT: respond as fast and as correctly as possible! <br><br></strong>" +
-    "<p class ='instructions'>If you make an error, a red x appears (correct you answer with the other key). Use the index finger of your preferred hand to respond. " +
-    "<br>" +
-    "<p class = 'continue-instructions'>Press <strong>space</strong> to" +
-    " continue.</p>",
-  choices: [32]
-};
-
-englishInstructions.vaast_instructions_5 = {
-  type: "html-keyboard-response",
-  on_load: function() {
-    document.getElementById('GROUPTOAPPROACH').innerHTML = group_to_approach_2_en;
-    document.getElementById('GROUPTOAVOID').innerHTML = group_to_avoid_2_en;
-  },
-  stimulus:
-    "<h1 class ='custom-title'> Video Game task - Section 2/4</h1>" +
-    "<p class='instructions'>Warning! Instructions are changing. Now, you have to: " +
-    "<ul class='instructions'>" +
-    "<li><strong>Move toward <span id='GROUPTOAPPROACH'></span> by pressing the upward arrow key </strong></li>" +
-    "<strong>  </strong>" +
-    "<li><strong>Move away from <span id='GROUPTOAVOID'></span> by pressing the downward arrow key </strong></li>" +
-    "<strong> </strong>" +
-    "</ul>" +
-    "<strong> EXTREMELY IMPORTANT: respond as fast and as correctly as possible! <br><br></strong>" +
-    "<br>" +
-    "<p class = 'continue-instructions'>Press <strong>space</strong> to" +
-    " continue.</p>",
-  choices: [32]
-};
-
-englishInstructions.vaast_instructions_6 = {
-  type: "html-keyboard-response",
-  on_load: function() {
-    document.getElementById('GROUPTOAPPROACH').innerHTML = group_to_approach_3_en;
-    document.getElementById('GROUPTOAVOID').innerHTML = group_to_avoid_3_en;
-  },
-  stimulus:
-    "<h1 class ='custom-title'> Video Game task - Section 3/4</h1>" +
-    "<p class='instructions'>Warning! Instructions are changing. Now, you have to: " +
-    "<ul class='instructions'>" +
-    "<li><strong>Move toward <span id='GROUPTOAPPROACH'></span> by pressing the upward arrow key </strong></li>" +
-    "<strong>  </strong>" +
-    "<li><strong>Move away from <span id='GROUPTOAVOID'></span> by pressing the downward arrow key </strong></li>" +
-    "<strong> </strong>" +
-    "</ul>" +
-    "<strong> EXTREMELY IMPORTANT: respond as fast and as correctly as possible! <br><br></strong>" +
-    "<br>" +
-    "<p class = 'continue-instructions'>Press <strong>space</strong> to" +
-    " continue.</p>",
-  choices: [32]
-};
-
-englishInstructions.vaast_instructions_7 = {
-  type: "html-keyboard-response",
-  on_load: function() {
-    document.getElementById('GROUPTOAPPROACH').innerHTML = group_to_approach_4_en;
-    document.getElementById('GROUPTOAVOID').innerHTML = group_to_avoid_4_en;
-  },
-  stimulus:
-    "<h1 class ='custom-title'> Video Game task - Section 4/4</h1>" +
-    "<p class='instructions'>Warning! Instructions are changing. Now, you have to: " +
-    "<ul class='instructions'>" +
-    "<li><strong>Move toward <span id='GROUPTOAPPROACH'></span> by pressing the upward arrow key </strong></li>" +
-    "<strong>  </strong>" +
-    "<li><strong>Move away from <span id='GROUPTOAPPROACH'></span> by pressing the downward arrow key </strong></li>" +
-    "<strong> </strong>" +
-    "</ul>" +
-    "<strong> EXTREMELY IMPORTANT: respond as fast and as correctly as possible! <br><br></strong>" +
-    "<br>" +
-    "<p class = 'continue-instructions'>Press <strong>space</strong> to" +
-    " continue.</p>",
-  choices: [32]
+englishInstructions.vaast_task_instructions = function(task_number, total_tasks) {
+  return {
+    type: "html-keyboard-response",
+    on_load: function() {
+      // this is a bit hacky, but works well with your nameing of variables
+      document.getElementById('GROUPTOAPPROACH').innerHTML = window['group_to_approach_' + task_number];
+      document.getElementById('GROUPTOAVOID').innerHTML = window['group_to_avoid_' + task_number];
+      document.getElementById('TASKNUMBER').innerHTML = task_number;
+      document.getElementById('TOTALTASKS').innerHTML = total_tasks;
+    },
+    stimulus:
+      "<h1 class ='custom-title'> Video Game task - Section <span id='TASKNUMBER'></span>/<span id='TOTALTASKS'></span></h1>" +
+      "<p class='instructions'>In this section, you have to: " +
+      "<ul class='instructions'>" +
+      "<li><strong>Move toward <span id='GROUPTOAPPROACH'></span> by pressing the upward arrow key </strong></li>" +
+      "<strong>  </strong>" +
+      "<li><strong>Move away from <span id='GROUPTOAVOID'></span> by pressing the downward arrow key </strong></li>" +
+      "<strong> </strong>" +
+      "</ul>" +
+      "<strong> EXTREMELY IMPORTANT: respond as fast and as correctly as possible! <br><br></strong>" +
+      "<p class ='instructions'>If you make an error, a red x appears (correct you answer with the other key). Use the index finger of your preferred hand to respond. " +
+      "<br>" +
+      "<p class = 'continue-instructions'>Press <strong>space</strong> to" +
+      " continue.</p>",
+    choices: [32]
+  };
 };
 
 englishInstructions.feedback = {

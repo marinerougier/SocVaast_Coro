@@ -180,28 +180,24 @@ var showing_cursor = {
 
 var movement_human_1    = undefined;
 var movement_plant_1    = undefined;
-var group_to_approach_1_en = undefined;
-var group_to_avoid_1_en    = undefined;
-var group_to_approach_1_fr = undefined;
-var group_to_avoid_1_fr    = undefined;
+var group_to_approach_1 = undefined;
+var group_to_avoid_1    = undefined;
+
 var movement_human_2    = undefined;
 var movement_plant_2    = undefined;
-var group_to_approach_2_en = undefined;
-var group_to_avoid_2_en    = undefined;
-var group_to_approach_2_fr = undefined;
-var group_to_avoid_2_fr    = undefined;
+var group_to_approach_2 = undefined;
+var group_to_avoid_2    = undefined;
+
 var movement_human_3    = undefined;
 var movement_plant_3    = undefined;
-var group_to_approach_3_en = undefined;
-var group_to_avoid_3_en    = undefined;
-var group_to_approach_3_fr = undefined;
-var group_to_avoid_3_fr    = undefined;
+var group_to_approach_3 = undefined;
+var group_to_avoid_3    = undefined;
+
 var movement_human_4    = undefined;
 var movement_plant_4    = undefined;
-var group_to_approach_4_en = undefined;
-var group_to_avoid_4_en    = undefined;
-var group_to_approach_4_fr = undefined;
-var group_to_avoid_4_fr    = undefined;
+var group_to_approach_4 = undefined;
+var group_to_avoid_4    = undefined;
+
 
 // Feedback variables - set after every trial, displayed in the feedback pages
 var FeedbackMeanReactionTime = undefined;
@@ -225,55 +221,29 @@ switch(vaast_first_block) {
   case "approach_human":
     movement_human_1    = "approach";
     movement_plant_1    = "avoidance";
-    group_to_approach_1_en = "persons";
-    group_to_avoid_1_en    = "plants";
-    group_to_approach_1_fr = "personnes";
-    group_to_avoid_1_fr    = "plantes";
+    
     movement_human_2    = "avoidance";
     movement_plant_2    = "approach";
-    group_to_approach_2_en = "plants";
-    group_to_avoid_2_en    = "persons";
-    group_to_approach_2_fr = "plantes";
-    group_to_avoid_2_fr    = "personnes";
+
     movement_human_3    = "approach";
     movement_plant_3    = "avoidance";
-    group_to_approach_3_en = "persons";
-    group_to_avoid_3_en    = "plants";
-    group_to_approach_3_fr = "personnes";
-    group_to_avoid_3_fr    = "plantes";
+
     movement_human_4    = "avoidance";
     movement_plant_4    = "approach";
-    group_to_approach_4_en = "plants";
-    group_to_avoid_4_en    = "persons";
-    group_to_approach_4_fr = "plantes";
-    group_to_avoid_4_fr    = "personnes";
     break;
 
   case "approach_plant":
     movement_human_1    = "avoidance";
     movement_plant_1    = "approach";
-    group_to_approach_1_en = "plants";
-    group_to_avoid_1_en    = "persons";
-    group_to_approach_1_fr = "plantes";
-    group_to_avoid_1_fr    = "personnes";
+
     movement_human_2    = "approach";
     movement_plant_2    = "avoidance";
-    group_to_approach_2_en = "persons";
-    group_to_avoid_2_en    = "plants";
-    group_to_approach_2_fr = "personnes";
-    group_to_avoid_2_fr    = "plantes";
+
     movement_human_3    = "avoidance";
     movement_plant_3    = "approach";
-    group_to_approach_3_en = "plants";
-    group_to_avoid_3_en    = "persons";
-    group_to_approach_3_fr = "plantes";
-    group_to_avoid_3_fr    = "personnes";
+
     movement_human_4    = "approach";
     movement_plant_4    = "avoidance";
-    group_to_approach_4_en = "persons";
-    group_to_avoid_4_en    = "plants";
-    group_to_approach_4_fr = "personnes";
-    group_to_avoid_4_fr    = "plantes";
     break;
 }
 
@@ -315,7 +285,6 @@ switch(vaast_first_block) {
       "stimuli/Pflanze7.png",
       "stimuli/Pflanze8.png"
   ];
-
 
 var vaast_stim_training = [];
 
@@ -485,40 +454,37 @@ var save_extra = {
 
 
 // EXPERIMENT ---------------------------------------------------------------------------
+const LANGUAGECHOICES = ['English', 'Français'];
 
-  var language = {
-    type: "html-button-response",
-    stimulus: "<p class='instructions'><center>Please choose a language:</p></center>",
-    choices: ['English', 'Français'],
-  };
-  // english as default
-  var instructions = englishInstructions;
-  
-  var language_2 = function(){
-    var data = jsPsych.data.getLastTrialData().values()[0].button_pressed;
+// english as default
+var instructions = englishInstructions;
 
-    if(data == 0) {
-      language_2 = "English";
-      instructions = englishInstructions;
-    }
-
-    if(data == 1) {
-      language_2 = "Français";
+function set_language(language) {
+  console.log(language + ' selected');
+  // french
+  switch (language) {
+    case LANGUAGECHOICES[1]:  
       instructions = frenchInstructions;
-    }
-
-    return(language_2)
+      break;
+    default:
+      instructions = englishInstructions;
   }
-
-var fullscreen_trial_en = {
-    type: 'fullscreen',
-    message:  '<p><b>Before you start...</b></p>' + 
-          '<li>Minimize any potential distractor (close other computer programs, silence your cell phone, etc.). </li>'+
-          '<li>Disable your ad-blocking software, because ad-blocking softwares interfere with data collection. <br><br></li>'+
-          '<p>To take part in this study, your browser needs to be set to fullscreen.<br></p>',
-    button_label: 'Switch to fullscreen',
-    fullscreen_mode: false //true
+  // update the description variables with the right names
+  // this is not pretty, but works - I'd much rather put the entire experiment setup in an object
+  for (var i=1; i <= 4; i += 1) {
+    window['group_to_approach_' + i] = window['movement_human_' + i] == 'approach' ? instructions.persons : instructions.plants;
+    window['group_to_avoid_' + i] = window['movement_human_' + i] == 'approach' ? instructions.plants : instructions.persons;
   }
+}
+
+var languageSelection = {
+  type: "html-button-response",
+  stimulus: "<p class='instructions'><center>Please choose a language:</p></center>",
+  choices: LANGUAGECHOICES,
+  on_finish: function(data) {
+    set_language(LANGUAGECHOICES[parseInt(data.button_pressed)]);
+  }
+};
 
 // VAAST --------------------------------------------------------------------------------
 
@@ -862,7 +828,6 @@ var fullscreen_trial_exit = {
   }
 
   // end insctruction ---------------------------------------------------------------------
-
   var ending_en = {
     type: "html-keyboard-response",
     stimulus:
@@ -884,43 +849,57 @@ var fullscreen_trial_exit = {
 var timeline = [];
 
 // fullscreen
-//timeline.push(language,
-//              language_2);
+
+var setup_experiment = {
+  type: 'call-function',
+  func: function(){
+    jsPsych.pauseExperiment();
+    jsPsych.addNodeToEndOfTimeline(
+      {
+        timeline: [
+          instructions.welcome,
+          instructions.fullscreen_trial,
+          hiding_cursor,
+          instructions.vaast_instructions_1,
+          instructions.vaast_instructions_2,
+          instructions.vaast_task_instructions(1, 4),
+          vaast_training_block_1,
+          vaast_test_block_1,
+          instructions.feedback,
+          instructions.vaast_task_instructions(2, 4),
+          vaast_training_block_2,
+          vaast_test_block_2,
+          instructions.feedback,
+          instructions.vaast_task_instructions(3, 4),
+          vaast_test_block_3,
+          instructions.feedback,
+          instructions.vaast_task_instructions(4, 4),
+          vaast_test_block_4,
+          instructions.feedback,
+          showing_cursor,
+          instructions.fullscreen_trial_exit,
+          extra_information_en,
+          extra_information_2_en,
+          extra_information_3_en,
+          extra_information_4_en,
+          extra_information_5_en,
+          extra_information_6_en,
+          extra_information_7_en,
+          save_extra,
+          ending_en
+        ]
+      },
+      jsPsych.resumeExperiment
+    );
+  }
+}
 
 // prolific verification
 timeline.push(save_id);
 
 timeline.push(
-  instructions.welcome,
-  fullscreen_trial_en, // doesn't work when we have this in the instructions variable
-  hiding_cursor,
-  instructions.vaast_instructions_1,
-  instructions.vaast_instructions_2,
-  instructions.vaast_instructions_4,
-  vaast_training_block_1,
-  vaast_test_block_1,
-  instructions.feedback,
-  instructions.vaast_instructions_5,
-  vaast_training_block_2,
-  vaast_test_block_2,
-  instructions.feedback,
-  instructions.vaast_instructions_6,
-  vaast_test_block_3,
-  instructions.feedback,
-  instructions.vaast_instructions_7,
-  vaast_test_block_4,
-  instructions.feedback,
-  showing_cursor,
-  instructions.fullscreen_trial_exit,
-  extra_information_en,
-  extra_information_2_en,
-  extra_information_3_en,
-  extra_information_4_en,
-  extra_information_5_en,
-  extra_information_6_en,
-  extra_information_7_en,
-  save_extra,
-  ending_en
+  languageSelection,
+  setup_experiment
 );
 
 // Launch experiment --------------------------------------------------------------------
