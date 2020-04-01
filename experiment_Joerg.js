@@ -182,18 +182,26 @@ var movement_human_1    = undefined;
 var movement_plant_1    = undefined;
 var group_to_approach_1_en = undefined;
 var group_to_avoid_1_en    = undefined;
+var group_to_approach_1_fr = undefined;
+var group_to_avoid_1_fr    = undefined;
 var movement_human_2    = undefined;
 var movement_plant_2    = undefined;
 var group_to_approach_2_en = undefined;
 var group_to_avoid_2_en    = undefined;
+var group_to_approach_2_fr = undefined;
+var group_to_avoid_2_fr    = undefined;
 var movement_human_3    = undefined;
 var movement_plant_3    = undefined;
 var group_to_approach_3_en = undefined;
 var group_to_avoid_3_en    = undefined;
+var group_to_approach_3_fr = undefined;
+var group_to_avoid_3_fr    = undefined;
 var movement_human_4    = undefined;
 var movement_plant_4    = undefined;
 var group_to_approach_4_en = undefined;
 var group_to_avoid_4_en    = undefined;
+var group_to_approach_4_fr = undefined;
+var group_to_avoid_4_fr    = undefined;
 
 // Feedback variables - set after every trial, displayed in the feedback pages
 var FeedbackMeanReactionTime = undefined;
@@ -219,18 +227,26 @@ switch(vaast_first_block) {
     movement_plant_1    = "avoidance";
     group_to_approach_1_en = "persons";
     group_to_avoid_1_en    = "plants";
+    group_to_approach_1_fr = "personnes";
+    group_to_avoid_1_fr    = "plantes";
     movement_human_2    = "avoidance";
     movement_plant_2    = "approach";
     group_to_approach_2_en = "plants";
     group_to_avoid_2_en    = "persons";
+    group_to_approach_2_fr = "plantes";
+    group_to_avoid_2_fr    = "personnes";
     movement_human_3    = "approach";
     movement_plant_3    = "avoidance";
     group_to_approach_3_en = "persons";
     group_to_avoid_3_en    = "plants";
+    group_to_approach_3_fr = "personnes";
+    group_to_avoid_3_fr    = "plantes";
     movement_human_4    = "avoidance";
     movement_plant_4    = "approach";
     group_to_approach_4_en = "plants";
     group_to_avoid_4_en    = "persons";
+    group_to_approach_4_fr = "plantes";
+    group_to_avoid_4_fr    = "personnes";
     break;
 
   case "approach_plant":
@@ -238,18 +254,26 @@ switch(vaast_first_block) {
     movement_plant_1    = "approach";
     group_to_approach_1_en = "plants";
     group_to_avoid_1_en    = "persons";
+    group_to_approach_1_fr = "plantes";
+    group_to_avoid_1_fr    = "personnes";
     movement_human_2    = "approach";
     movement_plant_2    = "avoidance";
     group_to_approach_2_en = "persons";
     group_to_avoid_2_en    = "plants";
+    group_to_approach_2_fr = "personnes";
+    group_to_avoid_2_fr    = "plantes";
     movement_human_3    = "avoidance";
     movement_plant_3    = "approach";
     group_to_approach_3_en = "plants";
     group_to_avoid_3_en    = "persons";
+    group_to_approach_3_fr = "plantes";
+    group_to_avoid_3_fr    = "personnes";
     movement_human_4    = "approach";
     movement_plant_4    = "avoidance";
     group_to_approach_4_en = "persons";
     group_to_avoid_4_en    = "plants";
+    group_to_approach_4_fr = "personnes";
+    group_to_avoid_4_fr    = "plantes";
     break;
 }
 
@@ -461,27 +485,30 @@ var save_extra = {
 
 
 // EXPERIMENT ---------------------------------------------------------------------------
-var welcome_en = {
+
+  var language = {
     type: "html-button-response",
-    stimulus:
-        "<p class='instructions'><center>" +
-        "<img src = 'media/UHH.png'>" +
-        "<img src = 'media/UCL.jpg'>" +
-        "<img src = 'media/UR.png'>" +
-        "<br><b>SCC-Project (Social Contact during the Corona-crisis)</b>" + 
-        "</center></p>" +
-        "<p class='instructions'>Thank you for taking part in this study: <b>You make a valuable contribution to scientific research on social " +
-        "consequences of the corona crisis. </b></p>" +
-        "<p class='instructions'>During this study, you will be asked to complete a simple video game task. By clicking below to start the study, you recognize that you know:</p>" +
-        "<ul class='instructions'>" +
-            "<li>You can stop your participation at any time </li>" +
-            "<li>You can contact our team for any questions or dissatisfaction related to your " +
-            "participation: EMAIL ADDRESS.</li>" +
-            "<li>The data collected will be strictly confidential and will only be accessible to researchers.</li>" +
-            "<li>We do not record any data that allows to personally identify you. We do not record your IP address.</li>" +
-        "</ul>" ,
-    choices: ['I confirm that I give my free and informed consent to participate']
-};
+    stimulus: "<p class='instructions'><center>Please choose a language:</p></center>",
+    choices: ['English', 'Français'],
+  };
+  // english as default
+  var instructions = englishInstructions;
+  
+  var language_2 = function(){
+    var data = jsPsych.data.getLastTrialData().values()[0].button_pressed;
+
+    if(data == 0) {
+      language_2 = "English";
+      instructions = englishInstructions;
+    }
+
+    if(data == 1) {
+      language_2 = "Français";
+      instructions = frenchInstructions;
+    }
+
+    return(language_2)
+  }
 
 var fullscreen_trial_en = {
     type: 'fullscreen',
@@ -490,145 +517,8 @@ var fullscreen_trial_en = {
           '<li>Disable your ad-blocking software, because ad-blocking softwares interfere with data collection. <br><br></li>'+
           '<p>To take part in this study, your browser needs to be set to fullscreen.<br></p>',
     button_label: 'Switch to fullscreen',
-    fullscreen_mode: true
+    fullscreen_mode: false //true
   }
-
-var vaast_instructions_1_en = {
-  type: "html-keyboard-response",
-  stimulus:
-    "<h1 class ='custom-title'> Video Game task</h1>" +
-    "<p class='instructions'>In this task, just like in a video game, you will find yourself within the corridor presented below.</p> " +
-   "<p class='instructions'> Drawings of items (representing a person or a plant) will appear in the corridor. </p>" +
-    "<br>" +
-    "<img src = 'media/vaast-background.png'>" +
-    "<br>" +
-    "<br>" +
-    "<p class = 'continue-instructions'>Press <strong>space</strong> to" +
-    " continue.</p>",
-  choices: [32]
-};
-
-var vaast_instructions_2_en = {
-    type: "html-keyboard-response",
-    stimulus:
-      "<h1 class ='custom-title'>Video Game task </h1>" +
-      "<p class='instructions'> Your task is to move toward or away from the items as a function of their category " +
-      "(more specific instructions following). To do so, use the upward and downward arrow keys on your keyboard: </p>" +
-      "<p class='instructions'><center>" +
-        "<img src = 'media/keyboard-vaastt_en.png'>" +
-      "</center></p>" +
-          "<br>" +
-      "<p class = 'continue-instructions'>Press <strong>space</strong> to continue.</p>",
-    choices: [32]
-};
-
-var vaast_instructions_4_en = {
-  type: "html-keyboard-response",
-  on_load: function() {
-    document.getElementById('GROUPTOAPPROACH').innerHTML = group_to_approach_1_en;
-    document.getElementById('GROUPTOAVOID').innerHTML = group_to_avoid_1_en;
-  },
-  stimulus:
-    "<h1 class ='custom-title'> Video Game task - Section 1/4</h1>" +
-    "<p class='instructions'>In this section, you have to: " +
-    "<ul class='instructions'>" +
-    "<li><strong>Move toward <span id='GROUPTOAPPROACH'></span> by pressing the upward arrow key </strong></li>" +
-    "<strong>  </strong>" +
-    "<li><strong>Move away from <span id='GROUPTOAVOID'></span> by pressing the downward arrow key </strong></li>" +
-    "<strong> </strong>" +
-    "</ul>" +
-    "<strong> EXTREMELY IMPORTANT: respond as fast and as correctly as possible! <br><br></strong>" +
-    "<p class ='instructions'>If you make an error, a red x appears (correct you answer with the other key). Use the index finger of your preferred hand to respond. " +
-    "<br>" +
-    "<p class = 'continue-instructions'>Press <strong>space</strong> to" +
-    " continue.</p>",
-  choices: [32]
-};
-
-var vaast_instructions_5_en = {
-  type: "html-keyboard-response",
-  on_load: function() {
-    document.getElementById('GROUPTOAPPROACH').innerHTML = group_to_approach_2_en;
-    document.getElementById('GROUPTOAVOID').innerHTML = group_to_avoid_2_en;
-  },
-  stimulus:
-    "<h1 class ='custom-title'> Video Game task - Section 2/4</h1>" +
-    "<p class='instructions'>Warning! Instructions are changing. Now, you have to: " +
-    "<ul class='instructions'>" +
-    "<li><strong>Move toward <span id='GROUPTOAPPROACH'></span> by pressing the upward arrow key </strong></li>" +
-    "<strong>  </strong>" +
-    "<li><strong>Move away from <span id='GROUPTOAVOID'></span> by pressing the downward arrow key </strong></li>" +
-    "<strong> </strong>" +
-    "</ul>" +
-    "<strong> EXTREMELY IMPORTANT: respond as fast and as correctly as possible! <br><br></strong>" +
-    "<br>" +
-    "<p class = 'continue-instructions'>Press <strong>space</strong> to" +
-    " continue.</p>",
-  choices: [32]
-};
-
-var vaast_instructions_6_en = {
-  type: "html-keyboard-response",
-  on_load: function() {
-    document.getElementById('GROUPTOAPPROACH').innerHTML = group_to_approach_3_en;
-    document.getElementById('GROUPTOAVOID').innerHTML = group_to_avoid_3_en;
-  },
-  stimulus:
-    "<h1 class ='custom-title'> Video Game task - Section 3/4</h1>" +
-    "<p class='instructions'>Warning! Instructions are changing. Now, you have to: " +
-    "<ul class='instructions'>" +
-    "<li><strong>Move toward <span id='GROUPTOAPPROACH'></span> by pressing the upward arrow key </strong></li>" +
-    "<strong>  </strong>" +
-    "<li><strong>Move away from <span id='GROUPTOAVOID'></span> by pressing the downward arrow key </strong></li>" +
-    "<strong> </strong>" +
-    "</ul>" +
-    "<strong> EXTREMELY IMPORTANT: respond as fast and as correctly as possible! <br><br></strong>" +
-    "<br>" +
-    "<p class = 'continue-instructions'>Press <strong>space</strong> to" +
-    " continue.</p>",
-  choices: [32]
-};
-
-var vaast_instructions_7_en = {
-  type: "html-keyboard-response",
-  on_load: function() {
-    document.getElementById('GROUPTOAPPROACH').innerHTML = group_to_approach_4_en;
-    document.getElementById('GROUPTOAVOID').innerHTML = group_to_avoid_4_en;
-  },
-  stimulus:
-    "<h1 class ='custom-title'> Video Game task - Section 4/4</h1>" +
-    "<p class='instructions'>Warning! Instructions are changing. Now, you have to: " +
-    "<ul class='instructions'>" +
-    "<li><strong>Move toward <span id='GROUPTOAPPROACH'></span> by pressing the upward arrow key </strong></li>" +
-    "<strong>  </strong>" +
-    "<li><strong>Move away from <span id='GROUPTOAPPROACH'></span> by pressing the downward arrow key </strong></li>" +
-    "<strong> </strong>" +
-    "</ul>" +
-    "<strong> EXTREMELY IMPORTANT: respond as fast and as correctly as possible! <br><br></strong>" +
-    "<br>" +
-    "<p class = 'continue-instructions'>Press <strong>space</strong> to" +
-    " continue.</p>",
-  choices: [32]
-};
-
-var feedback_en = {
-  type: "html-keyboard-response",
-  on_load: function() {
-    document.getElementById('FeedbackMeanReactionTime').innerHTML = FeedbackMeanReactionTime;
-    document.getElementById('FeedbackNumberOfCorrectRespones').innerHTML = FeedbackNumberOfCorrectResponses;
-    document.getElementById('FeedbackNumberOfTotalRespones').innerHTML = FeedbackNumberOfCorrectResponses + FeedbackNumberOfWrongResponses;
-  },
-  stimulus:
-    "<p class='instructions'><center>Good job!<br><br>" + 
-    "Here is your average Reaction Time: <span id='FeedbackMeanReactionTime'></span> milli seconds<br>" +
-    "You reacted <span id='FeedbackNumberOfCorrectRespones'></span> of " +
-    "<span id='FeedbackNumberOfTotalRespones'></span> times correctly." +
-    "</p></center>" +
-    "<p class = 'continue-instructions'>Press <strong>space</strong> to continue</p>",
-  choices: [32]
-};
-
-
 
 // VAAST --------------------------------------------------------------------------------
 
@@ -993,30 +883,35 @@ var fullscreen_trial_exit = {
 
 var timeline = [];
 
+// fullscreen
+//timeline.push(language,
+//              language_2);
+
+// prolific verification
 timeline.push(save_id);
 
 timeline.push(
-  welcome_en,
-  fullscreen_trial_en,
+  instructions.welcome,
+  fullscreen_trial_en, // doesn't work when we have this in the instructions variable
   hiding_cursor,
-  vaast_instructions_1_en,
-  vaast_instructions_2_en,
-  vaast_instructions_4_en,
+  instructions.vaast_instructions_1,
+  instructions.vaast_instructions_2,
+  instructions.vaast_instructions_4,
   vaast_training_block_1,
   vaast_test_block_1,
-  feedback_en,
-  vaast_instructions_5_en,
+  instructions.feedback,
+  instructions.vaast_instructions_5,
   vaast_training_block_2,
   vaast_test_block_2,
-  feedback_en,
-  vaast_instructions_6_en,
+  instructions.feedback,
+  instructions.vaast_instructions_6,
   vaast_test_block_3,
-  feedback_en,
-  vaast_instructions_7_en,
+  instructions.feedback,
+  instructions.vaast_instructions_7,
   vaast_test_block_4,
-  feedback_en,
+  instructions.feedback,
   showing_cursor,
-  fullscreen_trial_exit,
+  instructions.fullscreen_trial_exit,
   extra_information_en,
   extra_information_2_en,
   extra_information_3_en,
