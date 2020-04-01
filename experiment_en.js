@@ -65,7 +65,7 @@ if(!is_compatible) {
   firebase.initializeApp(firebase_config);
   var database = firebase.database();
 
-  // prolific variables
+  // id variables
   var jspsych_id  = jsPsych.data.getURLVariable("jspsych_id");
    if(jspsych_id == null) {jspsych_id = "999";}
   
