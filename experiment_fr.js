@@ -217,39 +217,39 @@ switch(vaast_first_block) {
   case "approach_human":
     movement_human_1    = "approach";
     movement_plant_1    = "avoidance";
-    group_to_approach_1_en = "persons";
-    group_to_avoid_1_en    = "plants";
+    group_to_approach_1_en = "personnes";
+    group_to_avoid_1_en    = "plantes";
     movement_human_2    = "avoidance";
     movement_plant_2    = "approach";
-    group_to_approach_2_en = "plants";
-    group_to_avoid_2_en    = "persons";
+    group_to_approach_2_en = "plantes";
+    group_to_avoid_2_en    = "personnes";
     movement_human_3    = "approach";
     movement_plant_3    = "avoidance";
-    group_to_approach_3_en = "persons";
-    group_to_avoid_3_en    = "plants";
+    group_to_approach_3_en = "personnes";
+    group_to_avoid_3_en    = "plantes";
     movement_human_4    = "avoidance";
     movement_plant_4    = "approach";
-    group_to_approach_4_en = "plants";
-    group_to_avoid_4_en    = "persons";
+    group_to_approach_4_en = "plantes";
+    group_to_avoid_4_en    = "personnes";
     break;
 
   case "approach_plant":
     movement_human_1    = "avoidance";
     movement_plant_1    = "approach";
-    group_to_approach_1_en = "plants";
-    group_to_avoid_1_en    = "persons";
+    group_to_approach_1_en = "plantes";
+    group_to_avoid_1_en    = "personnes";
     movement_human_2    = "approach";
     movement_plant_2    = "avoidance";
-    group_to_approach_2_en = "persons";
-    group_to_avoid_2_en    = "plants";
+    group_to_approach_2_en = "personnes";
+    group_to_avoid_2_en    = "plantes";
     movement_human_3    = "avoidance";
     movement_plant_3    = "approach";
-    group_to_approach_3_en = "plants";
-    group_to_avoid_3_en    = "persons";
+    group_to_approach_3_en = "plantes";
+    group_to_avoid_3_en    = "personnes";
     movement_human_4    = "approach";
     movement_plant_4    = "avoidance";
-    group_to_approach_4_en = "persons";
-    group_to_avoid_4_en    = "plants";
+    group_to_approach_4_en = "personnes";
+    group_to_avoid_4_en    = "plantes";
     break;
 }
 

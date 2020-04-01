@@ -24,13 +24,14 @@
 // TODO:
 //
 //
-// address : https://marinerougier.github.io/SocVaast_Coro/index.html
+// address : https://marinerougier.github.io/SocVaast_Coro/index_en.html
 // dirty hack to lock scrolling ---------------------------------------------------------
 // note that jquery needs to be loaded.
-$('body').css({'overflow':'hidden'});
-  $(document).bind('scroll',function () { 
-       window.scrollTo(0,0); 
-  });
+
+//$('body').css({'overflow':'hidden'});
+//  $(document).bind('scroll',function () { 
+//       window.scrollTo(0,0); 
+//  });
 
 // safari & ie exclusion ----------------------------------------------------------------
 var is_safari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
@@ -431,6 +432,17 @@ var next_position_training = function(){
   }
 
   
+  var saving_questions = function() {
+    database
+     .ref("questions_info_corona/")
+     .push()
+     .set({jspsych_id: jspsych_id,
+         timestamp: firebase.database.ServerValue.TIMESTAMP,
+          vaast_first_block: vaast_first_block,
+         questions_data: jsPsych.data.get().last(17).json(),
+        })
+  }
+
   var saving_extra = function() {
     database
      .ref("extra_info_corona/")
@@ -442,7 +454,6 @@ var next_position_training = function(){
         })
   }
 
-
 // saving blocks ------------------------------------------------------------------------
 var save_id = {
     type: 'call-function',
@@ -452,6 +463,11 @@ var save_id = {
 var save_vaast_trial = {
     type: 'call-function',
     func: saving_vaast_trial
+}
+
+var save_questions = {
+    type: 'call-function',
+    func: saving_questions
 }
 
 var save_extra = {
@@ -472,13 +488,15 @@ var welcome_en = {
         "</center></p>" +
         "<p class='instructions'>Thank you for taking part in this study: <b>You make a valuable contribution to scientific research on social " +
         "consequences of the corona crisis. </b></p>" +
-        "<p class='instructions'>During this study, you will be asked to complete a simple video game task. By clicking below to start the study, you recognize that you know:</p>" +
+        "<p class='instructions'>During this study, you will be asked to complete a simple video game task. Note that <b>you need a computer and a real (i.e., not a virtual) keyboard </b>to complete the task. </p>" +
+        "<p class='instructions'>By clicking below to start the study, you recognize that:</p>" +
         "<ul class='instructions'>" +
-            "<li>You can stop your participation at any time </li>" +
-            "<li>You can contact our team for any questions or dissatisfaction related to your " +
+            "<li>You are at least 18 years old </li>" +
+            "<li>You know you can stop your participation at any time </li>" +
+            "<li>You know you can contact our team for any questions or dissatisfaction related to your " +
             "participation: EMAIL ADDRESS.</li>" +
-            "<li>The data collected will be strictly confidential and will only be accessible to researchers.</li>" +
-            "<li>We do not record any data that allows to personally identify you. We do not record your IP address.</li>" +
+            "<li>You know that the data collected will be strictly confidential and will only be accessible to researchers.</li>" +
+            "<li>You know that we do not record any data that allows to personally identify you. We do not record your IP address.</li>" +
         "</ul>" ,
     choices: ['I confirm that I give my free and informed consent to participate']
 };
@@ -914,58 +932,208 @@ var fullscreen_trial_exit = {
     choices: [32]
   };
 
+  var items_contact_restr = {
+    type: 'survey-likert',
+    questions: [
+      {prompt: "The political administration has currently mandated policies in my region that restrict direct (i.e., face-to-face) social contact (i.e., social distancing policies).<br><br>",
+      name: 'item_1', labels: ["<br>1<br> no restrictions at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> extreme restrictions"], required: true},  
+      {prompt: "Currently, the amount of my direct (i.e., face-to-face) social contact is restricted due to the social distancing policies in my region.<br><br><br>",
+      name: 'item_2', labels: ["<br>1<br> not at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> extremely"], required: true},  
+      {prompt: "I believe that the current social distancing policies in my region are...<br><br><br>",
+      name: 'item_3', labels: ["<br>-3<br> too loose", "<br>-2", "<br>-1", "<br>0", "<br>1", "<br>2", "<br>3<br> too harsh"], required: true},                                                                                     
+      {prompt: "I currently keep distance from other people in the public space.<br><br><br>",
+      name: 'item_4', labels: ["<br>1<br> not at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> Completely"], required: true}, 
+      {prompt: "How much direct (i.e., face-to-face) social contact do you currently have?<br><br><br>",
+      name: 'item_5', labels: ["<br>1<br> very little", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> a lot"], required: true},     
+      {prompt: "How much social contact do you currently have through phone / video calls, social media, or email?<br><br><br>",
+      name: 'item_6', labels: ["<br>1<br> very little", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> a lot"], required: true},      
+      ],
+        on_load: function () {
+          $(".jspsych-survey-likert-statement").css("font-size", "17px");
+          $("#jspsych-survey-likert-form").css("width", "800px");
+          $("li").css("width", "9%");
+        },
+    preamble: "<br><b>For each of the following items, please indicate what applies to your situation, using the respective scale provided for each item.</b><br><br>",
+    button_label: "OK"
+  };
+
+  var items_emotions = {
+    type: 'survey-likert',
+    questions: [
+      {prompt: "Currently, I feel very lonely.<br><br><br>",
+      name: 'item_7', labels: ["<br>1<br> not agree at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> agree completely"], required: true},  
+      {prompt: "Currently, I have a strong need for direct (i.e. face-to-face) social contact.<br><br><br>",
+      name: 'item_8', labels: ["<br>1<br> Not at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> agree completely"], required: true},   
+      {prompt: "I am very afraid of becoming infected with the coronavirus.<br><br><br>",
+      name: 'item_9', labels: ["<br>1<br> not agree at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> agree completely"], required: true},   
+      {prompt: "I am very afraid that my loved ones become infected with the coronavirus.<br><br><br>",
+      name: 'item_10', labels: ["<br>1<br> not agree at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> agree completely"], required: true},  
+      {prompt: " I am very afraid that I might pose a danger to other people because I could be infected without knowing.<br><br><br>",
+      name: 'item_11', labels: ["<br>1<br> not agree at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> agree completely"], required: true},  
+      {prompt: "I am very afraid that the coronavirus pandemic will overburden the health system of my country.<br><br><br>",
+      name: 'item_12', labels: ["<br>1<br> not agree at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> agree completely"], required: true},  
+      {prompt: "Given your current circumstances, how high do you judge the risk of contracting the virus?<br><br><br>",
+      name: 'item_13', labels: ["<br>1<br> no risk at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> very high risk"], required: true},      
+      {prompt: "Given your preconditions (health status, age), how high do you judge the risk of developing a severe coronavirus disease, in case of contracting the virus?<br><br><br>",
+      name: 'item_14', labels: ["<br>1<br> no risk at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> Nvery high risk"], required: true},                                                                               
+     
+      ],
+        on_load: function () {
+          $(".jspsych-survey-likert-statement").css("font-size", "17px");
+          $("#jspsych-survey-likert-form").css("width", "800px");
+          $("li").css("width", "9%");
+        },
+    preamble: "<br><b>For each of the following items, please indicate the degree to which you agree.</b><br><br>",
+    button_label: "OK"
+  };
+
+
+  var items_need_contact = {
+    type: 'survey-likert',
+    questions: [
+      {prompt: "Typically, I have a lot of direct (face-to-face) social contact.<br><br><br>",
+      name: 'item_15', labels: ["<br>1<br> not agree at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> agree completely"], required: true},   
+      {prompt: "Typically, I have a strong need for social contact.<br><br><br>",
+      name: 'item_16', labels: ["<br>1<br> not agree at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> agree completely"], required: true},  
+      {prompt: "Typically, I like being alone. <br><br><br>",
+      name: 'item_17', labels: ["<br>1<br> not agree at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> agree completely"], required: true},
+      ],
+        on_load: function () {
+          $(".jspsych-survey-likert-statement").css("font-size", "17px");
+          $("#jspsych-survey-likert-form").css("width", "800px");
+          $("li").css("width", "9%");
+        },
+    preamble: "<br><b>For each of the following statements, please indicate what typically applies to you, independent of the current situation. </b><br><br>",
+    button_label: "OK"
+  };
+
+
+  var extra_information_1_en = {
+    timeline: [{
+      type: 'survey-text',
+      questions: [{prompt: "What is your current country of residence?"}],
+      button_label: "OK",
+    }],
+    loop_function: function(data) {
+      var extra_information_1_en = data.values()[0].responses;
+      var extra_information_1_en = JSON.parse(extra_information_1_en).Q0;
+      if (extra_information_1_en == "") {
+        alert("Please indicate your country of residence!");
+        return true;
+      }
+    },
+    on_finish: function(data) {
+      jsPsych.data.addProperties({
+        extra_information_1_en: JSON.parse(data.responses)["Q0"],
+      });
+    }
+  }
+
   var extra_information_2_en = {
+    timeline: [{
+      type: 'survey-text',
+      questions: [{prompt: "Please indicate your ZIP code:"}],
+      button_label: "OK",
+    }],
+    loop_function: function(data) {
+      var extra_information_2_en = data.values()[0].responses;
+      var extra_information_2_en = JSON.parse(extra_information_2_en).Q0;
+      if (extra_information_2_en == "") {
+        alert("Please indicate your ZIP code!");
+        return true;
+      }
+    },
+    on_finish: function(data) {
+      jsPsych.data.addProperties({
+        extra_information_2_en: JSON.parse(data.responses)["Q0"],
+      });
+    }
+  }
+
+  var extra_information_3_en = {
     timeline: [{
       type: 'survey-text',
       questions: [{prompt: "What is your age?"}],
       button_label: "OK",
     }],
     loop_function: function(data) {
-      var extra_information_2 = data.values()[0].responses;
-      var extra_information_2 = JSON.parse(extra_information_2).Q0;
-      if (extra_information_2 == "") {
+      var extra_information_3_en = data.values()[0].responses;
+      var extra_information_3_en = JSON.parse(extra_information_3_en).Q0;
+      if (extra_information_3_en == "") {
         alert("Please enter you age!");
         return true;
       }
     },
     on_finish: function(data) {
       jsPsych.data.addProperties({
-        extra_information_2: JSON.parse(data.responses)["Q0"],
+        extra_information_3_en: JSON.parse(data.responses)["Q0"],
       });
     }
   }
 
-  var extra_information_3_en = {
+  var extra_information_4_en = {
     type: 'survey-multi-choice',
     questions: [{prompt: "What is your gender?", options: ["&nbspMale", "&nbspFemale", "&nbspOther"], required: true, horizontal: true}],
     button_label: "OK"
   }
 
-  var extra_information_4_en = {
-    type: 'survey-multi-choice',
-    questions: [{prompt: "How well do you speak english?",
-                 options: ["&nbspFluently", "&nbspVery good", "&nbspGood", "&nbspAverage", "&nbspBad", "&nbspVery bad"],
-                 required: true, horizontal: false}],
-    button_label: "OK"
-  }
-
   var extra_information_5_en = {
     type: 'survey-multi-choice',
-    questions: [{prompt: "What is your socioeconomic status?",
-                 options: ["&nbspVery low", "&nbspLow", "&nbspMedium", "&nbspHigh", "&nbspVery high"],
+    questions: [{prompt: "Please select your area of studies or profession (multiple responses possible):",
+                 options: ["&nbspArts and Entertainment", "&nbspMedia and Communication", 
+                           "&nbspBusiness, Law or Administration", "&nbspHealthcare and Medicine", 
+                           "&nbspEngineering and Technology", "&nbspHealthcare and Medicine", 
+                           "&nbspNatural Sciences, Mathematics, Computer Science", "&nbspLife Sciences or Social Sciences", 
+                           "&nbspScience: Humanities", "&nbspTeaching, Education, or Social Work",
+                           "&nbspService Industry", "&nbspIndustrial and Manufacturing",
+                           "&nbspAgriculture or fishery", "&nbspother"],
                  required: true, horizontal: false}],
     button_label: "OK"
   }
 
   var extra_information_6_en = {
-    type: 'survey-multi-choice',
-    questions: [{prompt: "What is your highest level of education?",
-                 options: ["&nbspDid not complete high school", "&nbspHigh school/GED", "&nbspSome college", "&nbspBachelor's degree", "&nbspMaster's degree", "&nbspAdvanced graduate work or Ph.D."],
-                 required: true, horizontal: false}],
-    button_label: "OK"
+    timeline: [{
+      type: 'survey-text',
+      questions: [{prompt: "How many family members or loved ones (except friends and flat mates) live in your household?<br> Please enter the correct numbers in the fields below. If you live alone, enter 0."},],
+      button_label: "OK",
+    }],
+    loop_function: function(data) {
+      var extra_information_6_en = data.values()[0].responses;
+      var extra_information_6_en = JSON.parse(extra_information_6_en).Q0;
+      if (extra_information_6_en == "") {
+        alert("Please indicate a response!");
+        return true;
+      }
+    },
+    on_finish: function(data) {
+      jsPsych.data.addProperties({
+        extra_information_6_en: JSON.parse(data.responses)["Q0"],
+      });
+    }
+  }
+  
+  var extra_information_7_en = {
+    timeline: [{
+      type: 'survey-text',
+      questions: [{prompt: "How many friends or flat mates (except family members and loved ones) live in your household?<br> Please enter the correct numbers in the fields below. If you live alone, enter 0."}],
+      button_label: "OK",
+    }],
+    loop_function: function(data) {
+      var extra_information_7_en = data.values()[0].responses;
+      var extra_information_7_en = JSON.parse(extra_information_7_en).Q0;
+      if (extra_information_7_en == "") {
+        alert("Please indicate a response!");
+        return true;
+      }
+    },
+    on_finish: function(data) {
+      jsPsych.data.addProperties({
+        extra_information_7_en: JSON.parse(data.responses)["Q0"],
+      });
+    }
   }
 
-  var extra_information_7_en = {
+  var extra_information_8_en = {
     type: 'survey-text',
     questions: [{prompt: "Do you have any remarks about this study? [Optional]"}],
     button_label: "OK"
@@ -1018,12 +1186,18 @@ timeline.push(
   showing_cursor,
   fullscreen_trial_exit,
   extra_information_en,
+  items_contact_restr,
+  items_emotions,
+  items_need_contact,
+  save_questions,
+  extra_information_1_en,
   extra_information_2_en,
   extra_information_3_en,
   extra_information_4_en,
   extra_information_5_en,
   extra_information_6_en,
   extra_information_7_en,
+  extra_information_8_en,
   save_extra,
   ending_en
 );
@@ -1065,7 +1239,7 @@ if(is_compatible) {
         jsPsych.data.addProperties({
         vaast_first_block: vaast_first_block,
         });
-        //window.location.href = "https://google.com";
+        window.location.href = "https://google.com";
     }
   });
 }
