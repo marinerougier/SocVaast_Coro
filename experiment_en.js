@@ -927,7 +927,7 @@ var fullscreen_trial_exit = {
   var extra_information_en = {
     type: 'html-keyboard-response',
     stimulus:
-      "<p class='instructions'>The study is almost finished. Now, you have to answer a few questions.</p>" +
+      "<p class='instructions'>You are almost done with the study. Please continue to answer some questions.</p>" +
       "<p class='continue-instructions'>Press <strong>space</strong> to continue.</p>",
     choices: [32]
   };
