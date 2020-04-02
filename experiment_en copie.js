@@ -454,17 +454,6 @@ var next_position_training = function(){
         })
   }
 
-  var saving_email = function() {
-    database
-     .ref("email_en/")
-     .push()
-     .set({jspsych_id: jspsych_id,
-         timestamp: firebase.database.ServerValue.TIMESTAMP,
-          vaast_first_block: vaast_first_block,
-         email_data: jsPsych.data.get().last(1).json(),
-        })
-  }
-
 // saving blocks ------------------------------------------------------------------------
 var save_id = {
     type: 'call-function',
@@ -482,11 +471,6 @@ var save_questions = {
 }
 
 var save_extra = {
-    type: 'call-function',
-    func: saving_extra
-}
-
-var save_email = {
     type: 'call-function',
     func: saving_extra
 }
@@ -539,23 +523,13 @@ var vaast_instructions_1 = {
     "<br>" +
     "<img src = 'media/vaast-background.png'>" +
     "<br>" +
+    "<p class='instructions'> Your task is to move toward or away from the items as a function of their category " +
+    "(more specific instructions following). To do so, use the upward and downward arrow keys on your keyboard: </p>" +
+    "<p class='instructions'><center>" +
+    "<img src = 'media/keyboard-vaastt_en.png'>" +
+    "</center></p>" +
     "<br>" +
-    "<p class = 'continue-instructions'>Press <strong>space</strong> to" +
-    " continue.</p>",
-  choices: [32]
-};
-
-var vaast_instructions_2 = {
-    type: "html-keyboard-response",
-    stimulus:
-      "<h1 class ='custom-title'>Video Game task </h1>" +
-      "<p class='instructions'> Your task is to move toward or away from the items as a function of their category " +
-      "(more specific instructions following). To do so, use the upward and downward arrow keys on your keyboard: </p>" +
-      "<p class='instructions'><center>" +
-        "<img src = 'media/keyboard-vaastt_en.png'>" +
-      "</center></p>" +
-          "<br>" +
-      "<p class = 'continue-instructions'>Press <strong>space</strong> to continue.</p>",
+    "<p class = 'continue-instructions'>Press <strong>space</strong> to continue.</p>",
     choices: [32]
 };
 
@@ -590,7 +564,7 @@ var vaast_instructions_5 = {
   },
   stimulus:
     "<h1 class ='custom-title'> Video Game task - Section 2/4</h1>" +
-    "<p class='instructions'>Warning! Now the task instructions are reversed: " +
+    "<p class='instructions'>Warning! Instructions are changing. Now, you have to: " +
     "<ul class='instructions'>" +
     "<li><strong>Move toward <span id='GROUPTOAPPROACH'></span> by pressing the upward arrow key </strong></li>" +
     "<strong>  </strong>" +
@@ -612,7 +586,7 @@ var vaast_instructions_6 = {
   },
   stimulus:
     "<h1 class ='custom-title'> Video Game task - Section 3/4</h1>" +
-    "<p class='instructions'>Warning! Now the task instructions are reversed: " +
+    "<p class='instructions'>Warning! Instructions are changing. Now, you have to: " +
     "<ul class='instructions'>" +
     "<li><strong>Move toward <span id='GROUPTOAPPROACH'></span> by pressing the upward arrow key </strong></li>" +
     "<strong>  </strong>" +
@@ -634,7 +608,7 @@ var vaast_instructions_7 = {
   },
   stimulus:
     "<h1 class ='custom-title'> Video Game task - Section 4/4</h1>" +
-    "<p class='instructions'>Warning! Now the task instructions are reversed: " +
+    "<p class='instructions'>Warning! Instructions are changing. Now, you have to: " +
     "<ul class='instructions'>" +
     "<li><strong>Move toward <span id='GROUPTOAPPROACH'></span> by pressing the upward arrow key </strong></li>" +
     "<strong>  </strong>" +
@@ -662,7 +636,7 @@ var feedback = {
     "<span id='FeedbackNumberOfTotalRespones'></span> times correctly.</b>" +
     "</p></center>" +
     "<p class='instructions'><center><b>Try your best to improve your performance in the next section.</b><br>" +
-    "<p class='instructions'><center>If you are interested, you will later be able to compare your performance rates<br> with the average performance of previous participants.<br><br>" + 
+    "<p class='instructions'><center>If you are interested, you will later be able to compare your performance<br> with the average performance of previous participants.<br><br>" + 
     "<p class = 'continue-instructions'>Press <strong>space</strong> to continue</p>",
   choices: [32]
 };
@@ -806,6 +780,7 @@ var vaast_second_step_training_4 = {
 }
 
 // VAAST training block -----------------------------------------------------------------
+const NUMBEROFREPETITIONS_TRAINING_BLOCK_1 = 1;
 var vaast_training_block_1 = {
   timeline: [
     //vaast_start,
@@ -815,7 +790,7 @@ var vaast_training_block_1 = {
     save_vaast_trial
   ],
   timeline_variables: vaast_stim_training,
-  repetitions: 1,
+  repetitions: NUMBEROFREPETITIONS_TRAINING_BLOCK_1,
   randomize_order: true,
   data: {
     phase:    "training",
@@ -823,8 +798,11 @@ var vaast_training_block_1 = {
     movement: jsPsych.timelineVariable('movement_1'),
     group:   jsPsych.timelineVariable('group'),
   },
+  // Note: you need to multiply by 2, because there are two examples for every repetition
+  on_finish: function(data) { updateFeedback(2 * NUMBEROFREPETITIONS_TRAINING_BLOCK_1); }
 };
 
+const NUMBEROFREPETITIONS_TEST_BLOCK_1 = 1;
 var vaast_test_block_1 = {
   timeline: [
     //vaast_start,
@@ -834,7 +812,7 @@ var vaast_test_block_1 = {
     save_vaast_trial
   ],
   timeline_variables: vaast_stim,
-  repetitions: 1,
+  repetitions: NUMBEROFREPETITIONS_TEST_BLOCK_1,
   randomize_order: true,
   data: {
     phase:    "test",
@@ -842,9 +820,11 @@ var vaast_test_block_1 = {
     movement: jsPsych.timelineVariable('movement_1'),
     group:   jsPsych.timelineVariable('group'),
   },
-  on_finish: function(data) { updateFeedback(36); } // 32 test + 4 training
+  // I'm not sure, I'm using NUMBEROFREPETITIONS_TEST_BLOCK_1 correctly here, but I'm sure you can verify.
+  on_finish: function(data) { updateFeedback(2 * (NUMBEROFREPETITIONS_TRAINING_BLOCK_1 + NUMBEROFREPETITIONS_TEST_BLOCK_1)); }
 };
 
+const NUMBEROFREPETITIONS_TRAINING_BLOCK_2 = 1;
 var vaast_training_block_2 = {
   timeline: [
     //vaast_start,
@@ -854,7 +834,7 @@ var vaast_training_block_2 = {
     save_vaast_trial
   ],
   timeline_variables: vaast_stim_training,
-  repetitions: 1,
+  repetitions: NUMBEROFREPETITIONS_TRAINING_BLOCK_2,
   randomize_order: true,
   data: {
     phase:    "training",
@@ -862,8 +842,10 @@ var vaast_training_block_2 = {
     movement: jsPsych.timelineVariable('movement_2'),
     group:    jsPsych.timelineVariable('group'),
   },
+  on_finish: function(data) { updateFeedback(2 * NUMBEROFREPETITIONS_TRAINING_BLOCK_2); }
 };
 
+const NUMBEROFREPETITIONS_TEST_BLOCK_2 = 1;
 var vaast_test_block_2 = {
   timeline: [
     //vaast_start,
@@ -873,7 +855,7 @@ var vaast_test_block_2 = {
     save_vaast_trial
   ],
   timeline_variables: vaast_stim,
-  repetitions: 1,
+  repetitions: NUMBEROFREPETITIONS_TEST_BLOCK_2,
   randomize_order: true,
   data: {
     phase:    "test",
@@ -881,9 +863,10 @@ var vaast_test_block_2 = {
     movement: jsPsych.timelineVariable('movement_2'),
     group:    jsPsych.timelineVariable('group'),
   },
-  on_finish: function(data) { updateFeedback(36); }
+  on_finish: function(data) { updateFeedback(2 * (NUMBEROFREPETITIONS_TRAINING_BLOCK_2 + NUMBEROFREPETITIONS_TEST_BLOCK_2)); }
 };
 
+const NUMBEROFREPETITIONS_TEST_BLOCK_3 = 1;
 var vaast_test_block_3 = {
   timeline: [
     //vaast_start,
@@ -893,7 +876,7 @@ var vaast_test_block_3 = {
     save_vaast_trial
   ],
   timeline_variables: vaast_stim,
-  repetitions: 1,
+  repetitions: NUMBEROFREPETITIONS_TEST_BLOCK_3,
   randomize_order: true,
   data: {
     phase:    "test",
@@ -901,9 +884,11 @@ var vaast_test_block_3 = {
     movement: jsPsych.timelineVariable('movement_3'),
     group:    jsPsych.timelineVariable('group'),
   },
-  on_finish: function(data) { updateFeedback(32); }
+  // we had no training here, so only the test repetitions
+  on_finish: function(data) { updateFeedback(2 * NUMBEROFREPETITIONS_TEST_BLOCK_3); }
 };
 
+const NUMBEROFREPETITIONS_TEST_BLOCK_4 = 1;
 var vaast_test_block_4 = {
   timeline: [
     //vaast_start,
@@ -913,7 +898,7 @@ var vaast_test_block_4 = {
     save_vaast_trial
   ],
   timeline_variables: vaast_stim,
-  repetitions: 1,
+  repetitions: NUMBEROFREPETITIONS_TEST_BLOCK_4,
   randomize_order: true,
   data: {
     phase:    "test",
@@ -921,7 +906,8 @@ var vaast_test_block_4 = {
     movement: jsPsych.timelineVariable('movement_4'),
     group:    jsPsych.timelineVariable('group'),
   },
-  on_finish: function(data) { updateFeedback(32); }
+  // no training here
+  on_finish: function(data) { updateFeedback(2 * NUMBEROFREPETITIONS_TEST_BLOCK_4); }
 };
 
 // end fullscreen -----------------------------------------------------------------------
@@ -937,7 +923,7 @@ var fullscreen_trial_exit = {
     type: 'html-keyboard-response',
     stimulus:
       "<p class='instructions'>You are almost done with the study. Please continue to answer some questions.</p>" +
-      "<p class='instructions'>If you are interested, you will later be provided with an individual analysis of your answers and can compare your answers to the average answers from previous participants.</p>" +
+      "<p class='instructions'>If you are interested, you will later be provided with an individual analysis of your answers in relation to the average answers from previous participants.</p>" +
       "<p class='continue-instructions'>Press <strong>space</strong> to continue.</p>",
     choices: [32]
   };
@@ -949,9 +935,9 @@ var fullscreen_trial_exit = {
       {prompt: "The political administration has currently mandated policies in my region that restrict direct (i.e., face-to-face) social contact (i.e., social distancing policies).<br>",
       name: 'item_1', labels: ["<br>1<br> no restrictions at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> extreme restrictions"], required: true},  
       {prompt: "Currently, the amount of my direct (i.e., face-to-face) social contact is restricted due to the social distancing policies in my region.<br>",
-      name: 'item_2', labels: ["<br>There are no social distancing policies in effect", "<br>1<br> not at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> extremely"], required: true},  
+      name: 'item_2', labels: ["<br>1<br> not at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> extremely"], required: true},  
       {prompt: "I believe that the current social distancing policies in my region are...<br>",
-      name: 'item_3', labels: ["<br>There are no social distancing policies in effect", "<br>-3<br> too loose", "<br>-2", "<br>-1", "<br>0 appropriate", "<br>1", "<br>2", "<br>3<br> too harsh"], required: true},                                                                                     
+      name: 'item_3', labels: ["<br>-3<br> too loose", "<br>-2", "<br>-1", "<br>0", "<br>1", "<br>2", "<br>3<br> too harsh"], required: true},                                                                                     
       ],
       preamble: "<br><b>For each of the following items, please indicate what applies to your situation, <br>using the respective scale provided for each item.</b><br><br>",
       button_label: "OK",
@@ -977,10 +963,10 @@ var items_contact_restr_2 = {
     type: 'survey-likert',
     questions: [                                                                                    
       {prompt: "I currently keep distance from other people in the public space.<br>",
-      name: 'item_4', labels: ["<br>1<br> not at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> completely"], required: true}, 
+      name: 'item_4', labels: ["<br>1<br> not at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> Completely"], required: true}, 
       {prompt: "How much direct (i.e., face-to-face) social contact do you currently have?<br>",
       name: 'item_5', labels: ["<br>1<br> very little", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> a lot"], required: true},     
-      {prompt: "How much social contact do you currently have through phone / video calls, social media, or mail / email?<br>",
+      {prompt: "How much social contact do you currently have through phone / video calls, social media, or email?<br>",
       name: 'item_6', labels: ["<br>1<br> very little", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> a lot"], required: true},      
       ],
       preamble: "<br><b>For each of the following items, please indicate what applies to your situation, <br>using the respective scale provided for each item.</b><br><br>",
@@ -1007,7 +993,7 @@ var items_contact_restr_2 = {
       {prompt: "Currently, I feel very lonely.<br>",
       name: 'item_7', labels: ["<br>1<br> not agree at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> agree completely"], required: true},  
       {prompt: "Currently, I have a strong need for direct (i.e. face-to-face) social contact.<br>",
-      name: 'item_8', labels: ["<br>1<br> not agree at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> agree completely"], required: true},   
+      name: 'item_8', labels: ["<br>1<br> Not at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> agree completely"], required: true},   
       {prompt: "I am very afraid of becoming infected with the coronavirus.<br>",
       name: 'item_9', labels: ["<br>1<br> not agree at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> agree completely"], required: true},                                                             
       ],
@@ -1061,9 +1047,9 @@ var items_contact_restr_2 = {
     timeline: [{
     type: 'survey-likert',
     questions: [
-      {prompt: "Given your current circumstances, how high do you judge the risk of becoming infected with the coronavirus?<br>",
+      {prompt: "Given your current circumstances, how high do you judge the risk of contracting the virus?<br>",
       name: 'item_13', labels: ["<br>1<br> no risk at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> very high risk"], required: true},      
-      {prompt: "Given your preconditions (health status, age), how high do you judge the risk of developing a severe coronavirus disease, in case of becoming infected with the coronavirus?<br>",
+      {prompt: "Given your preconditions (health status, age), how high do you judge the risk of developing a severe coronavirus disease, in case of contracting the virus?<br>",
       name: 'item_14', labels: ["<br>1<br> no risk at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> Nvery high risk"], required: true},                                                                       
       ],
       preamble: "<br><b>For each of the following items, please indicate the degree of risk you estimate.</b><br><br>",
@@ -1180,7 +1166,6 @@ var items_contact_restr_2 = {
     button_label: "OK"
   }
 
-/*
   var extra_information_5 = {
     type: 'survey-multi-select',
     questions: [{prompt: "Please select your area of studies or profession (multiple responses possible):",
@@ -1194,7 +1179,6 @@ var items_contact_restr_2 = {
                  required: true, horizontal: false}],
     button_label: "OK"
   }
-*/
 
   var extra_information_6 = {
     timeline: [{
@@ -1239,24 +1223,23 @@ var items_contact_restr_2 = {
   }
 
   var extra_information_8 = {
-    type: 'survey-multi-choice',
-    questions: [{prompt: "Are you interested in receiving an individual feedback of your <br>responses in comparison to the average responses?", options: ["&nbspyes", "&nbspno"], required: true, horizontal: true}],
+    type: 'survey-text',
+    questions: [{prompt: "Do you have any remarks about this study? [Optional]"}],
     button_label: "OK"
   }
 
   var extra_information_9 = {
     type: 'survey-text',
-    questions: [{prompt: "Email:"}],
-    preamble: "<br><b>The study is complete. Thank you very much for your participation! <br>" + 
-    "Please help us invite as many people as possible to participate in this study <br>by sharing the link on social media or emailing it to your friends. Thank you!</b> <br><br>If you are interested in receiving invitations to future studies of the SCC-project or receiving <br> more information about the SCC-project, please enter your email-address in the field below. <br>Your email-address will be stored separately from your responses in the study. <br>It is not possible to connect your email-address with any of your responses. <br><br> If you are not interested, please continue.<br><br>",
-    button_label: "Continue"
+    questions: [{prompt: "If you are interested in an individual analysis of your responses in comparison to the <br>average responses of all previous participants, please indicate your email address below [Optional]"}],
+    button_label: "OK"
   }
 
   // end insctruction ---------------------------------------------------------------------
+
   var ending = {
     type: "html-keyboard-response",
     stimulus:
-      "<p class='instructions'>Now, let us explain the goal of our research.<p>" +
+      "<p class='instructions'>You are now finished with this study. Thank you for your contribution!<p>" +
       "<p class='instructions'>In this study, we were interested in the measure of " +
       "approach and avoidance tendencies. Specifically, we aim at testing whether the coronavirus lock down " +
       "influences people's tendencies to approach other persons (comparatively to plants). Indeed, one could expect that habituation to avoid others " +
@@ -1264,10 +1247,12 @@ var items_contact_restr_2 = {
       "approach others because they feel lonely. </p>" +
       "<p class='instructions'>For more information to this topic, please email " +
       "scc-project@ur.de</p>" +
-      "<p class='instructions'><b>Please help us invite as many people as possible to participate in this study by sharing the link on social media or emailing it to your friends. Thank you!</b></p>" +
+      "<p class='instructions'><b>Also, it is very important for us to have as many respondent as possible. " +
+      "Therefore, if you can, SHARE THIS STUDY to at least 3 other persons. This would be a great help!</b></p>" +
       "<p class = 'continue-instructions'>Press <strong>space</strong> to continue.</p>",
     choices: [32]
   };
+
 // procedure ----------------------------------------------------------------------------
 // Initialize timeline ------------------------------------------------------------------
 
@@ -1280,20 +1265,20 @@ timeline.push(
   fullscreen_trial,
   hiding_cursor,
   vaast_instructions_1,
-  vaast_instructions_2,
+  //vaast_instructions_2,
   vaast_instructions_4,
-  //vaast_training_block_1,
-  //vaast_test_block_1,
+  vaast_training_block_1,
+  vaast_test_block_1,
   feedback,
   vaast_instructions_5,
-  //vaast_training_block_2,
-  //vaast_test_block_2,
+  vaast_training_block_2,
+  vaast_test_block_2,
   feedback,
   vaast_instructions_6,
-  //vaast_test_block_3,
+  vaast_test_block_3,
   feedback,
   vaast_instructions_7,
-  //vaast_test_block_4,
+  vaast_test_block_4,
   feedback,
   showing_cursor,
   extra_information,
@@ -1309,13 +1294,12 @@ timeline.push(
   extra_information_2,
   extra_information_3,
   extra_information_4,
-  //extra_information_5,
+  extra_information_5,
   extra_information_6,
   extra_information_7,
   extra_information_8,
-  save_extra,
   extra_information_9,
-  save_email,
+  save_extra,
   ending
 );
 
