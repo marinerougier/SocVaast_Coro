@@ -510,10 +510,10 @@ var welcome = {
         "<p class='instructions'>Completion of the study will take approximately xx minutes. </p>" +
         "<p class='instructions'>By clicking below to start the study, you recognize that:</p>" +
         "<ul class='instructions'>" +
-            "<li>You are at least 18 years old </li>" +
+            "<li>You are at least 18 years old. </li>" +
             "<li>You know you can stop your participation at any time </li>" +
             "<li>You know you can contact our team for any questions or dissatisfaction " +
-            "at<br> scc-project@ur.de. The principle investigator is PD Dr. Regina Reichardt.</li>" +
+            "at scc-project@ur.de. The principle investigator is PD Dr. Regina Reichardt.</li>" +
             "<li>You know that you participate anonymously. We do not record any data that allows to personally identify you. We do not record your IP address.</li>" +
             "<li>You know that the anonymous data collected will be shared with researchers via the Open Science Framework.</li>" +
         "</ul>" ,
@@ -949,9 +949,9 @@ var fullscreen_trial_exit = {
       {prompt: "The political administration has currently mandated policies in my region that restrict direct (i.e., face-to-face) social contact (i.e., social distancing policies).<br>",
       name: 'item_1', labels: ["<br>1<br> no restrictions at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> extreme restrictions"], required: true},  
       {prompt: "Currently, the amount of my direct (i.e., face-to-face) social contact is restricted due to the social distancing policies in my region.<br>",
-      name: 'item_2', labels: ["<br>There are no social distancing policies in effect", "<br>1<br> not at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> extremely"], required: true},  
+      name: 'item_2', labels: ["<br>No social distancing policies", "<br>1<br> not at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> extremely"], required: true},  
       {prompt: "I believe that the current social distancing policies in my region are...<br>",
-      name: 'item_3', labels: ["<br>There are no social distancing policies in effect", "<br>-3<br> too loose", "<br>-2", "<br>-1", "<br>0 appropriate", "<br>1", "<br>2", "<br>3<br> too harsh"], required: true},                                                                                     
+      name: 'item_3', labels: ["<br>No social distancing policies", "<br>-3<br> too loose", "<br>-2", "<br>-1", "<br>0 appropriate", "<br>1", "<br>2", "<br>3<br> too harsh"], required: true},                                                                                     
       ],
       preamble: "<br><b>For each of the following items, please indicate what applies to your situation, <br>using the respective scale provided for each item.</b><br><br>",
       button_label: "OK",
@@ -1240,7 +1240,8 @@ var items_contact_restr_2 = {
 
   var extra_information_8 = {
     type: 'survey-multi-choice',
-    questions: [{prompt: "Are you interested in receiving an individual feedback of your <br>responses in comparison to the average responses?", options: ["&nbspyes", "&nbspno"], required: true, horizontal: true}],
+    questions: [{prompt: "Are you interested in receiving an individual feedback of your <br>responses in comparison to the average responses?", 
+    options: ["&nbspyes", "&nbspno"], required: true, horizontal: false}],
     button_label: "OK"
   }
 
@@ -1356,7 +1357,7 @@ if(is_compatible) {
         jsPsych.data.addProperties({
         vaast_first_block: vaast_first_block,
         });
-        window.location.href = "https://docs.google.com/forms/d/1EJoW6ByakXRQC0uu6Wl5wRK9UYviOK1Yx-btPJGC1pU/edit";
+        window.location.href = "https://www.google.com/";
     }
   });
 }
