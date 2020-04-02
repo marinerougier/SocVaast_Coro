@@ -202,16 +202,20 @@ var FeedbackNumberOfWrongResponses = undefined;
 var FeedbackNumberOfCorrectResponses = undefined;
 
 function updateFeedback(numberOfTrials) {
+  // set numberOfTrials to negative values to get feedback over all trials
   // Update the global Feedback variables - call this function after every trial
   var responses = jsPsych.data.get().filter([{'key_press': 38}, {'key_press': 40}]);
   // due to the experiment setup, on_finish is also called when no key presses have happend yet.
   // naturally, we need to ignore these cases
-  if (responses.values().length < numberOfTrials) {
+  if (responses.values().length < numberOfTrials && numberOfTrials > 0) {
     return
   }
-  FeedbackMeanReactionTime = responses.last(numberOfTrials).select('rt').mean();
-  FeedbackNumberOfWrongResponses = responses.last(numberOfTrials).filter({'correct': false}).count();
-  FeedbackNumberOfCorrectResponses = responses.last(numberOfTrials).filter({'correct': true}).count();
+  if (numberOfTrials > 0) {
+    respones = responses.last(numberOfTrials);
+  }
+  FeedbackMeanReactionTime = responses.select('rt').mean();
+  FeedbackNumberOfWrongResponses = responses.filter({'correct': false}).count();
+  FeedbackNumberOfCorrectResponses = responses.filter({'correct': true}).count();
 }
 
 switch(vaast_first_block) {
@@ -942,174 +946,35 @@ var fullscreen_trial_exit = {
     choices: [32]
   };
 
-  var items_contact_restr_1 = {
+const questions = englishQuestions;
+
+survey_slider_questions = function(items, preamble) {
+  return {
     timeline: [{
-    type: 'survey-likert',
-    questions: [
-      {prompt: "The political administration has currently mandated policies in my region that restrict direct (i.e., face-to-face) social contact (i.e., social distancing policies).<br>",
-      name: 'item_1', labels: ["<br>1<br> no restrictions at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> extreme restrictions"], required: true},  
-      {prompt: "Currently, the amount of my direct (i.e., face-to-face) social contact is restricted due to the social distancing policies in my region.<br>",
-      name: 'item_2', labels: ["<br>No social distancing policies", "<br>1<br> not at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> extremely"], required: true},  
-      {prompt: "I believe that the current social distancing policies in my region are...<br>",
-      name: 'item_3', labels: ["<br>No social distancing policies", "<br>-3<br> too loose", "<br>-2", "<br>-1", "<br>0 appropriate", "<br>1", "<br>2", "<br>3<br> too harsh"], required: true},                                                                                     
-      ],
-      preamble: "<br><b>For each of the following items, please indicate what applies to your situation, <br>using the respective scale provided for each item.</b><br><br>",
+      type: 'survey-likert',
+      questions: _.map(
+        _.pick(questions, items),
+        function(question, item_name) {return Object.assign(question, {'name': item_name});}
+      ),
+      preamble: preamble,
       button_label: "OK",
-      }],
-
+    }],
     on_load: function () {
           $(".jspsych-survey-likert-statement").css("font-size", "17px");
           $("#jspsych-survey-likert-form").css("width", "800px");
           $("li").css("width", "9%");
         },
     on_finish: function(data) {
-      jsPsych.data.addProperties({
-        item_1: JSON.parse(data.responses)["Q0"],
-        item_2: JSON.parse(data.responses)["Q1"],
-        item_3: JSON.parse(data.responses)["Q2"],
-      });
+      var named_responses = {}
+      for (var i = 0; i < items.length; i++) {
+        var item_name = items[i];
+        named_responses[item_name] = JSON.parse(data.responses)["Q" + i];
+      }
+      console.log(named_responses);
+      jsPsych.data.addProperties(named_responses);
     }
-  };
-
-
-var items_contact_restr_2 = {
-    timeline: [{
-    type: 'survey-likert',
-    questions: [                                                                                    
-      {prompt: "I currently keep distance from other people in the public space.<br>",
-      name: 'item_4', labels: ["<br>1<br> not at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> completely"], required: true}, 
-      {prompt: "How much direct (i.e., face-to-face) social contact do you currently have?<br>",
-      name: 'item_5', labels: ["<br>1<br> very little", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> a lot"], required: true},     
-      {prompt: "How much social contact do you currently have through phone / video calls, social media, or mail / email?<br>",
-      name: 'item_6', labels: ["<br>1<br> very little", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> a lot"], required: true},      
-      ],
-      preamble: "<br><b>For each of the following items, please indicate what applies to your situation, <br>using the respective scale provided for each item.</b><br><br>",
-      button_label: "OK"
-      }],
-    on_load: function () {
-          $(".jspsych-survey-likert-statement").css("font-size", "17px");
-          $("#jspsych-survey-likert-form").css("width", "800px");
-          $("li").css("width", "9%");
-        },
-    on_finish: function(data) {
-      jsPsych.data.addProperties({
-        item_4: JSON.parse(data.responses)["Q0"],
-        item_5: JSON.parse(data.responses)["Q1"],
-        item_6: JSON.parse(data.responses)["Q2"],
-      });
-    }
-  };
-
-  var items_emotions_1 = {
-    timeline: [{
-    type: 'survey-likert',
-    questions: [
-      {prompt: "Currently, I feel very lonely.<br>",
-      name: 'item_7', labels: ["<br>1<br> not agree at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> agree completely"], required: true},  
-      {prompt: "Currently, I have a strong need for direct (i.e. face-to-face) social contact.<br>",
-      name: 'item_8', labels: ["<br>1<br> not agree at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> agree completely"], required: true},   
-      {prompt: "I am very afraid of becoming infected with the coronavirus.<br>",
-      name: 'item_9', labels: ["<br>1<br> not agree at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> agree completely"], required: true},                                                             
-      ],
-      preamble: "<br><b>For each of the following items, please indicate the degree to which you agree.</b><br><br>",
-      button_label: "OK"
-      }],
-     on_load: function () {
-            $(".jspsych-survey-likert-statement").css("font-size", "17px");
-            $("#jspsych-survey-likert-form").css("width", "800px");
-            $("li").css("width", "9%");
-          },
-      on_finish: function(data) {
-        jsPsych.data.addProperties({
-          item_7: JSON.parse(data.responses)["Q0"],
-          item_8: JSON.parse(data.responses)["Q1"],
-          item_9: JSON.parse(data.responses)["Q2"],
-        });
-      }
-    };
-
-  var items_emotions_2 = {
-    timeline: [{
-    type: 'survey-likert',
-    questions: [ 
-      {prompt: "I am very afraid that my loved ones become infected with the coronavirus.<br>",
-      name: 'item_10', labels: ["<br>1<br> not agree at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> agree completely"], required: true},          
-      {prompt: " I am very afraid that I might pose a danger to other people because I could be infected without knowing.<br>",
-      name: 'item_11', labels: ["<br>1<br> not agree at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> agree completely"], required: true},  
-      {prompt: "I am very afraid that the coronavirus pandemic will overburden the health system of my country.<br>",
-      name: 'item_12', labels: ["<br>1<br> not agree at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> agree completely"], required: true},                                                                              
-      ],
-      preamble: "<br><b>For each of the following items, please indicate the degree to which you agree.</b><br><br>",
-      button_label: "OK"
-      }],
-
-      on_load: function () {
-            $(".jspsych-survey-likert-statement").css("font-size", "17px");
-            $("#jspsych-survey-likert-form").css("width", "800px");
-            $("li").css("width", "9%");
-          },
-      on_finish: function(data) {
-        jsPsych.data.addProperties({
-          item_10: JSON.parse(data.responses)["Q0"],
-          item_11: JSON.parse(data.responses)["Q1"],
-          item_12: JSON.parse(data.responses)["Q2"],
-        });
-      }
-    };
-
-  var items_emotions_3 = {
-    timeline: [{
-    type: 'survey-likert',
-    questions: [
-      {prompt: "Given your current circumstances, how high do you judge the risk of becoming infected with the coronavirus?<br>",
-      name: 'item_13', labels: ["<br>1<br> no risk at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> very high risk"], required: true},      
-      {prompt: "Given your preconditions (health status, age), how high do you judge the risk of developing a severe coronavirus disease, in case of becoming infected with the coronavirus?<br>",
-      name: 'item_14', labels: ["<br>1<br> no risk at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> Nvery high risk"], required: true},                                                                       
-      ],
-      preamble: "<br><b>For each of the following items, please indicate the degree of risk you estimate.</b><br><br>",
-      button_label: "OK"
-      }],
-      on_load: function () {
-            $(".jspsych-survey-likert-statement").css("font-size", "17px");
-            $("#jspsych-survey-likert-form").css("width", "800px");
-            $("li").css("width", "9%");
-          },
-      on_finish: function(data) {
-        jsPsych.data.addProperties({
-          item_13: JSON.parse(data.responses)["Q0"],
-          item_14: JSON.parse(data.responses)["Q1"],
-        });
-      }
-    };
-
-  var items_need_contact = {
-    timeline: [{
-    type: 'survey-likert',
-    questions: [
-      {prompt: "Typically, I have a lot of direct (face-to-face) social contact.<br>",
-      name: 'item_15', labels: ["<br>1<br> not agree at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> agree completely"], required: true},   
-      {prompt: "Typically, I have a strong need for social contact.<br>",
-      name: 'item_16', labels: ["<br>1<br> not agree at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> agree completely"], required: true},  
-      {prompt: "Typically, I like being alone.<br>",
-      name: 'item_17', labels: ["<br>1<br> not agree at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> agree completely"], required: true},
-      ],
-      preamble: "<br><b>For each of the following statements, please indicate what typically applies to you, <br>independent of the current situation. </b><br><br>",
-      button_label: "OK"
-      }],
-      on_load: function () {
-            $(".jspsych-survey-likert-statement").css("font-size", "17px");
-            $("#jspsych-survey-likert-form").css("width", "800px");
-            $("li").css("width", "9%");
-          },
-      on_finish: function(data) {
-        jsPsych.data.addProperties({
-          item_15: JSON.parse(data.responses)["Q0"],
-          item_16: JSON.parse(data.responses)["Q1"],
-          item_17: JSON.parse(data.responses)["Q2"],
-        });
-      }
-    };
-
+  }
+};
 
   var extra_information_1 = {
     timeline: [{
@@ -1269,6 +1134,65 @@ var items_contact_restr_2 = {
       "<p class = 'continue-instructions'>Press <strong>space</strong> to continue.</p>",
     choices: [32]
   };
+
+function questionnaire_feedback(feedback_order) {
+  return {
+    type: "html-keyboard-response",
+    on_load: function() {
+      updateFeedback(-1);
+      document.getElementById('FeedbackMeanReactionTime').innerHTML = FeedbackMeanReactionTime;
+      document.getElementById('FeedbackNumberOfCorrectRespones').innerHTML = FeedbackNumberOfCorrectResponses;
+      document.getElementById('FeedbackNumberOfTotalRespones').innerHTML = FeedbackNumberOfCorrectResponses + FeedbackNumberOfWrongResponses;
+  
+      var html = "";
+      // inject the css copied from the survey-likert library
+      html += '<style id="jspsych-survey-likert-css">';
+      html += ".jspsych-survey-likert-statement { display:block; font-size: 16px; padding-top: 40px; margin-bottom:10px; }"+
+        ".jspsych-survey-likert-opts { list-style:none; width:100%; margin:0; padding:0 0 35px; display:block; font-size: 14px; line-height:1.1em; }"+
+        ".jspsych-survey-likert-opt-label { line-height: 1.1em; color: #444; }"+
+        ".jspsych-survey-likert-opts:before { content: ''; position:relative; top:11px; /*left:9.5%;*/ display:block; background-color:#efefef; height:4px; width:100%; }"+
+        ".jspsych-survey-likert-opts:last-of-type { border-bottom: 0; }"+
+        ".jspsych-survey-likert-opts li { display:inline-block; /*width:19%;*/ text-align:center; vertical-align: top; }"+
+        ".jspsych-survey-likert-opts li input[type=radio] { display:block; position:relative; top:0; left:50%; margin-left:-6px; }"
+      html += '</style>';
+
+      for (var i=1; i <= feedback_order.length; i+=1) {
+        var item = feedback_order[i - 1]
+        var question = questions[item];
+        //var scale_min_label = question.labels[0].split('<br>');
+        //document.getElementById('prompt_' + i).innerHTML = question.prompt;
+        //document.getElementById('response_' + i).innerHTML = jsPsych.data.get().select('item_' + i).values[0];
+        var answer_given = jsPsych.data.get().select(item).values[0];
+        // add question
+        html += '<label class="jspsych-survey-likert-statement">' + question.prompt + '</label>';
+        // add options
+        var width = 100 / question.labels.length;
+        var options_string = '<ul class="jspsych-survey-likert-opts" data-radio-group="Q' + i + '">';
+        for (var j = 0; j < question.labels.length; j++) {
+          options_string += '<li style="width:' + width + '%"><input type="radio" disabled ';
+          if (answer_given == j) {
+            options_string += 'checked="true"';
+          }
+          options_string += '><label class="jspsych-survey-likert-opt-label">' + question.labels[j] + '</label></li>';
+        }
+        options_string += '</ul>';
+        html += options_string;
+      }
+      document.getElementById('RESPONSES').innerHTML = html;
+    },
+    stimulus:
+      "<p class='instructions'><center>Thank You! Here is a summary of your responses.</center><p>" +
+      "<div class='instructions' id=REACTIONS>" +
+      "Your average Reaction Time has been: <b><span id='FeedbackMeanReactionTime'></span> milli seconds</b><br>" +
+      "You reacted <b><span id='FeedbackNumberOfCorrectRespones'></span> of " +
+      "<span id='FeedbackNumberOfTotalRespones'></span> times correctly.</b>" +
+      "</div>" +
+      "<div class='instructions' id='RESPONSES'></div>" +
+      "<p class = 'continue-instructions'>Press <strong>space</strong> to continue.</p>",
+    choices: [32]
+  }
+}
+
 // procedure ----------------------------------------------------------------------------
 // Initialize timeline ------------------------------------------------------------------
 
@@ -1280,6 +1204,7 @@ timeline.push(
   welcome,
   fullscreen_trial,
   hiding_cursor,
+  
   vaast_instructions_1,
   vaast_instructions_2,
   vaast_instructions_4,
@@ -1296,16 +1221,18 @@ timeline.push(
   vaast_instructions_7,
   //vaast_test_block_4,
   feedback,
+  
   showing_cursor,
   extra_information,
-  items_contact_restr_1,
-  items_contact_restr_2,
-  items_emotions_1,
-  items_emotions_2,
-  items_emotions_3,
-  items_need_contact,
+  survey_slider_questions(['item_1', 'item_2', 'item_3'], questions.preamble_situation), // items_contrat_restr_2
+  survey_slider_questions(['item_4', 'item_5', 'item_6'], questions.preamble_situation), // items_contrat_restr_2
+  survey_slider_questions(['item_7', 'item_8', 'item_9'], questions.preamble_agreement), // items_emotions_1
+  survey_slider_questions(['item_10', 'item_11', 'item_12'], questions.preamble_agreement), // items_emotions_2,
+  survey_slider_questions(['item_13', 'item_14'], questions.preamble_risk), // items_emotions_3
+  survey_slider_questions(['item_15', 'item_16', 'item_17'], questions.preamble_typical_situation), // items_need_contact
   save_questions,
   fullscreen_trial_exit,
+  
   extra_information_1,
   extra_information_2,
   extra_information_3,
@@ -1316,6 +1243,11 @@ timeline.push(
   extra_information_8,
   save_extra,
   extra_information_9,
+  
+  questionnaire_feedback([
+    "item_1", "item_2", "item_3", "item_4", "item_5", "item_6", "item_7", "item_8", "item_9",
+    "item_10", "item_11", "item_12", "item_13", "item_14", "item_15", "item_16", "item_17"]
+  ),
   save_email,
   ending
 );
