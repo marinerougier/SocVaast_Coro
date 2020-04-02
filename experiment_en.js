@@ -495,7 +495,7 @@ var welcome = {
             "<li>You are at least 18 years old </li>" +
             "<li>You know you can stop your participation at any time </li>" +
             "<li>You know you can contact our team for any questions or dissatisfaction related to your " +
-            "participation: regina.reichardt@psychologie.uni-regensburg.de.</li>" +
+            "participation:<br> regina.reichardt@psychologie.uni-regensburg.de.</li>" +
             "<li>You know that the data collected will be strictly confidential and will only be accessible to researchers.</li>" +
             "<li>You know that we do not record any data that allows to personally identify you. We do not record your IP address.</li>" +
         "</ul>" ,
@@ -819,7 +819,7 @@ var vaast_test_block_1 = {
     vaast_second_step_training_1,
     save_vaast_trial
   ],
-  //timeline_variables: sample_n(vaast_stim, 2),
+  timeline_variables: vaast_stim,
   repetitions: NUMBEROFREPETITIONS_TEST_BLOCK_1,
   randomize_order: true,
   data: {
@@ -862,7 +862,7 @@ var vaast_test_block_2 = {
     vaast_second_step_training_2,
     save_vaast_trial
   ],
-  //timeline_variables: sample_n(vaast_stim, 2),
+  timeline_variables: vaast_stim,
   repetitions: NUMBEROFREPETITIONS_TEST_BLOCK_2,
   randomize_order: true,
   data: {
@@ -883,7 +883,7 @@ var vaast_test_block_3 = {
     vaast_second_step_training_3,
     save_vaast_trial
   ],
-  //timeline_variables: sample_n(vaast_stim, 2),
+  timeline_variables: vaast_stim,
   repetitions: NUMBEROFREPETITIONS_TEST_BLOCK_3,
   randomize_order: true,
   data: {
@@ -905,7 +905,7 @@ var vaast_test_block_4 = {
     vaast_second_step_training_4,
     save_vaast_trial
   ],
-  //timeline_variables: sample_n(vaast_stim, 2),
+  timeline_variables: vaast_stim,
   repetitions: NUMBEROFREPETITIONS_TEST_BLOCK_4,
   randomize_order: true,
   data: {
