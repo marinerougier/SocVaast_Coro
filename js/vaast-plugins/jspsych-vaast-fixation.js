@@ -38,7 +38,7 @@
       max_duration: {
         type: jsPsych.plugins.parameterType.INTEGER,
         pretty_name: 'Maximal duration',
-        default: 1700, // normally, 2000
+        default: 1000, // normally, 2000
         description: 'Maximal duration (in ms).'
       },
       position: {

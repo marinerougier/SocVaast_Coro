@@ -454,18 +454,7 @@ var next_position_training = function(){
      .set({jspsych_id: jspsych_id,
          timestamp: firebase.database.ServerValue.TIMESTAMP,
           vaast_first_block: vaast_first_block,
-         extra_data: jsPsych.data.get().last(9).json(),
-        })
-  }
-
-  var saving_email = function() {
-    database
-     .ref("email_en/")
-     .push()
-     .set({jspsych_id: jspsych_id,
-         timestamp: firebase.database.ServerValue.TIMESTAMP,
-          vaast_first_block: vaast_first_block,
-         email_data: jsPsych.data.get().last(1).json(),
+         extra_data: jsPsych.data.get().last(8).json(),
         })
   }
 
@@ -490,12 +479,6 @@ var save_extra = {
     func: saving_extra
 }
 
-var save_email = {
-    type: 'call-function',
-    func: saving_extra
-}
-
-
 // EXPERIMENT ---------------------------------------------------------------------------
 var welcome = {
     type: "html-button-response",
@@ -512,12 +495,12 @@ var welcome = {
         "Note that <b>you need a computer and a real (i.e., not a virtual) keyboard </b>to complete the task. </p>" +
         "<p class='instructions'>If you are interested, <b>you can receive an individual analysis of your responses </b>in relation to the average responses of previous participants.</p>" +
         "<p class='instructions'>Completion of the study will take approximately xx minutes. </p>" +
-        "<p class='instructions'>By clicking below to start the study, you recognize that:</p>" +
+        "<p class='instructions'>By clicking below to start the study, you confirm that:</p>" +
         "<ul class='instructions'>" +
             "<li>You are at least 18 years old. </li>" +
             "<li>You know you can stop your participation at any time </li>" +
             "<li>You know you can contact our team for any questions or dissatisfaction " +
-            "at scc-project@ur.de. The principle investigator is PD Dr. Regina Reichardt.</li>" +
+            "at scc-project@ur.de. </li>" + //The principle investigator is PD Dr. Regina Reichardt.
             "<li>You know that you participate anonymously. We do not record any data that allows to personally identify you. We do not record your IP address.</li>" +
             "<li>You know that the anonymous data collected will be shared with researchers via the Open Science Framework.</li>" +
         "</ul>" ,
@@ -539,7 +522,10 @@ var vaast_instructions_1 = {
   stimulus:
     "<h1 class ='custom-title'> Video Game task</h1>" +
     "<p class='instructions'>In this task, just like in a video game, you will find yourself within the corridor presented below.</p> " +
-   "<p class='instructions'> Drawings of items (representing persons or plants) will appear in the corridor. </p>" +
+    "<p class='instructions'>Please <b>imagine that all circumstances of your current life apply to the situation in the corridor.</b> " +
+    "Imagine walking down the corridor just like you may walk down a corridor these days in your real life. </p> " +
+   "<p class='instructions'> At the end of this corridor, <b>you will see people or plants standing around.</b> "+
+   "Imagine that these people and plants are real, just like people or plants you may be seeing standing around these days in your real life. </p>" +
     "<br>" +
     "<img src = 'media/vaast-background.png'>" +
     "<br>" +
@@ -671,7 +657,23 @@ var feedback = {
   choices: [32]
 };
 
-
+var feedback_lastblock = {
+  type: "html-keyboard-response",
+  on_load: function() {
+    document.getElementById('FeedbackMeanReactionTime').innerHTML = FeedbackMeanReactionTime;
+    document.getElementById('FeedbackNumberOfCorrectRespones').innerHTML = FeedbackNumberOfCorrectResponses;
+    document.getElementById('FeedbackNumberOfTotalRespones').innerHTML = FeedbackNumberOfCorrectResponses + FeedbackNumberOfWrongResponses;
+  },
+  stimulus:
+    "<p class='instructions'><center>Good job!<br><br>" + 
+    "Here is your average Reaction Time: <b><span id='FeedbackMeanReactionTime'></span> milli seconds</b><br>" +
+    "You reacted <b><span id='FeedbackNumberOfCorrectRespones'></span> of " +
+    "<span id='FeedbackNumberOfTotalRespones'></span> times correctly.</b>" +
+    "</p></center>" +
+    "<p class='instructions'><center>If you are interested, you will later be able to compare your performance rates<br> with the average performance of previous participants.<br><br>" + 
+    "<p class = 'continue-instructions'>Press <strong>space</strong> to continue</p>",
+  choices: [32]
+};
 
 // VAAST --------------------------------------------------------------------------------
 
@@ -979,41 +981,29 @@ survey_slider_questions = function(items, preamble) {
   var extra_information_1 = {
     timeline: [{
       type: 'survey-text',
-      questions: [{prompt: "What is your current country of residence?"}],
+      questions: [{prompt: "What is your current country of residence?", name: 'country', required: true},
+                  {prompt: "Please indicate the ZIP code of your current residence:", name: 'zip', required: true},
+                  {prompt: "What is your age?", name: 'age', required: true}],
       button_label: "OK",
     }],
-    loop_function: function(data) {
-      var extra_information_1 = data.values()[0].responses;
-      var extra_information_1 = JSON.parse(extra_information_1).Q0;
-      if (extra_information_1 == "") {
-        alert("Please indicate your country of residence!");
-        return true;
-      }
-    },
     on_finish: function(data) {
       jsPsych.data.addProperties({
-        extra_information_1: JSON.parse(data.responses)["Q0"],
+        country: JSON.parse(data.responses)["country"],
+        zip: JSON.parse(data.responses)["zip"],
+        age: JSON.parse(data.responses)["age"],
       });
     }
   }
 
   var extra_information_2 = {
     timeline: [{
-      type: 'survey-text',
-      questions: [{prompt: "Please indicate the ZIP code of your current residence:"}],
-      button_label: "OK",
+    type: 'survey-multi-choice',
+    questions: [{prompt: "What is your gender?", options: ["&nbspMale", "&nbspFemale", "&nbspOther"], required: true, horizontal: true}],
+    button_label: "OK"
     }],
-    loop_function: function(data) {
-      var extra_information_2 = data.values()[0].responses;
-      var extra_information_2 = JSON.parse(extra_information_2).Q0;
-      if (extra_information_2 == "") {
-        alert("Please indicate your ZIP code!");
-        return true;
-      }
-    },
-    on_finish: function(data) {
+      on_finish: function(data) {
       jsPsych.data.addProperties({
-        extra_information_2: JSON.parse(data.responses)["Q0"],
+        sex: JSON.parse(data.responses)["Q0"],
       });
     }
   }
@@ -1021,125 +1011,73 @@ survey_slider_questions = function(items, preamble) {
   var extra_information_3 = {
     timeline: [{
       type: 'survey-text',
-      questions: [{prompt: "What is your age?"}],
+      questions: [{prompt: "Besides yourself, how many family members or loved ones (except friends and flat mates) live in your household?<br> Please enter the correct numbers in the fields below. If you live alone, enter 0.", name: 'nb_family', required: true},
+                  {prompt: "Besides yourself, how many friends or flat mates (except family members and loved ones) live in your household?<br> Please enter the correct numbers in the fields below. If you live alone, enter 0.", name: 'nb_friends', required: true}],
       button_label: "OK",
     }],
-    loop_function: function(data) {
-      var extra_information_3 = data.values()[0].responses;
-      var extra_information_3 = JSON.parse(extra_information_3).Q0;
-      if (extra_information_3 == "") {
-        alert("Please enter you age!");
-        return true;
-      }
-    },
     on_finish: function(data) {
       jsPsych.data.addProperties({
-        extra_information_3: JSON.parse(data.responses)["Q0"],
+        nb_family: JSON.parse(data.responses)["nb_family"],
+        nb_friends: JSON.parse(data.responses)["nb_friends"],
       });
     }
   }
 
   var extra_information_4 = {
-    type: 'survey-multi-choice',
-    questions: [{prompt: "What is your gender?", options: ["&nbspMale", "&nbspFemale", "&nbspOther"], required: true, horizontal: true}],
-    button_label: "OK"
-  }
-
-/*
-  var extra_information_5 = {
-    type: 'survey-multi-select',
-    questions: [{prompt: "Please select your area of studies or profession (multiple responses possible):",
-                 options: ["&nbspArts and Entertainment", "&nbspMedia and Communication", 
-                           "&nbspBusiness, Law or Administration", "&nbspHealthcare and Medicine", 
-                           "&nbspEngineering and Technology", "&nbspHealthcare and Medicine", 
-                           "&nbspNatural Sciences, Mathematics, Computer Science", "&nbspLife Sciences or Social Sciences", 
-                           "&nbspScience: Humanities", "&nbspTeaching, Education, or Social Work",
-                           "&nbspService Industry", "&nbspIndustrial and Manufacturing",
-                           "&nbspAgriculture or fishery", "&nbspother"],
-                 required: true, horizontal: false}],
-    button_label: "OK"
-  }
-*/
-
-  var extra_information_6 = {
     timeline: [{
-      type: 'survey-text',
-      questions: [{prompt: "How many family members or loved ones (except friends and flat mates) live in your household?<br> Please enter the correct numbers in the fields below. If you live alone, enter 0."},],
-      button_label: "OK",
-    }],
-    loop_function: function(data) {
-      var extra_information_6 = data.values()[0].responses;
-      var extra_information_6 = JSON.parse(extra_information_6).Q0;
-      if (extra_information_6 == "") {
-        alert("Please indicate a response!");
-        return true;
-      }
-    },
-    on_finish: function(data) {
-      jsPsych.data.addProperties({
-        extra_information_6: JSON.parse(data.responses)["Q0"],
-      });
-    }
-  }
-  
-  var extra_information_7 = {
-    timeline: [{
-      type: 'survey-text',
-      questions: [{prompt: "How many friends or flat mates (except family members and loved ones) live in your household?<br> Please enter the correct numbers in the fields below. If you live alone, enter 0."}],
-      button_label: "OK",
-    }],
-    loop_function: function(data) {
-      var extra_information_7 = data.values()[0].responses;
-      var extra_information_7 = JSON.parse(extra_information_7).Q0;
-      if (extra_information_7 == "") {
-        alert("Please indicate a response!");
-        return true;
-      }
-    },
-    on_finish: function(data) {
-      jsPsych.data.addProperties({
-        extra_information_7: JSON.parse(data.responses)["Q0"],
-      });
-    }
-  }
-
-  var extra_information_8 = {
     type: 'survey-multi-choice',
     questions: [{prompt: "Do you have professional contact with corona patients (e.g. as nursing staff, physician, etc.)?", options: ["&nbspYes", "&nbspNo"], required: true, horizontal: false}],
-    button_label: "OK"
+    button_label: "OK",
+    }],
+      on_finish: function(data) {
+      jsPsych.data.addProperties({
+        occupation: JSON.parse(data.responses)["Q0"],
+      });
+    }
   }
 
-  var extra_information_9 = {
+  var extra_information_5 = {
+    timeline: [{
     type: 'survey-multi-choice',
     questions: [{prompt: "Are you interested in receiving an individual feedback of your <br>responses in comparison to the average responses?", 
     options: ["&nbspYes", "&nbspNo"], required: true, horizontal: false}],
     button_label: "OK"
+    }],
+      on_finish: function(data) {
+      jsPsych.data.addProperties({
+        feedback: JSON.parse(data.responses)["Q0"],
+      });
+    }
+  }
+  
+  var extra_information_6 = {
+    timeline: [{
+    type: 'survey-text',
+    questions: [{prompt: "Please describe your technical difficulties (if any):"}],
+    button_label: "Continue"
+    }],
+      on_finish: function(data) {
+      jsPsych.data.addProperties({
+        tech_diff: JSON.parse(data.responses)["Q0"],
+      });
+    }
   }
 
-  var extra_information_10 = {
+  var extra_information_7 = {
+    timeline: [{
     type: 'survey-text',
     questions: [{prompt: "Email:"}],
     preamble: "<br><b>The study is complete. Thank you very much for your participation! <br>" + 
-    "Please help us invite as many people as possible to participate in this study <br>by sharing the link on social media or emailing it to your friends. Thank you!</b> <br><br>If you are interested in receiving invitations to future studies of the SCC-project or receiving <br> more information about the SCC-project, please enter your email-address in the field below. <br>Your email-address will be stored separately from your responses in the study. <br>It is not possible to connect your email-address with any of your responses. <br><br> If you are not interested, please continue.<br><br>",
+    "Please help us invite as many people as possible to participate in this study <br>by sharing the link on social media or emailing it to your friends !!!!!PUT LINK HERE!!!!!. Thank you!</b> <br><br>If you are interested in receiving invitations to future studies of the SCC-project or receiving <br> more information about the SCC-project, please enter your email-address in the field below. <br>Your email-address will be stored separately from your responses in the study. <br>It is not possible to connect your email-address with any of your responses. <br><br> If you are not interested, please continue.<br><br>",
     button_label: "Continue"
+    }],
+      on_finish: function(data) {
+      jsPsych.data.addProperties({
+        email: JSON.parse(data.responses)["Q0"],
+      });
+    }
   }
 
-  // end insctruction ---------------------------------------------------------------------
-  var ending = {
-    type: "html-keyboard-response",
-    stimulus:
-      "<p class='instructions'>Now, let us explain the goal of our research.<p>" +
-      "<p class='instructions'>In this study, we were interested in the measure of " +
-      "approach and avoidance tendencies. Specifically, we aim at testing whether the coronavirus lock down " +
-      "influences people's tendencies to approach other persons (comparatively to plants). Indeed, one could expect that habituation to avoid others " +
-      "becomes automatized in our behavioral tendencies. On the contrary, people might become highly motivated to " +
-      "approach others because they feel lonely. </p>" +
-      "<p class='instructions'>For more information to this topic, please email " +
-      "scc-project@ur.de</p>" +
-      "<p class='instructions'><b>Please help us invite as many people as possible to participate in this study by sharing the link on social media or emailing it to your friends. Thank you!</b></p>" +
-      "<p class = 'continue-instructions'>Press <strong>space</strong> to continue.</p>",
-    choices: [32]
-  };
 
 function questionnaire_feedback(feedback_order) {
   return {
@@ -1210,7 +1148,6 @@ timeline.push(
   welcome,
   fullscreen_trial,
   hiding_cursor,
-  
   vaast_instructions_1,
   vaast_instructions_2,
   vaast_instructions_4,
@@ -1226,8 +1163,7 @@ timeline.push(
   feedback,
   vaast_instructions_7,
   vaast_test_block_4,
-  feedback,
-  
+  feedback_lastblock,
   showing_cursor,
   extra_information,
   survey_slider_questions(['item_1', 'item_2', 'item_3'], questions.preamble_situation), // items_contrat_restr_2
@@ -1238,25 +1174,18 @@ timeline.push(
   survey_slider_questions(['item_15', 'item_16', 'item_17'], questions.preamble_typical_situation), // items_need_contact
   save_questions,
   fullscreen_trial_exit,
-  
   extra_information_1,
   extra_information_2,
   extra_information_3,
   extra_information_4,
-  //extra_information_5,
+  extra_information_5,
   extra_information_6,
   extra_information_7,
-  extra_information_8,
-  extra_information_9,
   save_extra,
-  extra_information_10,
-  
   questionnaire_feedback([
     "item_1", "item_2", "item_3", "item_4", "item_5", "item_6", "item_7", "item_8", "item_9",
     "item_10", "item_11", "item_12", "item_13", "item_14", "item_15", "item_16", "item_17"]
   ),
-  save_email,
-  ending
 );
 
 // Launch experiment --------------------------------------------------------------------

@@ -133,26 +133,59 @@ dataset_extra <-
   ungroup() %>%
   distinct()
 
-# language info -------------------------------------------------------------
-dataset_language <-
+# Questions info -------------------------------------------------------------
+
+dataset_questions <-
   database %>%
-  pluck("language_info_corona_en") %>%
+  pluck("questions_info_corona_en") %>%
   map_dfr(~data_frame(epoch = .x$timestamp,
                       jspsych_id = .x$jspsych_id,
                       vaast_first_block = .x$vaast_first_block,
-                      temp_data = .x$language_data),
+                      temp_data = .x$questions_data),
           .id = "id") %>%
   mutate(timestamp = lubridate::as_datetime(epoch / 1000),
          temp_data = map(temp_data, ~ fromJSON(.x))) %>%
   unnest() %>%
   subset(jspsych_id != "999")%>%
-  #drop_na(responses) %>%
-  #mutate(temp_data = map(responses, ~ fromJSON(.x))) %>%
+  drop_na(responses) %>%
+  mutate(temp_data = map(responses, ~ fromJSON(.x))) %>%
   group_by(jspsych_id) %>%
-  mutate(language = button_pressed) %>%
-  select(jspsych_id, language) %>%
+  mutate(item_1 = item_1,
+         item_2 = item_2,
+         item_3 = item_3,
+         item_4 = item_4,
+         item_5 = item_5,
+         item_6 = item_6,
+         item_7 = item_7,
+         item_8 = item_8,
+         item_9 = item_9,
+         item_10 = item_10,
+         item_11 = item_11,
+         item_12 = item_12,
+         item_13 = item_13,
+         item_14 = item_14,
+         item_15 = item_15,
+         item_16 = item_16,
+         item_17 = item_17) %>%
+  select(jspsych_id, item_1, item_2, item_3, item_4, item_5, item_6, item_7, item_8, item_9, item_10, item_11, item_12, item_13, item_14, item_15, item_16, item_17) %>%
   rowwise() %>%
-  mutate(language = pluck(language, 1)) %>%
+  mutate(item_1 = pluck(item_1, 1),
+         item_2 = pluck(item_2, 1),
+         item_3 = pluck(item_2, 1),
+         item_4 = pluck(item_4, 1),
+         item_5 = pluck(item_5, 1),
+         item_6 = pluck(item_6, 1),
+         item_7 = pluck(item_7, 1),
+         item_8 = pluck(item_8, 1),
+         item_9 = pluck(item_9, 1),
+         item_10 = pluck(item_10, 1),
+         item_11 = pluck(item_11, 1),
+         item_12 = pluck(item_12, 1),
+         item_13 = pluck(item_13, 1),
+         item_14 = pluck(item_14, 1),
+         item_15 = pluck(item_15, 1),
+         item_16 = pluck(item_16, 1),
+         item_17 = pluck(item_17, 1)) %>%
   ungroup() %>%
   distinct()
 
@@ -162,6 +195,6 @@ save(dataset_vaast_trial, file = "data_VAAST/data_VAAST.RData")
 save(dataset_vaast_browser_event, file = "data_VAAST/data_vaast_browser.RData")
 save(dataset_vaast_connection, file = "data_VAAST/data_vaast_connection.RData")
 save(dataset_extra, file = "data_VAAST/data_extra.RData")
-save(dataset_language, file = "data_VAAST/data_language.RData")
+#save(dataset_questions, file = "data_VAAST/data_vaast_questions.RData")
 
 

@@ -183,14 +183,17 @@ var movement_human_1    = undefined;
 var movement_plant_1    = undefined;
 var group_to_approach_1 = undefined;
 var group_to_avoid_1    = undefined;
+
 var movement_human_2    = undefined;
 var movement_plant_2    = undefined;
 var group_to_approach_2 = undefined;
 var group_to_avoid_2    = undefined;
+
 var movement_human_3    = undefined;
 var movement_plant_3    = undefined;
 var group_to_approach_3 = undefined;
 var group_to_avoid_3    = undefined;
+
 var movement_human_4    = undefined;
 var movement_plant_4    = undefined;
 var group_to_approach_4 = undefined;
@@ -222,39 +225,23 @@ switch(vaast_first_block) {
   case "approach_human":
     movement_human_1    = "approach";
     movement_plant_1    = "avoidance";
-    group_to_approach_1 = "persons";
-    group_to_avoid_1    = "plants";
     movement_human_2    = "avoidance";
     movement_plant_2    = "approach";
-    group_to_approach_2 = "plants";
-    group_to_avoid_2    = "persons";
     movement_human_3    = "approach";
     movement_plant_3    = "avoidance";
-    group_to_approach_3 = "persons";
-    group_to_avoid_3    = "plants";
     movement_human_4    = "avoidance";
     movement_plant_4    = "approach";
-    group_to_approach_4 = "plants";
-    group_to_avoid_4    = "persons";
     break;
 
   case "approach_plant":
     movement_human_1    = "avoidance";
     movement_plant_1    = "approach";
-    group_to_approach_1 = "plants";
-    group_to_avoid_1    = "persons";
     movement_human_2    = "approach";
     movement_plant_2    = "avoidance";
-    group_to_approach_2 = "persons";
-    group_to_avoid_2    = "plants";
     movement_human_3    = "avoidance";
     movement_plant_3    = "approach";
-    group_to_approach_3 = "plants";
-    group_to_avoid_3    = "persons";
     movement_human_4    = "approach";
     movement_plant_4    = "avoidance";
-    group_to_approach_4 = "persons";
-    group_to_avoid_4    = "plants";
     break;
 }
 
@@ -454,21 +441,20 @@ var next_position_training = function(){
      .set({jspsych_id: jspsych_id,
          timestamp: firebase.database.ServerValue.TIMESTAMP,
           vaast_first_block: vaast_first_block,
-         extra_data: jsPsych.data.get().last(6).json(),
+         extra_data: jsPsych.data.get().last(8).json(),
         })
   }
 
-  var saving_email = function() {
+  var saving_language = function() {
     database
-     .ref("email_en/")
+     .ref("language_info_corona_en/")
      .push()
      .set({jspsych_id: jspsych_id,
          timestamp: firebase.database.ServerValue.TIMESTAMP,
           vaast_first_block: vaast_first_block,
-         email_data: jsPsych.data.get().last(2).json(),
+         language_data: jsPsych.data.get().last(1).json(),
         })
   }
-
 // saving blocks ------------------------------------------------------------------------
 var save_id = {
     type: 'call-function',
@@ -490,188 +476,48 @@ var save_extra = {
     func: saving_extra
 }
 
-var save_email = {
+var save_language = {
     type: 'call-function',
-    func: saving_extra
+    func: saving_language
+}
+// EXPERIMENT ---------------------------------------------------------------------------
+const LANGUAGECHOICES = ['English', 'Français'];
+
+// english as default
+var instructions = englishInstructions;
+var questions = englishInstructions;
+var demo = englishDemo;
+
+function set_language(language) {
+  console.log(language + ' selected');
+  // french
+  switch (language) {
+    case LANGUAGECHOICES[1]:  
+      instructions = frenchInstructions;
+      questions = frenchQuestions;
+      demo = frenchDemo;
+      break;
+    default:
+      instructions = englishInstructions;
+      questions = englishQuestions;
+      demo = englishDemo;
+  }
+  // update the description variables with the right names
+  // this is not pretty, but works - I'd much rather put the entire experiment setup in an object
+  for (var i=1; i <= 4; i += 1) {
+    window['group_to_approach_' + i] = window['movement_human_' + i] == 'approach' ? instructions.persons : instructions.plants;
+    window['group_to_avoid_' + i] = window['movement_human_' + i] == 'approach' ? instructions.plants : instructions.persons;
+  }
 }
 
-
-// EXPERIMENT ---------------------------------------------------------------------------
-var welcome = {
-    type: "html-button-response",
-    stimulus:
-        "<p class='instructions'><center>" +
-        "<img src = 'media/UHH.png'>" +
-        "<img src = 'media/UCL.jpg'>" +
-        "<img src = 'media/UR.png'>" +
-        "<br><b>SCC-Project (Social Contact during the Corona Pandemic)</b>" + 
-        "</center></p>" +
-        "<p class='instructions'>Thank you for taking part in this study: <b>You make a valuable contribution to scientific research on social " +
-        "consequences of the corona pandemic. </b></p>" +
-        "<p class='instructions'>During this study, you will complete a simple video game task and answer some questions regarding your behavior and feelings. "+
-        "Note that <b>you need a computer and a real (i.e., not a virtual) keyboard </b>to complete the task. </p>" +
-        "<p class='instructions'>If you are interested, <b>you can receive an individual analysis of your responses </b>in relation to the average responses of previous participants.</p>" +
-        "<p class='instructions'>Completion of the study will take approximately xx minutes. </p>" +
-        "<p class='instructions'>By clicking below to start the study, you confirm that:</p>" +
-        "<ul class='instructions'>" +
-            "<li>You are at least 18 years old. </li>" +
-            "<li>You know you can stop your participation at any time </li>" +
-            "<li>You know you can contact our team for any questions or dissatisfaction " +
-            "at scc-project@ur.de. The principle investigator is PD Dr. Regina Reichardt.</li>" +
-            "<li>You know that you participate anonymously. We do not record any data that allows to personally identify you. We do not record your IP address.</li>" +
-            "<li>You know that the anonymous data collected will be shared with researchers via the Open Science Framework.</li>" +
-        "</ul>" ,
-    choices: ['I confirm that I give my free and informed consent to participate']
-};
-
-var fullscreen_trial = {
-    type: 'fullscreen',
-    message:  '<p><b>Before you start...</b></p>' + 
-          '<li>Minimize any potential distractor (close other computer programs, silence your cell phone, etc.). </li>'+
-          '<li>Disable your ad-blocking software, which may interfere with data collection. <br><br></li>'+
-          '<p>To take part in this study, your browser needs to be set to fullscreen.<br></p>',
-    button_label: 'Switch to fullscreen',
-    fullscreen_mode: true
+var languageSelection = {
+  type: "html-button-response",
+  stimulus: "<p class='instructions'><center>Please choose a language:</p></center>",
+  choices: LANGUAGECHOICES,
+  on_finish: function(data) {
+    set_language(LANGUAGECHOICES[parseInt(data.button_pressed)]);
   }
-
-var vaast_instructions_1 = {
-  type: "html-keyboard-response",
-  stimulus:
-    "<h1 class ='custom-title'> Video Game task</h1>" +
-    "<p class='instructions'>In this task, just like in a video game, you will find yourself within the corridor presented below.</p> " +
-   "<p class='instructions'> Drawings of items (representing persons or plants) will appear in the corridor. </p>" +
-    "<br>" +
-    "<img src = 'media/vaast-background.png'>" +
-    "<br>" +
-    "<br>" +
-    "<p class = 'continue-instructions'>Press <strong>space</strong> to" +
-    " continue.</p>",
-  choices: [32]
 };
-
-var vaast_instructions_2 = {
-    type: "html-keyboard-response",
-    stimulus:
-      "<h1 class ='custom-title'>Video Game task </h1>" +
-      "<p class='instructions'> Your task is to move toward or away from the items as a function of their category " +
-      "(more specific instructions following). To do so, use the upward and downward arrow keys on your keyboard: </p>" +
-      "<p class='instructions'><center>" +
-        "<img src = 'media/keyboard-vaastt_en.png'>" +
-      "</center></p>" +
-          "<br>" +
-      "<p class = 'continue-instructions'>Press <strong>space</strong> to continue.</p>",
-    choices: [32]
-};
-
-var vaast_instructions_4 = {
-  type: "html-keyboard-response",
-  on_load: function() {
-    document.getElementById('GROUPTOAPPROACH').innerHTML = group_to_approach_1;
-    document.getElementById('GROUPTOAVOID').innerHTML = group_to_avoid_1;
-  },
-  stimulus:
-    "<h1 class ='custom-title'> Video Game task - Section 1/4</h1>" +
-    "<p class='instructions'>In this section, you have to: " +
-    "<ul class='instructions'>" +
-    "<li><strong>Move toward <span id='GROUPTOAPPROACH'></span> by pressing the upward arrow key </strong></li>" +
-    "<strong>  </strong>" +
-    "<li><strong>Move away from <span id='GROUPTOAVOID'></span> by pressing the downward arrow key </strong></li>" +
-    "<strong> </strong>" +
-    "</ul>" +
-    "<strong> EXTREMELY IMPORTANT: respond as fast and as correctly as possible! <br><br></strong>" +
-    "<p class ='instructions'>If you make an error, a red x appears (correct you answer with the other key). Use the index finger of your preferred hand to respond. " +
-    "<br>" +
-    "<p class = 'continue-instructions'>Press <strong>space</strong> to" +
-    " continue.</p>",
-  choices: [32]
-};
-
-var vaast_instructions_5 = {
-  type: "html-keyboard-response",
-  on_load: function() {
-    document.getElementById('GROUPTOAPPROACH').innerHTML = group_to_approach_2;
-    document.getElementById('GROUPTOAVOID').innerHTML = group_to_avoid_2;
-  },
-  stimulus:
-    "<h1 class ='custom-title'> Video Game task - Section 2/4</h1>" +
-    "<p class='instructions'>Warning! Now the task instructions are reversed: " +
-    "<ul class='instructions'>" +
-    "<li><strong>Move toward <span id='GROUPTOAPPROACH'></span> by pressing the upward arrow key </strong></li>" +
-    "<strong>  </strong>" +
-    "<li><strong>Move away from <span id='GROUPTOAVOID'></span> by pressing the downward arrow key </strong></li>" +
-    "<strong> </strong>" +
-    "</ul>" +
-    "<strong> EXTREMELY IMPORTANT: respond as fast and as correctly as possible! <br><br></strong>" +
-    "<br>" +
-    "<p class = 'continue-instructions'>Press <strong>space</strong> to" +
-    " continue.</p>",
-  choices: [32]
-};
-
-var vaast_instructions_6 = {
-  type: "html-keyboard-response",
-  on_load: function() {
-    document.getElementById('GROUPTOAPPROACH').innerHTML = group_to_approach_3;
-    document.getElementById('GROUPTOAVOID').innerHTML = group_to_avoid_3;
-  },
-  stimulus:
-    "<h1 class ='custom-title'> Video Game task - Section 3/4</h1>" +
-    "<p class='instructions'>Warning! Now the task instructions are reversed: " +
-    "<ul class='instructions'>" +
-    "<li><strong>Move toward <span id='GROUPTOAPPROACH'></span> by pressing the upward arrow key </strong></li>" +
-    "<strong>  </strong>" +
-    "<li><strong>Move away from <span id='GROUPTOAVOID'></span> by pressing the downward arrow key </strong></li>" +
-    "<strong> </strong>" +
-    "</ul>" +
-    "<strong> EXTREMELY IMPORTANT: respond as fast and as correctly as possible! <br><br></strong>" +
-    "<br>" +
-    "<p class = 'continue-instructions'>Press <strong>space</strong> to" +
-    " continue.</p>",
-  choices: [32]
-};
-
-var vaast_instructions_7 = {
-  type: "html-keyboard-response",
-  on_load: function() {
-    document.getElementById('GROUPTOAPPROACH').innerHTML = group_to_approach_4;
-    document.getElementById('GROUPTOAVOID').innerHTML = group_to_avoid_4;
-  },
-  stimulus:
-    "<h1 class ='custom-title'> Video Game task - Section 4/4</h1>" +
-    "<p class='instructions'>Warning! Now the task instructions are reversed: " +
-    "<ul class='instructions'>" +
-    "<li><strong>Move toward <span id='GROUPTOAPPROACH'></span> by pressing the upward arrow key </strong></li>" +
-    "<strong>  </strong>" +
-    "<li><strong>Move away from <span id='GROUPTOAPPROACH'></span> by pressing the downward arrow key </strong></li>" +
-    "<strong> </strong>" +
-    "</ul>" +
-    "<strong> EXTREMELY IMPORTANT: respond as fast and as correctly as possible! <br><br></strong>" +
-    "<br>" +
-    "<p class = 'continue-instructions'>Press <strong>space</strong> to" +
-    " continue.</p>",
-  choices: [32]
-};
-
-var feedback = {
-  type: "html-keyboard-response",
-  on_load: function() {
-    document.getElementById('FeedbackMeanReactionTime').innerHTML = FeedbackMeanReactionTime;
-    document.getElementById('FeedbackNumberOfCorrectRespones').innerHTML = FeedbackNumberOfCorrectResponses;
-    document.getElementById('FeedbackNumberOfTotalRespones').innerHTML = FeedbackNumberOfCorrectResponses + FeedbackNumberOfWrongResponses;
-  },
-  stimulus:
-    "<p class='instructions'><center>Good job!<br><br>" + 
-    "Here is your average Reaction Time: <b><span id='FeedbackMeanReactionTime'></span> milli seconds</b><br>" +
-    "You reacted <b><span id='FeedbackNumberOfCorrectRespones'></span> of " +
-    "<span id='FeedbackNumberOfTotalRespones'></span> times correctly.</b>" +
-    "</p></center>" +
-    "<p class='instructions'><center><b>Try your best to improve your performance in the next section.</b><br>" +
-    "<p class='instructions'><center>If you are interested, you will later be able to compare your performance rates<br> with the average performance of previous participants.<br><br>" + 
-    "<p class = 'continue-instructions'>Press <strong>space</strong> to continue</p>",
-  choices: [32]
-};
-
-
 
 // VAAST --------------------------------------------------------------------------------
 
@@ -929,24 +775,10 @@ var vaast_test_block_4 = {
 };
 
 // end fullscreen -----------------------------------------------------------------------
-
 var fullscreen_trial_exit = {
   type: 'fullscreen',
   fullscreen_mode: false
 }
-
-  // demographics + questions -------------------------------------------------------------
-
-  var extra_information = {
-    type: 'html-keyboard-response',
-    stimulus:
-      "<p class='instructions'>You are almost done with the study. Please continue to answer some questions.</p>" +
-      "<p class='instructions'>If you are interested, you will later be provided with an individual analysis of your answers and can compare your answers to the average answers from previous participants.</p>" +
-      "<p class='continue-instructions'>Press <strong>space</strong> to continue.</p>",
-    choices: [32]
-  };
-
-const questions = englishQuestions;
 
 survey_slider_questions = function(items, preamble) {
   return {
@@ -976,71 +808,7 @@ survey_slider_questions = function(items, preamble) {
   }
 };
 
-  var extra_information_1 = {
-    timeline: [{
-      type: 'survey-text',
-      questions: [{prompt: "What is your current country of residence?", name: 'country', required: true},
-                  {prompt: "Please indicate the ZIP code of your current residence:", name: 'zip', required: true},
-                  {prompt: "What is your age?", name: 'age', required: true}],
-      button_label: "OK",
-    }],
-    on_finish: function(data) {
-      jsPsych.data.addProperties({
-        country: JSON.parse(data.responses)["Q0"],
-        zip: JSON.parse(data.responses)["Q1"],
-        age: JSON.parse(data.responses)["Q2"],
-      });
-    }
-  }
-
-  var extra_information_2 = {
-    type: 'survey-multi-choice',
-    questions: [{prompt: "What is your gender?", options: ["&nbspMale", "&nbspFemale", "&nbspOther"], required: true, horizontal: true}],
-    button_label: "OK"
-  }
-
-  var extra_information_3 = {
-    timeline: [{
-      type: 'survey-text',
-      questions: [{prompt: "Besides yourself, how many family members or loved ones (except friends and flat mates) live in your household?<br> Please enter the correct numbers in the fields below. If you live alone, enter 0.", name: 'nb_family', required: true},
-                  {prompt: "Besides yourself, how many friends or flat mates (except family members and loved ones) live in your household?<br> Please enter the correct numbers in the fields below. If you live alone, enter 0.", name: 'nb_friends', required: true}],
-      button_label: "OK",
-    }],
-    on_finish: function(data) {
-      jsPsych.data.addProperties({
-        nb_family: JSON.parse(data.responses)["Q0"],
-        nb_friends: JSON.parse(data.responses)["Q1"],
-      });
-    }
-  }
-
-  var extra_information_4 = {
-    type: 'survey-multi-choice',
-    questions: [{prompt: "Do you have professional contact with corona patients (e.g. as nursing staff, physician, etc.)?", options: ["&nbspYes", "&nbspNo"], required: true, horizontal: false}],
-    button_label: "OK"
-  }
-
-  var extra_information_5 = {
-    type: 'survey-multi-choice',
-    questions: [{prompt: "Are you interested in receiving an individual feedback of your <br>responses in comparison to the average responses?", 
-    options: ["&nbspYes", "&nbspNo"], required: true, horizontal: false}],
-    button_label: "OK"
-  }
   
-  var extra_information_6 = {
-    type: 'survey-text',
-    questions: [{prompt: "Please describe your technical difficulties (if any):"}],
-    button_label: "Continue"
-  }
-
-  var extra_information_7 = {
-    type: 'survey-text',
-    questions: [{prompt: "Email:"}],
-    preamble: "<br><b>The study is complete. Thank you very much for your participation! <br>" + 
-    "Please help us invite as many people as possible to participate in this study <br>by sharing the link on social media or emailing it to your friends !!!!!PUT LINK HERE!!!!!. Thank you!</b> <br><br>If you are interested in receiving invitations to future studies of the SCC-project or receiving <br> more information about the SCC-project, please enter your email-address in the field below. <br>Your email-address will be stored separately from your responses in the study. <br>It is not possible to connect your email-address with any of your responses. <br><br> If you are not interested, please continue.<br><br>",
-    button_label: "Continue"
-  }
-
 
 function questionnaire_feedback(feedback_order) {
   return {
@@ -1105,56 +873,69 @@ function questionnaire_feedback(feedback_order) {
 
 var timeline = [];
 
+var setup_experiment = {
+  type: 'call-function',
+  func: function(){
+    jsPsych.pauseExperiment();
+    jsPsych.addNodeToEndOfTimeline(
+      {
+        timeline: [
+          instructions.welcome,
+          instructions.fullscreen_trial,
+          hiding_cursor,
+          instructions.vaast_instructions_1,
+          instructions.vaast_instructions_2,
+          instructions.vaast_instructions_4,
+          //vaast_training_block_1,
+          //vaast_test_block_1,
+          instructions.feedback,
+          instructions.vaast_instructions_5,
+          //vaast_training_block_2,
+          //vaast_test_block_2,
+          instructions.feedback,
+          instructions.vaast_instructions_6,
+          //vaast_test_block_3,
+          instructions.feedback,
+          instructions.vaast_instructions_7,
+          //vaast_test_block_4,
+          instructions.feedback,
+          showing_cursor,
+          instructions.extra_information,
+          survey_slider_questions(['item_1', 'item_2', 'item_3'], questions.preamble_situation),
+          survey_slider_questions(['item_4', 'item_5', 'item_6'], questions.preamble_situation),
+          survey_slider_questions(['item_7', 'item_8', 'item_9'], questions.preamble_agreement),
+          survey_slider_questions(['item_10', 'item_11', 'item_12'], questions.preamble_agreement),
+          survey_slider_questions(['item_13', 'item_14'], questions.preamble_risk),
+          survey_slider_questions(['item_15', 'item_16', 'item_17'], questions.preamble_typical_situation),
+          save_questions,
+          fullscreen_trial_exit,
+          demo.extra_information_1,
+          demo.extra_information_2,
+          demo.extra_information_3,
+          demo.extra_information_4,
+          demo.extra_information_5,
+          demo.extra_information_6,
+          demo.extra_information_7,
+          save_extra,
+          questionnaire_feedback([
+            "item_1", "item_2", "item_3", "item_4", "item_5", "item_6", "item_7", "item_8", "item_9",
+            "item_10", "item_11", "item_12", "item_13", "item_14", "item_15", "item_16", "item_17"]
+          ),
+        ]
+      },
+      jsPsych.resumeExperiment
+    );
+  }
+}
+
+// prolific verification
 timeline.push(save_id);
 
 timeline.push(
-  welcome,
-  fullscreen_trial,
-  //hiding_cursor,
-  
-
- // vaast_instructions_1,
- // vaast_instructions_2,
-  //vaast_instructions_4,
-  //vaast_training_block_1,
-  //vaast_test_block_1,
-  //feedback,
-  //vaast_instructions_5,
-  //vaast_training_block_2,
-  //vaast_test_block_2,
-  //feedback,
-  //vaast_instructions_6,
-  //vaast_test_block_3,
-  //feedback,
-  //vaast_instructions_7,
-  //vaast_test_block_4,
-  //feedback,
-  
-  //showing_cursor,
-  extra_information,
-  survey_slider_questions(['item_1', 'item_2', 'item_3'], questions.preamble_situation), // items_contrat_restr_2
-  survey_slider_questions(['item_4', 'item_5', 'item_6'], questions.preamble_situation), // items_contrat_restr_2
-  survey_slider_questions(['item_7', 'item_8', 'item_9'], questions.preamble_agreement), // items_emotions_1
-  survey_slider_questions(['item_10', 'item_11', 'item_12'], questions.preamble_agreement), // items_emotions_2,
-  survey_slider_questions(['item_13', 'item_14'], questions.preamble_risk), // items_emotions_3
-  survey_slider_questions(['item_15', 'item_16', 'item_17'], questions.preamble_typical_situation), // items_need_contact
-  save_questions,
-  fullscreen_trial_exit,
-  extra_information_1,
-  extra_information_2,
-  extra_information_3,
-  extra_information_4,
-  extra_information_5,
-  save_extra,
-  extra_information_6,
-  extra_information_7,
-  save_email,
-  questionnaire_feedback([
-    "item_1", "item_2", "item_3", "item_4", "item_5", "item_6", "item_7", "item_8", "item_9",
-    "item_10", "item_11", "item_12", "item_13", "item_14", "item_15", "item_16", "item_17"]
-  ),
+  languageSelection,
+  save_language,
+  setup_experiment
 );
-
 // Launch experiment --------------------------------------------------------------------
 // preloading ---------------------------------------------------------------------------
 // Preloading. For some reason, it appears auto-preloading fails, so using it manually.
