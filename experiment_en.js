@@ -1147,7 +1147,7 @@ timeline.push(
   extra_information_5,
   save_extra,
   extra_information_6,
-  extra_information_7
+  extra_information_7,
   save_email,
   questionnaire_feedback([
     "item_1", "item_2", "item_3", "item_4", "item_5", "item_6", "item_7", "item_8", "item_9",
