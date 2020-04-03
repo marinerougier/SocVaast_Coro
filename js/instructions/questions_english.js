@@ -14,13 +14,13 @@ englishQuestions.item_1 = {
 
 englishQuestions.item_2 = {
   prompt: "For me personally, the amount of my direct (i.e., face-to-face) social contact is currently restricted due to the social distancing policies in my region.<br>",
-  labels: ["<br>No social distancing policies", "<br>1<br> not at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> extremely"],
+  labels: ["<br>1<br> not at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> extremely", "<br><b>No social distancing policies</b>"],
   required: true  
 };
 
 englishQuestions.item_3 = {
   prompt: "I believe that the current social distancing policies in my region are...<br>",
-  labels: ["<br>No social distancing policies", "<br>-3<br> too loose", "<br>-2", "<br>-1", "<br>0 appropriate", "<br>1", "<br>2", "<br>3<br> too harsh"],
+  labels: ["<br>-3<br> too loose", "<br>-2", "<br>-1", "<br>0 appropriate", "<br>1", "<br>2", "<br>3<br> too harsh", "<br><b>No social distancing policies</b>"],
   required: true                                                                                    
 };
 
@@ -56,7 +56,7 @@ englishQuestions.item_8 = {
 
 englishQuestions.item_9 = {
   prompt: "I am very afraid of becoming infected with the coronavirus.<br>",
-  name: 'item_9', labels: ["<br>I am/was infected","<br>1<br> not agree at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> agree completely"],
+  name: 'item_9', labels: ["<br>1<br> not agree at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> agree completely", "<br><b>I am/was infected</b>"],
   required: true
 };
 
@@ -80,13 +80,13 @@ englishQuestions.item_12 = {
 
 englishQuestions.item_13 = {
   prompt: "Given your current circumstances, how high do you judge the risk of becoming infected with the coronavirus?<br>",
-  labels: ["<br>I am/was infected", "<br>1<br> no risk at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> very high risk"],
+  labels: ["<br>1<br> no risk at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> very high risk", "<br><b>I am/was infected</b>"],
   required: true
 };
 
 englishQuestions.item_14 = {
   prompt: "Given your preconditions (health status, age), how high do you judge the risk of developing a severe coronavirus disease, in case of becoming infected with the coronavirus?<br>",
-  labels: ["<br>I am/was infected","<br>1<br> no risk at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> very high risk"],
+  labels: ["<br>1<br> no risk at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> very high risk", "<br><b>I am/was infected</b>"],
   required: true
 };
 
