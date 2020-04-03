@@ -1000,7 +1000,7 @@ survey_slider_questions = function(items, preamble) {
   var extra_information_2 = {
     timeline: [{
       type: 'survey-text',
-      questions: [{prompt: "Please indicate your ZIP code:"}],
+      questions: [{prompt: "Please indicate the ZIP code of your current residence:"}],
       button_label: "OK",
     }],
     loop_function: function(data) {
@@ -1105,12 +1105,18 @@ survey_slider_questions = function(items, preamble) {
 
   var extra_information_8 = {
     type: 'survey-multi-choice',
-    questions: [{prompt: "Are you interested in receiving an individual feedback of your <br>responses in comparison to the average responses?", 
-    options: ["&nbspyes", "&nbspno"], required: true, horizontal: false}],
+    questions: [{prompt: "Do you have professional contact with corona patients (e.g. as nursing staff, physician, etc.)?", options: ["&nbspYes", "&nbspNo"], required: true, horizontal: false}],
     button_label: "OK"
   }
 
   var extra_information_9 = {
+    type: 'survey-multi-choice',
+    questions: [{prompt: "Are you interested in receiving an individual feedback of your <br>responses in comparison to the average responses?", 
+    options: ["&nbspYes", "&nbspNo"], required: true, horizontal: false}],
+    button_label: "OK"
+  }
+
+  var extra_information_10 = {
     type: 'survey-text',
     questions: [{prompt: "Email:"}],
     preamble: "<br><b>The study is complete. Thank you very much for your participation! <br>" + 
@@ -1208,18 +1214,18 @@ timeline.push(
   vaast_instructions_1,
   vaast_instructions_2,
   vaast_instructions_4,
-  //vaast_training_block_1,
-  //vaast_test_block_1,
+  vaast_training_block_1,
+  vaast_test_block_1,
   feedback,
   vaast_instructions_5,
-  //vaast_training_block_2,
-  //vaast_test_block_2,
+  vaast_training_block_2,
+  vaast_test_block_2,
   feedback,
   vaast_instructions_6,
-  //vaast_test_block_3,
+  vaast_test_block_3,
   feedback,
   vaast_instructions_7,
-  //vaast_test_block_4,
+  vaast_test_block_4,
   feedback,
   
   showing_cursor,
@@ -1241,8 +1247,9 @@ timeline.push(
   extra_information_6,
   extra_information_7,
   extra_information_8,
-  save_extra,
   extra_information_9,
+  save_extra,
+  extra_information_10,
   
   questionnaire_feedback([
     "item_1", "item_2", "item_3", "item_4", "item_5", "item_6", "item_7", "item_8", "item_9",

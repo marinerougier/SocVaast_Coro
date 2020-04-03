@@ -1,12 +1,12 @@
-var englishQuestions = {};
+var englishDemo = {};
 
-englishQuestions.preamble_situation = "<br><b>For each of the following items, please indicate what applies to your situation, <br>using the respective scale provided for each item.</b><br><br>";
-englishQuestions.preamble_agreement = "<br><b>For each of the following items, please indicate the degree to which you agree.</b><br><br>";
-englishQuestions.preamble_risk = "<br><b>For each of the following items, please indicate the degree of risk you estimate.</b><br><br>";
-englishQuestions.preamble_typical_situation = "<br><b>For each of the following statements, please indicate what typically applies to you, <br>independent of the current situation. </b><br><br>";
+englishDemo.preamble_situation = "<br><b>For each of the following items, please indicate what applies to your situation, <br>using the respective scale provided for each item.</b><br><br>";
+englishDemo.preamble_agreement = "<br><b>For each of the following items, please indicate the degree to which you agree.</b><br><br>";
+englishDemo.preamble_risk = "<br><b>For each of the following items, please indicate the degree of risk you estimate.</b><br><br>";
+englishDemo.preamble_typical_situation = "<br><b>For each of the following statements, please indicate what typically applies to you, <br>independent of the current situation. </b><br><br>";
 
 
-englishQuestions.item_1 = {
+englishDemo.demo_1 = {
   prompt: "The political administration has currently mandated policies in my region that restrict direct (i.e., face-to-face) social contact (i.e., social distancing policies).<br>",
   labels: ["<br>1<br> no restrictions at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> extreme restrictions"],
   required: true
