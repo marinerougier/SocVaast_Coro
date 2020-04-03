@@ -898,7 +898,7 @@ var setup_experiment = {
           instructions.feedback,
           instructions.vaast_instructions_7,
           //vaast_test_block_4,
-          instructions.feedback,
+          instructions.feedback_lastblock,
           showing_cursor,
           instructions.extra_information,
           survey_slider_questions(['item_1', 'item_2', 'item_3'], questions.preamble_situation),

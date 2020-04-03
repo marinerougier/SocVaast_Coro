@@ -4,9 +4,9 @@ var frenchDemo = {};
 frenchDemo.extra_information_1 = {
     timeline: [{
       type: 'survey-text',
-      questions: [{prompt: "What is your current country of residence?", name: 'country', required: true},
-                  {prompt: "Please indicate the ZIP code of your current residence:", name: 'zip', required: true},
-                  {prompt: "What is your age?", name: 'age', required: true}],
+      questions: [{prompt: "Quel est le pays de votre résidence actuelle ?", name: 'country', required: true},
+                  {prompt: "Merci d'indiquer le code postal de votre résidence actuelle :", name: 'zip', required: true},
+                  {prompt: "Quel est votre âge ?", name: 'age', required: true}],
       button_label: "OK",
     }],
     on_finish: function(data) {
@@ -21,7 +21,7 @@ frenchDemo.extra_information_1 = {
 frenchDemo.extra_information_2 = {
     timeline: [{
     type: 'survey-multi-choice',
-    questions: [{prompt: "What is your gender?", options: ["&nbspMale", "&nbspFemale", "&nbspOther"], required: true, horizontal: true}],
+    questions: [{prompt: "Quel est votre genre ?", options: ["&nbspHomme", "&nbspFemme", "&nbspAutre"], required: true, horizontal: true}],
     button_label: "OK"
     }],
       on_finish: function(data) {
@@ -34,8 +34,8 @@ frenchDemo.extra_information_2 = {
 frenchDemo.extra_information_3 = {
     timeline: [{
       type: 'survey-text',
-      questions: [{prompt: "Besides yourself, how many family members or loved ones (except friends and flat mates) live in your household?<br> Please enter the correct numbers in the fields below. If you live alone, enter 0.", name: 'nb_family', required: true},
-                  {prompt: "Besides yourself, how many friends or flat mates (except family members and loved ones) live in your household?<br> Please enter the correct numbers in the fields below. If you live alone, enter 0.", name: 'nb_friends', required: true}],
+      questions: [{prompt: "En dehors de vous, combien de membres de votre famille ou de proches (excepté les amis et les colocataires) habitent dans votre logement ?<br> Merci d'indiquer le nombre exact ci-dessous. Si vous vivez seul.e, indiquez 0.", name: 'nb_family', required: true},
+                  {prompt: "En dehors de vous, combien d'amis ou colocataires (excepté les membres de votre famille ou les proches) habitent dans votre logement ?<br> Merci d'indiquer le nombre exact ci-dessous. Si vous vivez seul.e, indiquez 0.", name: 'nb_friends', required: true}],
       button_label: "OK",
     }],
     on_finish: function(data) {
@@ -49,7 +49,7 @@ frenchDemo.extra_information_3 = {
 frenchDemo.extra_information_4 = {
     timeline: [{
     type: 'survey-multi-choice',
-    questions: [{prompt: "Do you have professional contact with corona patients (e.g. as nursing staff, physician, etc.)?", options: ["&nbspYes", "&nbspNo"], required: true, horizontal: false}],
+    questions: [{prompt: "Avez-vous un contact professionnel avec des patients du coronavirus (par ex. en tant qu'infirmier.ère, médecin, etc.) ?", options: ["&nbspOui", "&nbspNon"], required: true, horizontal: false}],
     button_label: "OK",
     }],
       on_finish: function(data) {
@@ -62,8 +62,8 @@ frenchDemo.extra_information_4 = {
 frenchDemo.extra_information_5 = {
     timeline: [{
     type: 'survey-multi-choice',
-    questions: [{prompt: "Are you interested in receiving an individual feedback of your <br>responses in comparison to the average responses?", 
-    options: ["&nbspYes", "&nbspNo"], required: true, horizontal: false}],
+    questions: [{prompt: "Cela vous intéresse-t-il de recevoir un feedback individuel de vos réponses <br>en comparaison aux réponses moyennes de tous les participant.es ?", 
+    options: ["&nbspOui", "&nbspNon"], required: true, horizontal: false}],
     button_label: "OK"
     }],
       on_finish: function(data) {
@@ -76,8 +76,8 @@ frenchDemo.extra_information_5 = {
 frenchDemo.extra_information_6 = {
     timeline: [{
     type: 'survey-text',
-    questions: [{prompt: "Please describe your technical difficulties (if any):"}],
-    button_label: "Continue"
+    questions: [{prompt: "Veuillez décrire vos difficultés techniques (le cas échéant) :"}],
+    button_label: "Continuer"
     }],
       on_finish: function(data) {
       jsPsych.data.addProperties({
@@ -90,9 +90,9 @@ frenchDemo.extra_information_7 = {
     timeline: [{
     type: 'survey-text',
     questions: [{prompt: "Email:"}],
-    preamble: "<br><b>The study is complete. Thank you very much for your participation! <br>" + 
-    "Please help us invite as many people as possible to participate in this study <br>by sharing the link on social media or emailing it to your friends !!!!!PUT LINK HERE!!!!!. Thank you!</b> <br><br>If you are interested in receiving invitations to future studies of the SCC-project or receiving <br> more information about the SCC-project, please enter your email-address in the field below. <br>Your email-address will be stored separately from your responses in the study. <br>It is not possible to connect your email-address with any of your responses. <br><br> If you are not interested, please continue.<br><br>",
-    button_label: "Continue"
+    preamble: "<br><b>L'étude est terminée. Merci beaucoup pour votre participation ! <br>" + 
+    "Aidez-nous à recruter autant de personnes que possible pour participer à cette étude <br>en partageant le lien sur les réseaux sociaux ou en l'envoyant par e-mail à vos amis !!!!! METTEZ LE LIEN ICI !!!!!. Un grand merci ! </b><br><br>Si vous souhaitez recevoir des invitations à de futures études ou recevoir <br>plus d'informations sur le projet CSC, veuillez indiquer votre adresse e-mail ci-dessous. <br>Votre adresse e-mail sera stockée séparément de vos réponses à l'étude. <br> Il n'est pas possible de connecter votre adresse e-mail à vos réponses. <br> <br> Si vous n'êtes pas intéressé, veuillez continuer.<br><br>",
+    button_label: "Continuer"
     }],
       on_finish: function(data) {
       jsPsych.data.addProperties({

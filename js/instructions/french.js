@@ -11,65 +11,66 @@ frenchInstructions.welcome = {
         "<img src = 'media/UHH.png'>" +
         "<img src = 'media/UCL.jpg'>" +
         "<img src = 'media/UR.png'>" +
-        "<br><b>SCC-Project (Social Contact during the Corona Pandemic)</b>" + 
+        "<br><b>Projet CSC (Contact Social durant la pandémie du Coronavirus)</b>" + 
         "</center></p>" +
-        "<p class='instructions'>FR ! Thank you for taking part in this study: <b>You make a valuable contribution to scientific research on social " +
-        "consequences of the corona pandemic. </b></p>" +
-        "<p class='instructions'>During this study, you will complete a simple video game task and answer some questions regarding your behavior and feelings. "+
-        "Note that <b>you need a computer and a real (i.e., not a virtual) keyboard </b>to complete the task. </p>" +
-        "<p class='instructions'>If you are interested, <b>you can receive an individual analysis of your responses </b>in relation to the average responses of previous participants.</p>" +
-        "<p class='instructions'>Completion of the study will take approximately xx minutes. </p>" +
-        "<p class='instructions'>By clicking below to start the study, you confirm that:</p>" +
+        "<p class='instructions'>Merci de prendre part à cette étude : <b>Vous apportez une précieuse contribution à la recherche scientifique sur les " +
+        "conséquences sociales de la pandémie du coronavirus. </b></p>" +
+        "<p class='instructions'>Durant cette étude, vous devrez compléter une tâche simple de jeu vidéo et répondre à quelques questions sur vos comportements et ressentis. "+
+        "Notez que <b>vous avez besoin d'un ordinateur et d'un vrai clavier (c'est-à-dire non virtuel) </b>pour effectuer la tâche. </p>" +
+        "<p class='instructions'>Si vous êtes intéressé.e, <b>vous recevrez une analyse individuelle de vos réponses </b>en relation avec les réponses moyennes des participants précédents.</p>" +
+        "<p class='instructions'>L'étude prendra environ xx minutes. </p>" +
+        "<p class='instructions'>En cliquant ci-dessous pour commencer l'étude, vous confirmez que :</p>" +
         "<ul class='instructions'>" +
-            "<li>You are at least 18 years old. </li>" +
-            "<li>You know you can stop your participation at any time </li>" +
-            "<li>You know you can contact our team for any questions or dissatisfaction " +
-            "at scc-project@ur.de. </li>" + //The principle investigator is PD Dr. Regina Reichardt.
-            "<li>You know that you participate anonymously. We do not record any data that allows to personally identify you. We do not record your IP address.</li>" +
-            "<li>You know that the anonymous data collected will be shared with researchers via the Open Science Framework.</li>" +
+            "<li>Vous avez au moins 18 ans. </li>" +
+            "<li>Vous savez que vous pouvez interrompre votre participation à tout moment. </li>" +
+            "<li>Vous savez que vous pouvez contacter notre équipe pour toute question ou insatisfaction " +
+            "à l'adresse : scc-project@ur.de. </li>" + //The principle investigator is PD Dr. Regina Reichardt.
+            "<li>Vous savez que vous participez de manière anonyme. Nous n'enregistrons aucune donnée permettant de vous identifier personnellement. Nous n'enregistrons pas votre adresse IP.</li>" +
+            "<li>Vous savez que les données anonymes collectées seront partagées avec les chercheurs via le site Open Science Framework.</li>" +
         "</ul>" ,
-    choices: ['I confirm that I give my free and informed consent to participate']
+    choices: ['Je confirme que je donne mon consentement libre et éclairé pour participer']
 };
 
 frenchInstructions.fullscreen_trial = {
   type: 'fullscreen',
-    message:  '<p><b>FR ! Before you start...</b></p>' + 
-          '<li>Minimize any potential distractor (close other computer programs, silence your cell phone, etc.). </li>'+
-          '<li>Disable your ad-blocking software, which may interfere with data collection. <br><br></li>'+
-          '<p>To take part in this study, your browser needs to be set to fullscreen.<br></p>',
-    button_label: 'Switch to fullscreen',
+    message:  '<p><b>Avant de commencer...</b></p>' + 
+          '<li>Minimisez tout distracteur potentiel (fermez les autres programmes informatiques, mettez votre téléphone portable en mode silencieux, etc.). </li>'+
+          '<li>Désactivez votre logiciel de blocage des publicités car il peut interférer avec la collecte de données. <br><br></li>'+
+          '<p>Pour participer à cette étude, votre navigateur doit être configuré en mode plein écran.<br></p>',
+    button_label: 'Passer au mode plein écran',
   fullscreen_mode: true
 }
 
 frenchInstructions.vaast_instructions_1 = {
   type: "html-keyboard-response",
   stimulus:
-    "<h1 class ='custom-title'> FR ! Video Game task</h1>" +
-    "<p class='instructions'>In this task, just like in a video game, you will find yourself within the corridor presented below.</p> " +
-    "<p class='instructions'>Please <b>imagine that all circumstances of your current life apply to the situation in the corridor.</b> " +
-    "Imagine walking down the corridor just like you may walk down a corridor these days in your real life. </p> " +
-   "<p class='instructions'> At the end of this corridor, <b>you will see people or plants standing around.</b> "+
-   "Imagine that these people and plants are real, just like people or plants you may be seeing standing around these days in your real life. </p>" +
+    "<h1 class ='custom-title'> Tâche du Jeu Vidéo </h1>" +
+    "<p class='instructions'>Dans cette tâche, un peu comme dans un jeu vidéo, vous vous trouverez dans le couloir présenté ci-dessous.</p> " +
+    "<p class='instructions'>Merci <b>d'imaginer que toutes les circonstances de votre vie actuelle s'appliquent à la situation dans le couloir.</b> " +
+    "Imaginez-vous en train de marcher dans le couloir comme vous pouvez le faire dans votre vie quotidienne. </p> " +
+   "<p class='instructions'> Au bout de ce couloir, <b>des dessins de personnes ou de plantes vous seront présentés.</b> "+
+   "Imaginez que ces personnes et ces plantes sont réelles, tout comme les personnes ou les plantes que vous voyez peut-être dans votre vie quotidienne, en ce moment. </p>" +
     "<br>" +
     "<img src = 'media/vaast-background.png'>" +
     "<br>" +
     "<br>" +
-    "<p class = 'continue-instructions'>Press <strong>space</strong> to" +
-    " continue.</p>",
+    "<p class = 'continue-instructions'>Appuyez sur <strong>espace</strong> pour" +
+    " continuer.</p>",
   choices: [32]
 };
 
 frenchInstructions.vaast_instructions_2 = {
     type: "html-keyboard-response",
     stimulus:
-      "<h1 class ='custom-title'>FR ! Video Game task </h1>" +
-      "<p class='instructions'> Your task is to move toward or away from the items as a function of their category " +
-      "(more specific instructions following). To do so, use the upward and downward arrow keys on your keyboard: </p>" +
+      "<h1 class ='custom-title'> Tâche du Jeu Vidéo </h1>" +
+      "<p class='instructions'> Votre tâche sera d'aller vers ces dessins ou de vous en éloigner en fonction de leur catégorie " +
+      "(des instructions plus spécifiques vont suivre). Pour cela, utiliser les flèches haut/bas de votre clavier : </p>" +
       "<p class='instructions'><center>" +
-        "<img src = 'media/keyboard-vaastt_en.png'>" +
+        "<img src = 'media/keyboard-vaastt_fr.png'>" +
       "</center></p>" +
           "<br>" +
-      "<p class = 'continue-instructions'>Press <strong>space</strong> to continue.</p>",
+    "<p class = 'continue-instructions'>Appuyez sur <strong>espace</strong> pour" +
+    " continuer.</p>",
     choices: [32]
 };
 
@@ -80,19 +81,19 @@ frenchInstructions.vaast_instructions_4 = {
     document.getElementById('GROUPTOAVOID').innerHTML = group_to_avoid_1;
   },
   stimulus:
-    "<h1 class ='custom-title'> FR ! Video Game task - Section 1/4</h1>" +
-    "<p class='instructions'>In this section, you have to: " +
+    "<h1 class ='custom-title'> Tâche du Jeu Vidéo - Section 1/4</h1>" +
+    "<p class='instructions'>Dans cette section vous devez : " +
     "<ul class='instructions'>" +
-    "<li><strong>Move toward <span id='GROUPTOAPPROACH'></span> by pressing the upward arrow key </strong></li>" +
+    "<li><strong>Aller vers les <span id='GROUPTOAPPROACH'></span> en appuyant sur la flèche du haut </strong></li>" +
     "<strong>  </strong>" +
-    "<li><strong>Move away from <span id='GROUPTOAVOID'></span> by pressing the downward arrow key </strong></li>" +
+    "<li><strong>Vous éloigner des <span id='GROUPTOAVOID'></span> en appuyant sur la flèche du bas </strong></li>" +
     "<strong> </strong>" +
     "</ul>" +
-    "<strong> EXTREMELY IMPORTANT: respond as fast and as correctly as possible! <br><br></strong>" +
-    "<p class ='instructions'>If you make an error, a red x appears (correct you answer with the other key). Use the index finger of your preferred hand to respond. " +
+    "<strong> EXTRÊMEMENT IMPORTANT : répondez aussi rapidement et correctement que possible ! <br><br></strong>" +
+    "<p class ='instructions'>Si vous faites une erreur, un X rouge apparaîtra (corrigez votre réponse avec l'autre touche). Utilisez l'index de votre main préférée pour répondre. " +
     "<br>" +
-    "<p class = 'continue-instructions'>Press <strong>space</strong> to" +
-    " continue.</p>",
+    "<p class = 'continue-instructions'>Appuyez sur <strong>espace</strong> pour" +
+    " continuer.</p>",
   choices: [32]
 };
 
@@ -103,18 +104,19 @@ frenchInstructions.vaast_instructions_5 = {
     document.getElementById('GROUPTOAVOID').innerHTML = group_to_avoid_2;
   },
   stimulus:
-    "<h1 class ='custom-title'> FR ! Video Game task - Section 2/4</h1>" +
-    "<p class='instructions'>Warning! Now the task instructions are reversed: " +
+    "<h1 class ='custom-title'> Tâche du Jeu Vidéo - Section 2/4</h1>" +
+    "<p class='instructions'>Attention ! Maintenant les instructions s'inversent. Vous devez : " +
     "<ul class='instructions'>" +
-    "<li><strong>Move toward <span id='GROUPTOAPPROACH'></span> by pressing the upward arrow key </strong></li>" +
+    "<li><strong>Aller vers les <span id='GROUPTOAPPROACH'></span> en appuyant sur la flèche du haut </strong></li>" +
     "<strong>  </strong>" +
-    "<li><strong>Move away from <span id='GROUPTOAVOID'></span> by pressing the downward arrow key </strong></li>" +
+    "<li><strong>Vous éloigner des <span id='GROUPTOAVOID'></span> en appuyant sur la flèche du bas </strong></li>" +
     "<strong> </strong>" +
     "</ul>" +
-    "<strong> EXTREMELY IMPORTANT: respond as fast and as correctly as possible! <br><br></strong>" +
+    "<strong> EXTRÊMEMENT IMPORTANT : répondez aussi rapidement et correctement que possible ! <br><br></strong>" +
+    "<p class ='instructions'>Si vous faites une erreur, un X rouge apparaîtra (corrigez votre réponse avec l'autre touche). Utilisez l'index de votre main préférée pour répondre. " +
     "<br>" +
-    "<p class = 'continue-instructions'>Press <strong>space</strong> to" +
-    " continue.</p>",
+    "<p class = 'continue-instructions'>Appuyez sur <strong>espace</strong> pour" +
+    " continuer.</p>",
   choices: [32]
 };
 
@@ -125,18 +127,19 @@ frenchInstructions.vaast_instructions_6 = {
     document.getElementById('GROUPTOAVOID').innerHTML = group_to_avoid_3;
   },
   stimulus:
-    "<h1 class ='custom-title'> FR ! Video Game task - Section 3/4</h1>" +
-    "<p class='instructions'>Warning! Now the task instructions are reversed: " +
+    "<h1 class ='custom-title'> Tâche du Jeu Vidéo - Section 3/4</h1>" +
+    "<p class='instructions'>Attention ! Maintenant les instructions s'inversent. Vous devez : " +
     "<ul class='instructions'>" +
-    "<li><strong>Move toward <span id='GROUPTOAPPROACH'></span> by pressing the upward arrow key </strong></li>" +
+    "<li><strong>Aller vers les <span id='GROUPTOAPPROACH'></span> en appuyant sur la flèche du haut </strong></li>" +
     "<strong>  </strong>" +
-    "<li><strong>Move away from <span id='GROUPTOAVOID'></span> by pressing the downward arrow key </strong></li>" +
+    "<li><strong>Vous éloigner des <span id='GROUPTOAVOID'></span> en appuyant sur la flèche du bas </strong></li>" +
     "<strong> </strong>" +
     "</ul>" +
-    "<strong> EXTREMELY IMPORTANT: respond as fast and as correctly as possible! <br><br></strong>" +
+    "<strong> EXTRÊMEMENT IMPORTANT : répondez aussi rapidement et correctement que possible ! <br><br></strong>" +
+    "<p class ='instructions'>Si vous faites une erreur, un X rouge apparaîtra (corrigez votre réponse avec l'autre touche). Utilisez l'index de votre main préférée pour répondre. " +
     "<br>" +
-    "<p class = 'continue-instructions'>Press <strong>space</strong> to" +
-    " continue.</p>",
+    "<p class = 'continue-instructions'>Appuyez sur <strong>espace</strong> pour" +
+    " continuer.</p>",
   choices: [32]
 };
 
@@ -147,18 +150,19 @@ frenchInstructions.vaast_instructions_7 = {
     document.getElementById('GROUPTOAVOID').innerHTML = group_to_avoid_4;
   },
   stimulus:
-    "<h1 class ='custom-title'> Video Game task - Section 4/4</h1>" +
-    "<p class='instructions'>Warning! Now the task instructions are reversed: " +
+    "<h1 class ='custom-title'> Tâche du Jeu Vidéo - Section 4/4</h1>" +
+    "<p class='instructions'>Attention ! Maintenant les instructions s'inversent. Vous devez : " +
     "<ul class='instructions'>" +
-    "<li><strong>Move toward <span id='GROUPTOAPPROACH'></span> by pressing the upward arrow key </strong></li>" +
+    "<li><strong>Aller vers les <span id='GROUPTOAPPROACH'></span> en appuyant sur la flèche du haut </strong></li>" +
     "<strong>  </strong>" +
-    "<li><strong>Move away from <span id='GROUPTOAVOID'></span> by pressing the downward arrow key </strong></li>" +
+    "<li><strong>Vous éloigner des <span id='GROUPTOAVOID'></span> en appuyant sur la flèche du bas </strong></li>" +
     "<strong> </strong>" +
     "</ul>" +
-    "<strong> EXTREMELY IMPORTANT: respond as fast and as correctly as possible! <br><br></strong>" +
+    "<strong> EXTRÊMEMENT IMPORTANT : répondez aussi rapidement et correctement que possible ! <br><br></strong>" +
+    "<p class ='instructions'>Si vous faites une erreur, un X rouge apparaîtra (corrigez votre réponse avec l'autre touche). Utilisez l'index de votre main préférée pour répondre. " +
     "<br>" +
-    "<p class = 'continue-instructions'>Press <strong>space</strong> to" +
-    " continue.</p>",
+    "<p class = 'continue-instructions'>Appuyez sur <strong>espace</strong> pour" +
+    " continuer.</p>",
   choices: [32]
 };
 
@@ -170,14 +174,15 @@ frenchInstructions.feedback = {
     document.getElementById('FeedbackNumberOfTotalRespones').innerHTML = FeedbackNumberOfCorrectResponses + FeedbackNumberOfWrongResponses;
   },
   stimulus:
-    "<p class='instructions'><center>Good job!<br><br>" + 
-    "Here is your average Reaction Time: <b><span id='FeedbackMeanReactionTime'></span> milli seconds</b><br>" +
-    "You reacted <b><span id='FeedbackNumberOfCorrectRespones'></span> of " +
-    "<span id='FeedbackNumberOfTotalRespones'></span> times correctly.</b>" +
+    "<p class='instructions'><center>Bien joué !<br><br>" + 
+    "Voici votre temps moyen de réaction : <b><span id='FeedbackMeanReactionTime'></span> millisecondes</b><br>" +
+    "Vous avez réagi <b><span id='FeedbackNumberOfCorrectRespones'></span> sur " +
+    "<span id='FeedbackNumberOfTotalRespones'></span> fois correctement.</b>" +
     "</p></center>" +
-    "<p class='instructions'><center><b>Try your best to improve your performance in the next section.</b><br>" +
-    "<p class='instructions'><center>If you are interested, you will later be able to compare your performance rates<br> with the average performance of previous participants.<br><br>" + 
-    "<p class = 'continue-instructions'>Press <strong>space</strong> to continue</p>",
+    "<p class='instructions'><center><b>Faites de votre mieux pour améliorer votre performance à la prochaine section.</b><br>" +
+    "<p class='instructions'><center>Si vous êtes intéressé.e, vous pourrez par la suite comparer votre performance <br> avec la performance moyenne des participants précédents.<br><br>" + 
+    "<p class = 'continue-instructions'>Appuyez sur <strong>espace</strong> pour" +
+    " continuer.</p>",
   choices: [32]
 };
 
@@ -189,13 +194,14 @@ frenchInstructions.feedback_lastblock = {
     document.getElementById('FeedbackNumberOfTotalRespones').innerHTML = FeedbackNumberOfCorrectResponses + FeedbackNumberOfWrongResponses;
   },
   stimulus:
-    "<p class='instructions'><center>Good job!<br><br>" + 
-    "Here is your average Reaction Time: <b><span id='FeedbackMeanReactionTime'></span> milli seconds</b><br>" +
-    "You reacted <b><span id='FeedbackNumberOfCorrectRespones'></span> of " +
-    "<span id='FeedbackNumberOfTotalRespones'></span> times correctly.</b>" +
+    "<p class='instructions'><center>Bien joué !<br><br>" + 
+    "Voici votre temps moyen de réaction : <b><span id='FeedbackMeanReactionTime'></span> millisecondes</b><br>" +
+    "Vous avez réagi <b><span id='FeedbackNumberOfCorrectRespones'></span> sur " +
+    "<span id='FeedbackNumberOfTotalRespones'></span> fois correctement.</b>" +
     "</p></center>" +
-    "<p class='instructions'><center>If you are interested, you will later be able to compare your performance rates<br> with the average performance of previous participants.<br><br>" + 
-    "<p class = 'continue-instructions'>Press <strong>space</strong> to continue</p>",
+    "<p class='instructions'><center>Si vous êtes intéressé.e, vous pourrez par la suite comparer votre performance <br> avec la performance moyenne des participants précédents.<br><br>" + 
+    "<p class = 'continue-instructions'>Appuyez sur <strong>espace</strong> pour" +
+    " continuer.</p>",
   choices: [32]
 };
 
@@ -203,8 +209,9 @@ frenchInstructions.feedback_lastblock = {
   frenchInstructions.extra_information = {
     type: 'html-keyboard-response',
     stimulus:
-      "<p class='instructions'>You are almost done with the study. Please continue to answer some questions.</p>" +
-      "<p class='instructions'>If you are interested, you will later be provided with an individual analysis of your answers and can compare your answers to the average answers from previous participants.</p>" +
-      "<p class='continue-instructions'>Press <strong>space</strong> to continue.</p>",
+      "<p class='instructions'>Vous avez presque terminé l'étude. Merci de continuer pour répondre à quelques questions.</p>" +
+      "<p class='instructions'>Si vous êtes intéressé.e, vous pourrez par la suite avoir une analyse individuelle de vos réponses et ainsi les comparer avec les réponses moyennes des participants précédents.</p>" +
+    "<p class = 'continue-instructions'>Appuyez sur <strong>espace</strong> pour" +
+    " continuer.</p>",
     choices: [32]
   };
