@@ -23,15 +23,15 @@ jsPsych.plugins["html-button-response"] = (function() {
         description: 'The HTML string to be displayed'
       },
       choices: {
-        type: jsPsych.plugins.parameterType.KEYCODE,
+        type: jsPsych.plugins.parameterType.STRING,
         pretty_name: 'Choices',
-        default: [],
+        default: undefined,
         array: true,
         description: 'The labels for the buttons.'
       },
       button_html: {
         type: jsPsych.plugins.parameterType.STRING,
-        pretty_name: 'Button html',
+        pretty_name: 'Button HTML',
         default: '<button class="jspsych-btn">%choice%</button>',
         array: true,
         description: 'The html of the button. Can create own style.'
@@ -107,7 +107,7 @@ jsPsych.plugins["html-button-response"] = (function() {
     display_element.innerHTML = html;
 
     // start time
-    var start_time = Date.now();
+    var start_time = performance.now();
 
     // add event listeners to buttons
     for (var i = 0; i < trial.choices.length; i++) {
@@ -127,7 +127,7 @@ jsPsych.plugins["html-button-response"] = (function() {
     function after_response(choice) {
 
       // measure rt
-      var end_time = Date.now();
+      var end_time = performance.now();
       var rt = end_time - start_time;
       response.button = choice;
       response.rt = rt;

@@ -6,7 +6,6 @@
  *
  * documentation: docs.jspsych.org
  *
- * Note that this plugin has been modified to handle D2 algorithm.
  **/
 
 
@@ -25,7 +24,7 @@
         description: 'The HTML string to be displayed.'
       },
       left_category_key: {
-        type: jsPsych.plugins.parameterType.HTML_STRING,
+        type: jsPsych.plugins.parameterType.HTML_STRING, 
         pretty_name: 'Left category key',
         default: 'E',
         description: 'Key press that is associated with the left category label.'
@@ -66,13 +65,13 @@
       html_when_wrong: {
         type: jsPsych.plugins.parameterType.HTML_STRING,
         pretty_name: 'HTML when wrong',
-        default: '<span style="color: red; font-size: 80px">&times;</span>',
+        default: '<span style="color: red; font-size: 80px">X</span>',
         description: 'The image to display when a user presses the wrong key.'
-      },
+      }, 
       bottom_instructions: {
         type: jsPsych.plugins.parameterType.HTML_STRING,
         pretty_name: 'Bottom instructions',
-        default: '<p>If you press the wrong key, a red X will appear. You will have to press the correct key to continue.</p>',
+        default: '<p>If you press the wrong key, a red X will appear. Press any key to continue.</p>',
         description: 'Instructions shown at the bottom of the page.'
       },
       force_correct_key_press: {
@@ -100,16 +99,6 @@
         default: null,
         description: 'How long to show the trial.'
       },
-      category: {
-        type: jsPsych.plugins.parameterType.STRING,
-        pretty_name: 'Target category',
-        default: null
-      },
-      label_category:  {
-        type: jsPsych.plugins.parameterType.STRING,
-        pretty_name: 'label category',
-        default: null
-      }
     }
   }
 
@@ -118,28 +107,28 @@
 
     var html_str = "";
 
-    html_str += "<div style='position: absolute; height: 20%; width: 100%; margin-left: auto; margin-right: auto; top: 42%; left: 0; right: 0'><p id='jspsych-iat-stim' class='" + trial.category + "'>" + trial.stimulus + "</p></div>";
+    html_str += "<div style='position: absolute; height: 20%; width: 100%; margin-left: auto; margin-right: auto; top: 42%; left: 0; right: 0'><p id='jspsych-iat-stim'>" + trial.stimulus + "</p></div>";
 
     html_str += "<div id='trial_left_align' style='position: absolute; top: 18%; left: 20%'>";
 
     if(trial.left_category_label.length == 1) {
-      html_str += "<p>Press <span class='key'>" + trial.left_category_key + "</span> for:<br> " +
-      "<span class ='"+ trial.label_category[0] +"'> "+ trial.left_category_label[0].bold() + "</span></p></div>";
+      html_str += "<p>Press " + trial.left_category_key + " for:<br> " +
+      trial.left_category_label[0].bold() + "</p></div>";
     } else {
-      html_str += "<p>Press <span class='key'>" + trial.left_category_key + "</span> for:<br> " +
-      "<span class ='"+ trial.label_category[0] +"'> "+ trial.left_category_label[0].bold() + "</span><br>" + "or<br>" +
-      "<span class ='"+ trial.label_category[1] +"'> "+ trial.left_category_label[1].bold() + "</span></p></div>";
+      html_str += "<p>Press " + trial.left_category_key + " for:<br> " +
+      trial.left_category_label[0].bold() + "<br>" + "or<br>" +
+      trial.left_category_label[1].bold() + "</p></div>";
     }
 
     html_str += "<div id='trial_right_align' style='position: absolute; top: 18%; right: 20%'>";
 
     if(trial.right_category_label.length == 1) {
-      html_str += "<p>Press <span class='key'>" + trial.right_category_key + "</span> for:<br> " +
-      "<span class ='"+ trial.label_category[0] +"'> "+ trial.right_category_label[0].bold() + '</span></p></div>';
+      html_str += "<p>Press " + trial.right_category_key + " for:<br> " +
+      trial.right_category_label[0].bold() + '</p></div>';
     } else {
-      html_str += "<p>Press <span class='key'>" + trial.right_category_key + "</span> for:<br> " +
-      "<span class ='"+ trial.label_category[0] +"'> "+ trial.right_category_label[0].bold() + "</span><br>" + "or<br>" +
-      "<span class ='"+ trial.label_category[1] +"'> "+ trial.right_category_label[1].bold() + "</span></p></div>";
+      html_str += "<p>Press " + trial.right_category_key + " for:<br> " +
+      trial.right_category_label[0].bold() + "<br>" + "or<br>" +
+      trial.right_category_label[1].bold() + "</p></div>";
     }
 
     html_str += "<div id='wrongImgID' style='position:relative; top: 300px; margin-left: auto; margin-right: auto; left: 0; right: 0'>";
@@ -164,7 +153,7 @@
     };
 
     // function to end trial when it is time
-    var end_trial = function(correct_resp) {
+    var end_trial = function() {
 
       // kill any remaining setTimeout handlers
       jsPsych.pluginAPI.clearAllTimeouts();
@@ -174,14 +163,9 @@
         jsPsych.pluginAPI.cancelKeyboardResponse(keyboardListener);
       }
 
-      // this part allow to log the total response time for D2 algorithm
-      latency_after_first =  0;
-      if(correct_resp != undefined) latency_after_first = correct_resp.rt;
-
       // gather the data to store for the trial
       var trial_data = {
-        "rt": response.rt + latency_after_first,
-        "rt_first": response.rt,
+        "rt": response.rt,
         "stimulus": trial.stimulus,
         "key_press": response.key,
         "correct": response.correct
@@ -281,7 +265,7 @@
       var keyboardListener = jsPsych.pluginAPI.getKeyboardResponse({
         callback_function: after_response,
         valid_responses: [trial.left_category_key, trial.right_category_key],
-        rt_method: 'date',
+        rt_method: 'performance',
         persist: false,
         allow_held_key: false
       });

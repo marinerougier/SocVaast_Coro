@@ -200,11 +200,11 @@ englishInstructions.feedback_lastblock = {
 };
 
 
-  englishInstructions.extra_information = {
-    type: 'html-keyboard-response',
-    stimulus:
-      "<p class='instructions'>You are almost done with the study. Please continue to answer some questions.</p>" +
-      "<p class='instructions'>If you are interested, you will later be provided with an individual analysis of your answers and can compare your answers to the average answers from previous participants.</p>" +
-      "<p class='continue-instructions'>Press <strong>space</strong> to continue.</p>",
-    choices: [32]
-  };
+englishInstructions.extra_information = {
+  type: 'html-keyboard-response',
+  stimulus:
+    "<p class='instructions'>You are almost done with the study. Please continue to answer some questions.</p>" +
+    "<p class='instructions'>If you are interested, you will later be provided with an individual analysis of your answers and can compare your answers to the average answers from previous participants.</p>" +
+    "<p class='continue-instructions'>Press <strong>space</strong> to continue.</p>",
+  choices: [32]
+};
