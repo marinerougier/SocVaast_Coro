@@ -12,17 +12,17 @@ englishQuestions.item_1 = {
   required: true
 };
 
-englishQuestions.item_2 = {
-  prompt: "For me personally, the amount of my direct (i.e., face-to-face) social contact is currently restricted due to the social distancing policies in my region.<br>",
-  labels: ["<br>1<br> not at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> extremely"],
-  required: true  
+englishQuestions.item_2= {
+  prompt: "I believe that in my region social contact should be ... <br>(Select 0 if you find the current regulations appropriate)",
+  labels: ["<br>-3<br> restricted less", "<br>-2", "<br>-1", "<br>0", "<br>1", "<br>2", "<br>3<br> restricted more"],
+  required: true                                                                                    
 };
 
 englishQuestions.item_3 = {
-  prompt: "I believe that the current social distancing policies in my region are...<br>",
-  labels: ["<br>-3<br> too loose", "<br>-2", "<br>-1", "<br>0 appropriate", "<br>1", "<br>2", "<br>3<br> too harsh"],
-  required: true                                                                                    
-};
+    prompt: "For me personally, the amount of my direct (i.e., face-to-face) social contact is currently restricted due to the social distancing policies in my region.<br>",
+    labels: ["<br>1<br> not at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> extremely"],
+    required: true  
+  };
 
 englishQuestions.item_4 = {
   prompt: "I currently keep distance from other people in the public space.<br>",
@@ -58,8 +58,8 @@ englishQuestions.item_9 = {
   timeline: [{
     type: 'survey-multi-choice',
     questions: [{
-      prompt: "<p>Please select what applies to you</p><p>I currently am or was already infected with the corona virus</p>",
-      options: ["Yes&nbsp&nbsp", "don't know&nbsp&nbsp", "No&nbsp&nbsp"],
+      prompt: "<div class='instructions' style='width:100%'><p>Please select what applies to you</p><p>I was/am currently infected with the corona virus</p></div>",
+      options: ["yes&nbsp&nbsp", "don't know&nbsp&nbsp", "no&nbsp&nbsp"],
       required: true, horizontal: true
     }],
     button_label: "OK"
