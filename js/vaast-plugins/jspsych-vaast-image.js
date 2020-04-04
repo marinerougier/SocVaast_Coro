@@ -196,12 +196,14 @@
             if(trial.force_correct_key_press) {
               var keyListener = jsPsych.pluginAPI.getKeyboardResponse({
                 callback_function: end_trial,
-                valid_responses: [trial.avoidance_key]
+                valid_responses: [trial.avoidance_key],
+                rt_method: 'performance',
               });
             } else {
             var keyListener = jsPsych.pluginAPI.getKeyboardResponse({
               callback_function: end_trial,
-              valid_responses: trial.key_to_move_forward
+              valid_responses: trial.key_to_move_forward,
+              rt_method: 'performance',
             });}
            } else if(trial.response_ends_trial && trial.display_feedback != true) {
             end_trial();
@@ -231,12 +233,14 @@
             if(trial.force_correct_key_press) {
               var keyListener = jsPsych.pluginAPI.getKeyboardResponse({
                 callback_function: end_trial,
-                valid_responses: [trial.approach_key]
+                valid_responses: [trial.approach_key],
+                rt_method: 'performance'
               });
             } else {
             var keyListener = jsPsych.pluginAPI.getKeyboardResponse({
               callback_function: end_trial,
-              valid_responses: trial.key_to_move_forward
+              valid_responses: trial.key_to_move_forward,
+              rt_method: 'performance'
             });}
           } else if(trial.response_ends_trial && trial.display_feedback != true) {
             end_trial();
@@ -252,7 +256,7 @@
       var keyboardListener = jsPsych.pluginAPI.getKeyboardResponse({
         callback_function: after_response,
         valid_responses: [trial.approach_key, trial.avoidance_key],
-        rt_method: 'date',
+        rt_method: 'performance',
         persist: false,
         allow_held_key: false
       });
