@@ -214,7 +214,7 @@ function updateFeedback(numberOfTrials) {
     return
   }
   if (numberOfTrials > 0) {
-    respones = responses.last(numberOfTrials);
+    responses = responses.last(numberOfTrials);
   }
   FeedbackMeanReactionTime = responses.select('rt').mean().toFixed(0);
   FeedbackNumberOfWrongResponses = responses.filter({'correct': false}).count();
