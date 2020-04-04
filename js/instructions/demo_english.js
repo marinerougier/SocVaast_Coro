@@ -327,7 +327,7 @@ englishDemo.extra_information_3 = {
     type: 'html-button-response',
     // the way I'm extractin the email here is a but hacky, but document.getElementById('EMAIL') returns null in on_finish
     stimulus: `
-      <div class='instructions' style='text-align:left' id='test'>
+      <div class='instructions' style='text-align:left;' >
       <p><b><center>The study is complete. Thank you very much for your participation!</center></b></p>
       <p>
       If you are interested in receiving invitations to future studies of the SCC-project, please enter your email-address in the field below:<br />
