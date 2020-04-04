@@ -997,9 +997,9 @@ var setup_experiment = {
           survey_slider_questions(['item_7', 'item_8'], questions.preamble_apply_you),
           questions.item_9,
           {
-            //ask item_10 - item 13 only if item 9 was not Yes
+            //ask item_10 - item 13 only if item 9 was not Yes == 1
             timeline: [survey_slider_questions(['item_10', 'item_11', 'item_12', 'item_13'], questions.preamble_agreement)],
-            conditional_function: function() { return !jsPsych.data.getLastTrialData().values()[0].item_9.includes("yes");}
+            conditional_function: function() { return jsPsych.data.getLastTrialData().values()[0].item_9 != 1;}
           },
           survey_slider_questions(['item_14', 'item_15'], questions.preamble_agreement),
           survey_slider_questions(['item_16', 'item_17', 'item_18'], questions.preamble_apply_typical),
