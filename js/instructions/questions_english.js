@@ -56,18 +56,24 @@ englishQuestions.item_8 = {
 
 englishQuestions.item_9 = {
   timeline: [{
-    type: 'survey-multi-choice',
-    questions: [{
-      prompt: "<div class='instructions' style='width:100%'><p>Please select what applies to you</p><p>I was/am currently infected with the corona virus</p></div>",
-      options: ["yes&nbsp&nbsp", "don't know&nbsp&nbsp", "no&nbsp&nbsp"],
-      required: true, horizontal: true
-    }],
+    type: 'survey-html-form',
+    html: `
+        <div class='instructions' style='text-align:center'>
+        <p>Please select what applies to you.</p>
+        <p>I was/am currently infected with the corona virus.</p></div>
+        <p>
+            <label><input type='radio' name='item_9' value="1" required>&nbsp yes &nbsp&nbsp</label>
+            <label><input type='radio' name='item_9' value="2" required>&nbsp no &nbsp&nbsp</label>
+            <label><input type='radio' name='item_9' value="3" required>&nbsp don't know &nbsp&nbsp</label>
+        </p>
+        </div>
+    `,
     button_label: "OK"
   }],
   on_finish: function(data) {
     console.log(data.responses);
-    jsPsych.data.addProperties({item_9: JSON.parse(data.responses)["Q0"]});
-    jsPsych.data.get().addToLast({tag: "extra_data"});
+    jsPsych.data.addProperties(JSON.parse(data.responses));
+    jsPsych.data.get().addToLast({tag: "questions_data"});
   }
 }
 

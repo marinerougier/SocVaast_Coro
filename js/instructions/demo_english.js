@@ -294,13 +294,13 @@ englishDemo.extra_information_2 = {
       
       <tr><td>What is your gender? </td>
       <td style="vertical-align:top; font-size:smaller">
-        <label><input type='radio' name='SEX' value='female' required>&nbspfemale&nbsp&nbsp</label>
-        <label><input type='radio' name='SEX' value='male'  required>&nbspmale&nbsp&nbsp</label>
-        <label><input type='radio' name='SEX' value='other' required>&nbspother&nbsp&nbsp</label>
+        <label><input type='radio' name='SEX' value="1" required>&nbspfemale&nbsp&nbsp</label>
+        <label><input type='radio' name='SEX' value="2" required>&nbspmale&nbsp&nbsp</label>
+        <label><input type='radio' name='SEX' value="3" required>&nbspother&nbsp&nbsp</label>
       </td></tr>
 
       <tr><td>Do you have professional contact with COVID-19 patients (e.g. as nursing staff, physician, etc.)?</td>
-      <td><label><input type='radio' name='OCCUPATION' value='yes' required> Yes </label>&nbsp&nbsp<label><input type='radio' name='OCCUPATION' value='no'>&nbsp No</label></td></tr>
+      <td><label><input type='radio' name='OCCUPATION' value='1' required> Yes </label>&nbsp&nbsp<label><input type='radio' name='OCCUPATION' value='2'>&nbsp No</label></td></tr>
       
       <!--
       <tr><td>Are you interested in receiving an individual feedback of your responses in comparison to the average responses?</td>
