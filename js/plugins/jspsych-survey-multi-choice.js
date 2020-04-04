@@ -124,9 +124,9 @@ jsPsych.plugins['survey-multi-choice'] = (function() {
 
       // add question text
       html += '<p class="jspsych-survey-multi-choice-text survey-multi-choice">' + question.prompt 
-      if(question.required){
-        html += "<span class='required'>*</span>";
-      }
+      //if(question.required){
+      //  html += "<span class='required'>*</span>";
+      //}
       html += '</p>';
 
       // create option radio buttons
