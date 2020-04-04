@@ -19,7 +19,7 @@ jsPsych.plugins["html-keyboard-response"] = (function() {
     parameters: {
       stimulus: {
         type: jsPsych.plugins.parameterType.HTML_STRING,
-        pretty_name: 'stimulus',
+        pretty_name: 'Stimulus',
         default: undefined,
         description: 'The HTML string to be displayed'
       },
@@ -123,7 +123,7 @@ jsPsych.plugins["html-keyboard-response"] = (function() {
       var keyboardListener = jsPsych.pluginAPI.getKeyboardResponse({
         callback_function: after_response,
         valid_responses: trial.choices,
-        rt_method: 'date',
+        rt_method: 'performance',
         persist: false,
         allow_held_key: false
       });

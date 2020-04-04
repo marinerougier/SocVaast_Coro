@@ -216,7 +216,7 @@ function updateFeedback(numberOfTrials) {
   if (numberOfTrials > 0) {
     respones = responses.last(numberOfTrials);
   }
-  FeedbackMeanReactionTime = responses.select('rt').mean();
+  FeedbackMeanReactionTime = responses.select('rt').mean().toFixed(0);
   FeedbackNumberOfWrongResponses = responses.filter({'correct': false}).count();
   FeedbackNumberOfCorrectResponses = responses.filter({'correct': true}).count();
 }
@@ -424,24 +424,32 @@ var next_position_training = function(){
 
   
   var saving_questions = function() {
+    var questions_data = jsPsych.data.get().filter({tag: "questions_data"}).json();
+    console.log(questions_data);
     database
      .ref("questions_info_corona_en/")
      .push()
      .set({jspsych_id: jspsych_id,
          timestamp: firebase.database.ServerValue.TIMESTAMP,
           vaast_first_block: vaast_first_block,
-         questions_data: jsPsych.data.get().last(6).json(),
+          // here, too, we should not use a number but rather a tag
+         //questions_data: jsPsych.data.get().last(6).json(),
+         questions_data: questions_data,
         })
   }
 
   var saving_extra = function() {
+    var extra_data = jsPsych.data.get().filter({tag: "extra_data"}).json();
     database
      .ref("extra_info_corona_en/")
      .push()
      .set({jspsych_id: jspsych_id,
          timestamp: firebase.database.ServerValue.TIMESTAMP,
           vaast_first_block: vaast_first_block,
-         extra_data: jsPsych.data.get().last(8).json(),
+          // having this number hardcoded here is a recipe for desaster ....
+          // better tag your data
+          // extra_data: jsPsych.data.get().last(8).json(),
+          extra_data: extra_data
         })
   }
 
@@ -792,18 +800,16 @@ survey_slider_questions = function(items, preamble) {
       button_label: "OK",
     }],
     on_load: function () {
-          $(".jspsych-survey-likert-statement").css("font-size", "17px");
-          $("#jspsych-survey-likert-form").css("width", "800px");
-          $("li").css("width", "9%");
-        },
+      $(".jspsych-survey-likert-statement").css("font-size", "17px");
+      $("#jspsych-survey-likert-form").css("width", "800px");
+      $("li").css("width", "9%");
+    },
     on_finish: function(data) {
-      var named_responses = {}
-      for (var i = 0; i < items.length; i++) {
-        var item_name = items[i];
-        named_responses[item_name] = JSON.parse(data.responses)["Q" + i];
-      }
-      console.log(named_responses);
-      jsPsych.data.addProperties(named_responses);
+      console.log(data.responses);
+      // in case you want to add these responses to all data entries, do this:
+      jsPsych.data.addProperties(JSON.parse(data.responses));
+      // add the tag only to the last
+      jsPsych.data.get().addToLast({tag: "questions_data"});
     }
   }
 };
@@ -868,6 +874,10 @@ function questionnaire_feedback(feedback_order) {
   }
 }
 
+var conditional_questions = {
+    timeline: [survey_slider_questions(['item_2', 'item_3'], questions.preamble_situation)]
+}
+
 // procedure ----------------------------------------------------------------------------
 // Initialize timeline ------------------------------------------------------------------
 
@@ -901,26 +911,33 @@ var setup_experiment = {
           instructions.feedback_lastblock,
           showing_cursor,
           instructions.extra_information,
-          survey_slider_questions(['item_1', 'item_2', 'item_3'], questions.preamble_situation),
-          survey_slider_questions(['item_4', 'item_5', 'item_6'], questions.preamble_situation),
-          survey_slider_questions(['item_7', 'item_8', 'item_9'], questions.preamble_agreement),
-          survey_slider_questions(['item_10', 'item_11', 'item_12'], questions.preamble_agreement),
-          survey_slider_questions(['item_13', 'item_14'], questions.preamble_risk),
-          survey_slider_questions(['item_15', 'item_16', 'item_17'], questions.preamble_typical_situation),
+          survey_slider_questions(['item_1'], questions.preamble_apply_situation),
+          { //ask item_2, and item_3 only if item_1 was not zero
+            timeline: [survey_slider_questions(['item_2', 'item_3'], "")],
+            conditional_function: function(){ return jsPsych.data.getLastTrialData().values()[0].item_1 != 0;}
+          },
+          survey_slider_questions(['item_4', 'item_5', 'item_6'], questions.preamble_apply_you),
+          survey_slider_questions(['item_7', 'item_8'], questions.preamble_apply_you),
+          questions.item_9,
+          {
+            //ask item_10 - item 13 only if item 9 was not Yes
+            timeline: [survey_slider_questions(['item_10', 'item_11', 'item_12', 'item_13'], questions.preamble_agreement)],
+            conditional_function: function() { return !jsPsych.data.getLastTrialData().values()[0].item_9.includes("Yes");}
+          },
+          survey_slider_questions(['item_14', 'item_15'], questions.preamble_agreement),
+          survey_slider_questions(['item_16', 'item_17', 'item_18'], questions.preamble_apply_typical),
           save_questions,
           fullscreen_trial_exit,
-          demo.extra_information_1,
-          demo.extra_information_2,
-          demo.extra_information_3,
-          demo.extra_information_4,
-          demo.extra_information_5,
-          demo.extra_information_6,
-          demo.extra_information_7,
+          englishDemo.extra_information,
           save_extra,
-          questionnaire_feedback([
-            "item_1", "item_2", "item_3", "item_4", "item_5", "item_6", "item_7", "item_8", "item_9",
-            "item_10", "item_11", "item_12", "item_13", "item_14", "item_15", "item_16", "item_17"]
-          ),
+          //{ // show feedback only if desired
+          //  timeline: [questionnaire_feedback([
+          //    "item_1", "item_2", "item_3", "item_4", "item_5", "item_6", "item_7", "item_8", "item_9",
+          //    "item_10", "item_11", "item_12", "item_13", "item_14", "item_15", "item_16", "item_17"]
+          //  )],
+          //  conditional_function: function() { return jsPsych.data.getLastTrialData().values()[0].FEEDBACK.includes("Yes"); }
+          //},
+          demo.extra_information_7
         ]
       },
       jsPsych.resumeExperiment

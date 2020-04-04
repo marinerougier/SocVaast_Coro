@@ -1,9 +1,9 @@
 var englishQuestions = {};
 
-englishQuestions.preamble_situation = "<br><b>For each of the following items, please indicate what applies to your situation, <br>using the respective scale provided for each item.</b><br><br>";
-englishQuestions.preamble_agreement = "<br><b>For each of the following items, please indicate the degree to which you agree.</b><br><br>";
-englishQuestions.preamble_risk = "<br><b>For each of the following items, please indicate the degree of risk you estimate.</b><br><br>";
-englishQuestions.preamble_typical_situation = "<br><b>For each of the following statements, please indicate what typically applies to you, <br>independent of the current situation. </b><br><br>";
+englishQuestions.preamble_apply_situation = "<br><b>Please indicate what applies to your situation.</b><br><br>";
+englishQuestions.preamble_apply_you = "<br><b>Please indicate what applies to you.</b><br><br>";
+englishQuestions.preamble_agreement = "<br><b>Please indicate the extent to which you agree.</b><br><br>";
+englishQuestions.preamble_apply_typical = "<br><b>Please indicate the extent to which the statements typically apply to you, <br><u>independent</u> of the current situation. </b><br><br>";
 
 
 englishQuestions.item_1 = {
@@ -14,13 +14,13 @@ englishQuestions.item_1 = {
 
 englishQuestions.item_2 = {
   prompt: "For me personally, the amount of my direct (i.e., face-to-face) social contact is currently restricted due to the social distancing policies in my region.<br>",
-  labels: ["<br>1<br> not at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> extremely", "<br><b>No social distancing policies</b>"],
+  labels: ["<br>1<br> not at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> extremely"],
   required: true  
 };
 
 englishQuestions.item_3 = {
   prompt: "I believe that the current social distancing policies in my region are...<br>",
-  labels: ["<br>-3<br> too loose", "<br>-2", "<br>-1", "<br>0 appropriate", "<br>1", "<br>2", "<br>3<br> too harsh", "<br><b>No social distancing policies</b>"],
+  labels: ["<br>-3<br> too loose", "<br>-2", "<br>-1", "<br>0 appropriate", "<br>1", "<br>2", "<br>3<br> too harsh"],
   required: true                                                                                    
 };
 
@@ -44,27 +44,38 @@ englishQuestions.item_6 = {
 
 englishQuestions.item_7 = {
   prompt: "Currently, I feel very lonely.<br>",
-  labels: ["<br>1<br> not agree at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> agree completely"],
+  labels: ["<br>1<br> not at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br>completely"],
   required: true
 };
 
 englishQuestions.item_8 = {
   prompt: "Currently, I have a strong need for direct (i.e. face-to-face) social contact.<br>",
-  labels: ["<br>1<br> not agree at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> agree completely"],
+  labels: ["<br>1<br> not at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br>completely"],
   required: true
 };
 
 englishQuestions.item_9 = {
-  prompt: "I am very afraid of becoming infected with the coronavirus.<br>",
-  name: 'item_9', labels: ["<br>1<br> not agree at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> agree completely", "<br><b>I am/was infected</b>"],
-  required: true
-};
+  timeline: [{
+    type: 'survey-multi-choice',
+    questions: [{
+      prompt: "<p>Please select what applies to you</p><p>I currently am or was already infected with the corona virus</p>",
+      options: ["Yes&nbsp&nbsp", "don't know&nbsp&nbsp", "No&nbsp&nbsp"],
+      required: true, horizontal: true
+    }],
+    button_label: "OK"
+  }],
+  on_finish: function(data) {
+    console.log(data.responses);
+    jsPsych.data.addProperties({item_9: JSON.parse(data.responses)["Q0"]});
+    jsPsych.data.get().addToLast({tag: "extra_data"});
+  }
+}
 
 englishQuestions.item_10 = {
-  prompt: "I am very afraid that my loved ones become infected with the coronavirus.<br>",
+  prompt: "I am very afraid of becoming infected with the coronavirus.<br>",
   labels: ["<br>1<br> not agree at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> agree completely"],
   required: true
-};          
+};
 
 englishQuestions.item_11 = {
   prompt: " I am very afraid that I might pose a danger to other people because I could be infected without knowing.<br>",
@@ -73,37 +84,43 @@ englishQuestions.item_11 = {
 };
 
 englishQuestions.item_12 = {
+    prompt: "Given your current circumstances, how high do you judge the risk of becoming infected with the coronavirus?<br>",
+    labels: ["<br>1<br> no risk at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> very high risk"],
+    required: true
+  };
+
+englishQuestions.item_13 = {
+prompt: "Given your preconditions (health status, age), how high do you judge the risk of developing a severe coronavirus disease, in case of becoming infected with the coronavirus?<br>",
+labels: ["<br>1<br> no risk at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> very high risk"],
+required: true
+};
+
+englishQuestions.item_14 = {
+  prompt: "I am very afraid that my loved ones become infected with the coronavirus.<br>",
+  labels: ["<br>1<br> not agree at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> agree completely"],
+  required: true
+};  
+
+englishQuestions.item_15 = {
   prompt: "I am very afraid that the coronavirus pandemic will overburden the health system of my country.<br>",
   labels: ["<br>1<br> not agree at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> agree completely"],
   required: true
 };
 
-englishQuestions.item_13 = {
-  prompt: "Given your current circumstances, how high do you judge the risk of becoming infected with the coronavirus?<br>",
-  labels: ["<br>1<br> no risk at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> very high risk", "<br><b>I am/was infected</b>"],
-  required: true
-};
-
-englishQuestions.item_14 = {
-  prompt: "Given your preconditions (health status, age), how high do you judge the risk of developing a severe coronavirus disease, in case of becoming infected with the coronavirus?<br>",
-  labels: ["<br>1<br> no risk at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> very high risk", "<br><b>I am/was infected</b>"],
-  required: true
-};
-
-englishQuestions.item_15 = {
+englishQuestions.item_16 = {
   prompt: "Typically, I have a lot of direct (face-to-face) social contact.<br>",
-  labels: ["<br>1<br> not agree at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> agree completely"],
+  labels: ["<br>1<br> not at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br>completely"],
   required: true
 };   
 
-englishQuestions.item_16 = {
+englishQuestions.item_17 = {
   prompt: "Typically, I have a strong need for social contact.<br>",
-  labels: ["<br>1<br> not agree at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> agree completely"],
+  labels: ["<br>1<br> not at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br>completely"],
   required: true
 };
 
-englishQuestions.item_17 = {
+englishQuestions.item_18 = {
   prompt: "Typically, I like being alone.<br>",
-  labels: ["<br>1<br> not agree at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> agree completely"],
+  labels: ["<br>1<br> not at all", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> completely"],
   required: true
 };
