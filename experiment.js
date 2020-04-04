@@ -422,47 +422,71 @@ var next_position_training = function(){
       event_data: jsPsych.data.getInteractionData().json()})
   }
 
-  
   var saving_questions = function() {
-    var questions_data = jsPsych.data.get().filter({tag: "questions_data"}).json();
-    console.log(questions_data);
+    // with the tag here, its always just one item that has them all, the last one is the complete one
+    var questions_data = jsPsych.data.get().filter({tag: "questions_data"}).last(1).values()[0];
+    console.log("saving questions: ", questions_data);
     database
      .ref("questions_info_corona_en/")
      .push()
      .set({jspsych_id: jspsych_id,
-         timestamp: firebase.database.ServerValue.TIMESTAMP,
-          vaast_first_block: vaast_first_block,
-          // here, too, we should not use a number but rather a tag
-         //questions_data: jsPsych.data.get().last(6).json(),
-         questions_data: questions_data,
-        })
+        timestamp: firebase.database.ServerValue.TIMESTAMP,
+        vaast_first_block: vaast_first_block,
+        // here, too, we should not use a number but rather a tag
+        //questions_data: jsPsych.data.get().last(6).json(),
+        questions_data: questions_data,
+      })
   }
 
   var saving_extra = function() {
-    var extra_data = jsPsych.data.get().filter({tag: "extra_data"}).json();
+    // with the tag, its always just one item that has them all
+    var extra_data = jsPsych.data.get().filter({tag: "extra_data"}).last(1).values()[0];
+    console.log("saving extra: ", extra_data);
     database
      .ref("extra_info_corona_en/")
      .push()
      .set({jspsych_id: jspsych_id,
-         timestamp: firebase.database.ServerValue.TIMESTAMP,
-          vaast_first_block: vaast_first_block,
-          // having this number hardcoded here is a recipe for desaster ....
-          // better tag your data
-          // extra_data: jsPsych.data.get().last(8).json(),
-          extra_data: extra_data
-        })
+        timestamp: firebase.database.ServerValue.TIMESTAMP,
+        vaast_first_block: vaast_first_block,
+        // having this number hardcoded here is a recipe for desaster ....
+        // better tag your data
+        // extra_data: jsPsych.data.get().last(8).json(),
+        extra_data: extra_data
+      })
   }
 
-  var saving_language = function() {
-    database
-     .ref("language_info_corona_en/")
-     .push()
-     .set({jspsych_id: jspsych_id,
-         timestamp: firebase.database.ServerValue.TIMESTAMP,
-          vaast_first_block: vaast_first_block,
-         language_data: jsPsych.data.get().last(1).json(),
-        })
+  var saving_email = function(data) {
+    // with the tag here, its always just one item that has them all
+    if (data.email) {
+      console.log("saving email: ", data);
+      database
+      .ref("email_contacts/")
+      .push()
+      .set({
+          email: data.email,
+          info_requested: data.info_requested,
+          language: selected_language, // we save the language with the email se we can address people
+        });
+      } else {
+        console.log('no email was saved');
+      }
   }
+
+// I suggest adding the language to all datapoints using add_properties
+// Plus, we also have a global variable: selected language
+/*
+var saving_language = function() {
+  database
+    .ref("language_info_corona_en/")
+    .push()
+    .set({jspsych_id: jspsych_id,
+        timestamp: firebase.database.ServerValue.TIMESTAMP,
+        vaast_first_block: vaast_first_block,
+        language_data: jsPsych.data.get().last(1).json(),
+      })
+}
+*/
+
 // saving blocks ------------------------------------------------------------------------
 var save_id = {
     type: 'call-function',
@@ -484,12 +508,18 @@ var save_extra = {
     func: saving_extra
 }
 
+// I suggest adding the language to all datapoints using add_properties
+// Plus, we also have a global variable: selected language
+/*
 var save_language = {
     type: 'call-function',
     func: saving_language
 }
+*/
+
 // EXPERIMENT ---------------------------------------------------------------------------
 const LANGUAGECHOICES = ['English', 'Français'];
+var selected_language = LANGUAGECHOICES[0];
 
 // english as default
 var instructions = englishInstructions;
@@ -523,7 +553,10 @@ var languageSelection = {
   stimulus: "<p class='instructions'><center>Please choose a language:</p></center>",
   choices: LANGUAGECHOICES,
   on_finish: function(data) {
-    set_language(LANGUAGECHOICES[parseInt(data.button_pressed)]);
+    selected_language = LANGUAGECHOICES[parseInt(data.button_pressed)]
+    set_language(selected_language);
+    // add language to all data points
+    jsPsych.data.addProperties({selected_language: selected_language});
   }
 };
 
@@ -787,7 +820,7 @@ var fullscreen_trial_exit = {
   type: 'fullscreen',
   fullscreen_mode: false
 }
-
+var items_to_give_feedback_on = [];
 survey_slider_questions = function(items, preamble) {
   return {
     timeline: [{
@@ -803,6 +836,8 @@ survey_slider_questions = function(items, preamble) {
       $(".jspsych-survey-likert-statement").css("font-size", "17px");
       $("#jspsych-survey-likert-form").css("width", "800px");
       $("li").css("width", "9%");
+      // we only give feedback on the items that were actually shown
+      _.forEach(items, function(item) {items_to_give_feedback_on.push(item);})
     },
     on_finish: function(data) {
       console.log(data.responses);
@@ -814,12 +849,27 @@ survey_slider_questions = function(items, preamble) {
   }
 };
 
-  
-
 function questionnaire_feedback(feedback_order) {
   return {
-    type: "html-keyboard-response",
+    type: "html-button-response",
     on_load: function() {
+      // make the download possible - this only puts the visible part of the page into the image...
+      /*
+      $('#downloadPDF').click(function () {
+        domtoimage.toPng(document.getElementById('FEEDBACK'))
+            .then(function (blob) {
+                var pdf = new jsPDF('l', 'pt', [$('#FEEDBACK').width() + 40, $('#FEEDBACK').height()]);
+                // the 40 / 20 is needed to center the image in the pdf
+                pdf.addImage(blob, 'PNG', 20, 0, $('#FEEDBACK').width(), $('#FEEDBACK').height());
+                pdf.save("feedback.pdf");
+    
+                that.options.api.optionsChanged();
+            });
+      });
+      */
+      //undefine email, otherwise we take the old one
+      window.email = undefined;
+      // populate reaction feedback
       updateFeedback(-1);
       document.getElementById('FeedbackMeanReactionTime').innerHTML = FeedbackMeanReactionTime;
       document.getElementById('FeedbackNumberOfCorrectRespones').innerHTML = FeedbackNumberOfCorrectResponses;
@@ -862,15 +912,40 @@ function questionnaire_feedback(feedback_order) {
       document.getElementById('RESPONSES').innerHTML = html;
     },
     stimulus:
-      "<p class='instructions'><center>Thank You! Here is a summary of your responses.</center><p>" +
-      "<div class='instructions' id=REACTIONS>" +
-      "Your average Reaction Time has been: <b><span id='FeedbackMeanReactionTime'></span> milli seconds</b><br>" +
-      "You reacted <b><span id='FeedbackNumberOfCorrectRespones'></span> of " +
-      "<span id='FeedbackNumberOfTotalRespones'></span> times correctly.</b>" +
-      "</div>" +
-      "<div class='instructions' id='RESPONSES'></div>" +
-      "<p class = 'continue-instructions'>Press <strong>space</strong> to continue.</p>",
-    choices: [32]
+      `<div class='instructions' id=FEEDBACK>
+        <div>
+        <p>
+        Note, that we have not yet collected a sufficient amount of data to show average responses from previous participants.
+        If you are interested in this summary, please enter your Email address in the field below.
+        </p><p>
+          Email-address:&nbsp <input type='text' name='EMAIL' id='EMAIL' size=60 onchange='window.email = this.value'>
+        </p><p>
+          Your email-address will be stored separately from your responses in the study. It is not possible to connect your email-address with any of your responses.
+        </p><p>
+          <h3><center>Here is a summary of your responses</center></h3>
+          <p>Please save this page for your future reference.</p>
+        </div>
+        <div id=REACTIONS >
+          Your average reaction time has been: <b><span id='FeedbackMeanReactionTime'></span> milliseconds</b><br>
+          You reacted <b><span id='FeedbackNumberOfCorrectRespones'></span> of <span id='FeedbackNumberOfTotalRespones'></span> times correctly.</b>
+        </div>
+        <div id='RESPONSES'></div>
+      </div>
+      <!--
+      <div class='instructions'><button id="downloadPDF" style="float: right;">Download PDF</button></div>
+      -->
+      `,
+    choices: ['Finish Study'],
+    on_finish: function(data) {
+      // this would add the email to every data point collected,
+      // exactly what you promise not to do....
+      //jsPsych.data.addProperties({
+      var data_to_save =  {
+        email: window.email,
+        info_requested: 'feedback'
+      };
+      saving_email(data_to_save);
+    }
   }
 }
 
@@ -890,6 +965,7 @@ var setup_experiment = {
     jsPsych.addNodeToEndOfTimeline(
       {
         timeline: [
+
           instructions.welcome,
           instructions.fullscreen_trial,
           hiding_cursor,
@@ -911,9 +987,10 @@ var setup_experiment = {
           instructions.feedback_lastblock,
           showing_cursor,
           instructions.extra_information,
-          survey_slider_questions(['item_1'], questions.preamble_apply_situation),
-          { //ask item_2, and item_3 only if item_1 was not zero
-            timeline: [survey_slider_questions(['item_2', 'item_3'], "")],
+          
+          survey_slider_questions(['item_1', 'item_2'], questions.preamble_apply_situation),
+          { //ask item_3 only if item_1 was not zero
+            timeline: [survey_slider_questions(['item_3'], "")],
             conditional_function: function(){ return jsPsych.data.getLastTrialData().values()[0].item_1 != 0;}
           },
           survey_slider_questions(['item_4', 'item_5', 'item_6'], questions.preamble_apply_you),
@@ -927,17 +1004,17 @@ var setup_experiment = {
           survey_slider_questions(['item_14', 'item_15'], questions.preamble_agreement),
           survey_slider_questions(['item_16', 'item_17', 'item_18'], questions.preamble_apply_typical),
           save_questions,
-          fullscreen_trial_exit,
-          englishDemo.extra_information,
+          
+          englishDemo.extra_information_1,
+          englishDemo.extra_information_2,
           save_extra,
-          //{ // show feedback only if desired
-          //  timeline: [questionnaire_feedback([
-          //    "item_1", "item_2", "item_3", "item_4", "item_5", "item_6", "item_7", "item_8", "item_9",
-          //    "item_10", "item_11", "item_12", "item_13", "item_14", "item_15", "item_16", "item_17"]
-          //  )],
-          //  conditional_function: function() { return jsPsych.data.getLastTrialData().values()[0].FEEDBACK.includes("Yes"); }
-          //},
-          demo.extra_information_7
+  
+          demo.extra_information_3,
+          { // show feedback only if desired
+            timeline: [questionnaire_feedback(items_to_give_feedback_on)],
+            conditional_function: function() { return jsPsych.data.getLastTrialData().values()[0].button_pressed == 1; }
+          },
+          fullscreen_trial_exit
         ]
       },
       jsPsych.resumeExperiment
@@ -950,7 +1027,7 @@ timeline.push(save_id);
 
 timeline.push(
   languageSelection,
-  save_language,
+  //save_language, // I suggest saving the language directly to the datapoints and in the global variable selected_language
   setup_experiment
 );
 // Launch experiment --------------------------------------------------------------------
@@ -988,9 +1065,9 @@ if(is_compatible) {
     on_finish: function() {
         saving_browser_events(completion = true);
         jsPsych.data.addProperties({
-        vaast_first_block: vaast_first_block,
+          vaast_first_block: vaast_first_block,
         });
-        window.location.href = "https://www.google.com/";
+        //window.location.href = "https://www.google.com/";
     }
   });
 }

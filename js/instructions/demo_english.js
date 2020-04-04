@@ -1,33 +1,15 @@
 
 var englishDemo = {};
 
-/*
 englishDemo.extra_information_1 = {
-  timeline: [{
-    type: 'survey-text',
-    questions: [{prompt: "What is your current country of residence?", name: 'country', required: true},
-                {prompt: "Please indicate the ZIP code of your current residence:", name: 'zip', required: true},
-                {prompt: "What is your age?", name: 'age', required: true}],
-    button_label: "OK",
-  }],
-  on_finish: function(data) {
-    jsPsych.data.addProperties({
-      country: JSON.parse(data.responses)["country"],
-      zip: JSON.parse(data.responses)["zip"],
-      age: JSON.parse(data.responses)["age"],
-    });
-  }
-}
-*/
-
-englishDemo.extra_information = {
   timeline: [{
     type: 'survey-html-form',
     html: `
-      <div class='instructions' style='text-align:left'><table> 
+      <div class='instructions' style='width:700px text-align:left; font-size:medium vertical-align:top; line-height: 1.0'>
+      <table style='width:100%; border-collapse: separate; border-spacing: 1em'; vertical-align:top> 
       <tr><td>Where are you currently located?</td>
-      <td><select name='COUNTRY' type='select' width='100%' required='true'>
-      <option value="Sweden" selected="selected">Sweden</option>
+      <td style='font-size: smaller'><select name='COUNTRY' type='select' width='100%' required>
+      <option value="" disabled selected hidden>Please select</option>
       <option value="Afganistan">Afghanistan</option>
       <option value="Albania">Albania</option>
       <option value="Algeria">Algeria</option>
@@ -277,24 +259,46 @@ englishDemo.extra_information = {
    </select>
       </td></tr> 
       <tr><td>Please indicate the ZIP code of your current location:</td>
-      <td style="vertical-align:top"><input name='ZIP' type='number' width='100%' required='true'></td></tr>
+      <td style="vertical-align:top"><input name='ZIP' type='number' width='100%' required></td></tr>
+
+      <tr><td>How would you label your ethnic and/or cultural background(s)?</td>
+      <td style="vertical-align:top; font-size:medium"><input name='ETHNICITY' type='text' required></td></tr>
       
       <tr><td>Besides yourself, how many family members or loved ones live in your current household?</td>
-      <td style="vertical-align:top"><input name='NB_FAMILY' type='number' width='100%' required='true'></td></tr>
+      <td style="vertical-align:top"><input name='NB_FAMILY' type='number' width='100%' required></td></tr>
       
       <tr><td>Besides yourself, how many friends or flat mates live in your current household?</td>
-      <td style="vertical-align:top"><input name='NB_FRIENDS' type='number' width='100%' required='true'></td></tr>
+      <td style="vertical-align:top"><input name='NB_FRIENDS' type='number' width='100%' required></td></tr>
 
+      </table></div>`,
+    button_label: "OK",
+  }],
+  on_finish: function(data) {
+    console.log(data.responses);
+    // Add these properties to all data entries if desired
+    jsPsych.data.addProperties(JSON.parse(data.responses));
+    // add the tag only the last data item so we can save that separately
+    // we're already adding to all, so we just add that tag in the extra_information_2
+    // jsPsych.data.get().addToLast({tag: "extra_data"});
+  }
+}
+
+englishDemo.extra_information_2 = {
+  timeline: [{
+    type: 'survey-html-form',
+    html: `
+      <div class='instructions' style='width:700px text-align:left; font-size:medium vertical-align:top; line-height: 1.0'>
+      <table style='width:100%; border-collapse: separate; border-spacing: 1em'; vertical-align:top> 
       <tr><td>What is your age? </td>
       <td style="vertical-align:top"><input name='AGE' type='number' width='100%' required='true'></td></tr>
       
       <tr><td>What is your gender? </td>
-      <td style="vertical-align:top">
-        <label><input type='radio' name='SEX' required>&nbspfemale</label>
-        <label><input type='radio' name='SEX' required>&nbspmale</label>
-        <label><input type='radio' name='SEX' required>&nbspother</label>
+      <td style="vertical-align:top; font-size:smaller">
+        <label><input type='radio' name='SEX' required>&nbspfemale&nbsp&nbsp</label>
+        <label><input type='radio' name='SEX' required>&nbspmale&nbsp&nbsp</label>
+        <label><input type='radio' name='SEX' required>&nbspother&nbsp&nbsp</label>
       </td></tr>
-      
+
       <tr><td>Do you have professional contact with COVID-19 patients (e.g. as nursing staff, physician, etc.)?</td>
       <td><label><input type='radio' name='OCCUPATION' value='yes' required> Yes </label>&nbsp&nbsp<label><input type='radio' name='OCCUPATION' value='no'>&nbsp No</label></td></tr>
       
@@ -304,7 +308,7 @@ englishDemo.extra_information = {
       -->
 
       <tr><td style="vertical-align:top">Did you experience technical difficulties during completion of the video game task? If so, please describe.</td>
-      <td><input type='text' name='TECH_DIFF'></td></tr>
+      <td><input type='textarea' rows='3' cols='20' maxlength='256' wrap='soft' name='TECH_DIFF'></td></tr>
 
       </table></div>`,
     button_label: "OK",
@@ -318,6 +322,69 @@ englishDemo.extra_information = {
   }
 }
 
+englishDemo.extra_information_3 = {
+  timeline: [{
+    type: 'html-button-response',
+    // the way I'm extractin the email here is a but hacky, but document.getElementById('EMAIL') returns null in on_finish
+    stimulus: `
+      <div class='instructions' style='text-align:left' id='test'>
+      <p><b><center>The study is complete. Thank you very much for your participation!</center></b></p>
+      <p>
+      If you are interested in receiving invitations to future studies of the SCC-project, please enter your email-address in the field below:<br />
+      </p><p>
+      Email-address:&nbsp <input type='text' name='EMAIL' id='EMAIL' size=60 onchange='window.email = this.value'>
+      </p><p>
+      Your email-address will be stored separately from your responses in the study. It is not possible to connect your email-address with any of your responses.
+      </p><p>
+      For any questions, email us at <a href="mailto:scc-project@ur.de?subject=SCC Study">scc-project@ur.de</a>
+      </p><p>
+      Please help us invite as many people as possible to participate in this study by sharing the link with your friends and family on 
+      </p>
+      <div style='text-align:center'>
+      <!-- Sharingbutton Facebook -->
+        <a class="resp-sharing-button__link" href="https://facebook.com/sharer/sharer.php?u=https%3A%2F%2Fsccpandemicproject.github.io%2FSCCPandemicProject%2Findex.html" target="_blank" rel="noopener" aria-label="">
+          <div class="resp-sharing-button resp-sharing-button--facebook resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.77 7.46H14.5v-1.9c0-.9.6-1.1 1-1.1h3V.5h-4.33C10.24.5 9.5 3.44 9.5 5.32v2.15h-3v4h3v12h5v-12h3.85l.42-4z"/></svg>
+            </div>
+          </div>
+        </a>
+
+        <!-- Sharingbutton Twitter -->
+        <a class="resp-sharing-button__link" href="https://twitter.com/intent/tweet/?text=Participate%20in%20study%20on%20social%20contact%20during%20the%20corona%20pandemic&amp;url=https%3A%2F%2Fsccpandemicproject.github.io%2FSCCPandemicProject%2Findex.html" target="_blank" rel="noopener" aria-label="">
+          <div class="resp-sharing-button resp-sharing-button--twitter resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23.44 4.83c-.8.37-1.5.38-2.22.02.93-.56.98-.96 1.32-2.02-.88.52-1.86.9-2.9 1.1-.82-.88-2-1.43-3.3-1.43-2.5 0-4.55 2.04-4.55 4.54 0 .36.03.7.1 1.04-3.77-.2-7.12-2-9.36-4.75-.4.67-.6 1.45-.6 2.3 0 1.56.8 2.95 2 3.77-.74-.03-1.44-.23-2.05-.57v.06c0 2.2 1.56 4.03 3.64 4.44-.67.2-1.37.2-2.06.08.58 1.8 2.26 3.12 4.25 3.16C5.78 18.1 3.37 18.74 1 18.46c2 1.3 4.4 2.04 6.97 2.04 8.35 0 12.92-6.92 12.92-12.93 0-.2 0-.4-.02-.6.9-.63 1.96-1.22 2.56-2.14z"/></svg>
+            </div>
+          </div>
+        </a>
+
+        <!-- Sharingbutton E-Mail -->
+        <a class="resp-sharing-button__link" href="mailto:?subject=Participate%20in%20study%20on%20social%20contact%20during%20the%20corona%20pandemic&amp;body=https%3A%2F%2Fsccpandemicproject.github.io%2FSCCPandemicProject%2Findex.html" target="_self" rel="noopener" aria-label="">
+          <div class="resp-sharing-button resp-sharing-button--email resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22 4H2C.9 4 0 4.9 0 6v12c0 1.1.9 2 2 2h20c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM7.25 14.43l-3.5 2c-.08.05-.17.07-.25.07-.17 0-.34-.1-.43-.25-.14-.24-.06-.55.18-.68l3.5-2c.24-.14.55-.06.68.18.14.24.06.55-.18.68zm4.75.07c-.1 0-.2-.03-.27-.08l-8.5-5.5c-.23-.15-.3-.46-.15-.7.15-.22.46-.3.7-.14L12 13.4l8.23-5.32c.23-.15.54-.08.7.15.14.23.07.54-.16.7l-8.5 5.5c-.08.04-.17.07-.27.07zm8.93 1.75c-.1.16-.26.25-.43.25-.08 0-.17-.02-.25-.07l-3.5-2c-.24-.13-.32-.44-.18-.68s.44-.32.68-.18l3.5 2c.24.13.32.44.18.68z"/></svg>
+            </div>
+          </div>
+        </a>
+      </div>
+      <p style='text-align:center'>
+      Thank you!
+      </p>
+      </div>
+    `,
+    choices: ["Finish study", "Show summary of responses"]
+  }],
+  on_finish: function(data) {
+    // this would add the email to every data point collected,
+    // exactly what you promise not do....
+    //jsPsych.data.addProperties({
+    var data_to_save =  {
+      email: window.email,
+      info_requested: 'info'
+    };
+    saving_email(data_to_save);
+  }
+}
+
+/*
 englishDemo.extra_information_7 = {
     timeline: [{
     type: 'survey-text',
@@ -332,5 +399,5 @@ englishDemo.extra_information_7 = {
       });
     }
   }
-
+*/
 
