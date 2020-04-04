@@ -1,9 +1,9 @@
 var frenchQuestions = {};
 
-frenchQuestions.preamble_situation = "<br><b>Pour chacune des questions suivantes, merci d'indiquer ce qui s'applique à votre situation <br>en utilisant les échelles de réponse relatives à chaque question.</b><br><br>";
-frenchQuestions.preamble_agreement = "<br><b>Pour chacune des questions suivantes, merci d'indiquer votre degré d'accord.</b><br><br>";
-frenchQuestions.preamble_risk = "<br><b>Pour chacune des questions suivantes, merci d'indiquer le degré de risque que vous estimez.</b><br><br>";
-frenchQuestions.preamble_typical_situation = "<br><b>Pour chacune des affirmations suivantes, merci d'indiquer ce qui s'applique typiquement à vous, <br>indépendamment de la situation actuelle. </b><br><br>";
+frenchQuestions.preamble_apply_situation = "<br><b>Merci d'indiquer ce qui s'applique à votre situation.</b><br><br>";
+frenchQuestions.preamble_apply_you = "<br><b>Merci d'indiquer ce qui s'applique à vous.</b><br><br>";
+frenchQuestions.preamble_agreement = "<br><b>Merci d'indiquer votre degré d'accord.</b><br><br>";
+frenchQuestions.preamble_apply_typical = "<br><b>Merci d'indiquer dans quelle mesure chacune de ces informations s'applique typiquement à vous, <br><u>indépendamment</u> de la situation actuelle. </b><br><br>";
 
 
 frenchQuestions.item_1 = {
@@ -12,17 +12,17 @@ frenchQuestions.item_1 = {
   required: true
 };
 
-frenchQuestions.item_2 = {
-  prompt: "A titre personnel, le niveau de mes contacts sociaux directs (c'est-à-dire en face à face) est actuellement limité en raison des politiques de distanciation sociale mises en place dans ma région.<br>",
-  labels: ["<br>1<br> pas du tout", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> extrêmement", "<br><b>Pas de distanciation sociale</b>"],
-  required: true  
+frenchQuestions.item_2= {
+  prompt: "Je pense que dans ma région le contact social devrait... <br>(sélectionnez 0 si vous trouvez que les régulations actuelles sont appropriées)",
+  labels: ["<br>-3<br> être moins restreint", "<br>-2", "<br>-1", "<br>0", "<br>1", "<br>2", "<br>3<br> être plus restreint"],
+  required: true                                                                                    
 };
 
 frenchQuestions.item_3 = {
-  prompt: "Je crois que les politiques actuelles de distanciation sociale mises en place dans ma région sont...<br>",
-  labels: ["<br>-3<br> trop relâchées", "<br>-2", "<br>-1", "<br>0 appropriées", "<br>1", "<br>2", "<br>3<br> trop dures", "<br><b>Pas de distanciation sociale</b>"],
-  required: true                                                                                    
-};
+    prompt: "A titre personnel, le niveau de mes contacts sociaux directs (c'est-à-dire en face à face) est actuellement limité en raison des politiques de distanciation sociale mises en place dans ma région.<br>",
+    labels: ["<br>1<br> pas du tout", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> extrêmement"],
+    required: true  
+  };
 
 frenchQuestions.item_4 = {
   prompt: "Je garde actuellement mes distances avec les autres personnes dans l'espace public.<br>",
@@ -34,7 +34,7 @@ frenchQuestions.item_5 = {
   prompt: "Quelle quantité de contacts sociaux directs (c'est-à-dire en face à face) avez-vous actuellement?<br>",
   labels: ["<br>1<br> très peu", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> beaucoup"],
   required: true
-};    
+};  
       
 frenchQuestions.item_6 = {
   prompt: "Quelle quantité de contacts sociaux avez-vous actuellement via des appels téléphoniques/vidéo, les réseaux sociaux ou par mail?<br>",
@@ -44,27 +44,39 @@ frenchQuestions.item_6 = {
 
 frenchQuestions.item_7 = {
   prompt: "Actuellement, je me sens seule.e.<br>",
-  labels: ["<br>1<br> pas du tout d'accord", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> complètement d'accord"],
+  labels: ["<br>1<br> pas du tout", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> complètement"],
   required: true
 };
 
 frenchQuestions.item_8 = {
   prompt: "Actuellement, j'ai un fort besoin de contact social direct (c'est-à-dire en face à face).<br>",
-  labels: ["<br>1<br> pas du tout d'accord", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> complètement d'accord"],
+  labels: ["<br>1<br> pas du tout", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> complètement"],
   required: true
 };
 
 frenchQuestions.item_9 = {
-  prompt: "J'ai très peur d'être infecté par le coronavirus.<br>",
-  name: 'item_9', labels: ["<br>1<br> pas du tout d'accord", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> complètement d'accord", "<br><b>J'étais/je suis infecté.e</b>"],
-  required: true
-};
+  timeline: [{
+    type: 'survey-multi-choice',
+    questions: [{
+      prompt: "<div class='instructions' style='width:100%'><p>Merci de sélectionner ce qui s'applique à vous.</p><p>J'étais/je suis actuellement infecté.e par le coronavirus</p></div>",
+      options: ["oui&nbsp&nbsp", "je ne sais pas&nbsp&nbsp", "non&nbsp&nbsp"],
+      required: true, horizontal: true
+    }],
+    button_label: "OK"
+  }],
+  on_finish: function(data) {
+    console.log(data.responses);
+    jsPsych.data.addProperties({item_9: JSON.parse(data.responses)["Q0"]});
+    jsPsych.data.get().addToLast({tag: "extra_data"});
+  }
+}
+
 
 frenchQuestions.item_10 = {
-  prompt: "J'ai très peur que mes proches soient infectés par le coronavirus.<br>",
-  labels: ["<br>1<br> pas du tout d'accord", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> complètement d'accord"],
+  prompt: "J'ai très peur d'être infecté par le coronavirus.<br>",
+  name: 'item_9', labels: ["<br>1<br> pas du tout d'accord", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> complètement d'accord"],
   required: true
-};          
+};
 
 frenchQuestions.item_11 = {
   prompt: "J'ai très peur de représenter un danger pour les autres parce que je pourrais être infecté.e sans le savoir.<br>",
@@ -73,37 +85,43 @@ frenchQuestions.item_11 = {
 };
 
 frenchQuestions.item_12 = {
-  prompt: "J'ai très peur que la pandémie de coronavirus ne surcharge le système de santé de mon pays.<br>",
-  labels: ["<br>1<br> pas du tout d'accord", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> complètement d'accord"],
-  required: true
-};
+    prompt: "Compte tenu de votre situation actuelle, à quel point jugez-vous probable le risque d'être infecté par le coronavirus?<br>",
+    labels: ["<br>1<br> pas de risque du tout", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> risque très élevé"],
+    required: true
+  };
 
 frenchQuestions.item_13 = {
-  prompt: "Compte tenu de votre situation actuelle, à quel point jugez-vous probable le risque d'être infecté par le coronavirus?<br>",
-  labels: ["<br>1<br> pas de risque du tout", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> risque très élevé", "<br><b>J'étais/je suis infecté.e</b>"],
+  prompt: "Compte tenu de vos conditions de santé préalables (antécédents, âge, etc.), à quel point jugez-vous probable le risque de développer une forme sévère du coronavirus, en cas d'infection ?<br>",
+  labels: ["<br>1<br> pas de risque du tout", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> risque très élevé"],
   required: true
 };
 
 frenchQuestions.item_14 = {
-  prompt: "Compte tenu de vos conditions de santé préalables (antécédents, âge), à quel point jugez-vous probable le risque de développer une forme sévère du coronavirus, en cas d'infection ?<br>",
-  labels: ["<br>1<br> pas de risque du tout", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> risque très élevé", "<br><b>J'étais/je suis infecté.e</b>"],
+  prompt: "J'ai très peur que mes proches deviennent infectés par le coronavirus.<br>",
+  labels: ["<br>1<br> pas du tout d'accord", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> complètement d'accord"],
   required: true
 };
 
 frenchQuestions.item_15 = {
-  prompt: "En règle générale, j'ai beaucoup de contacts sociaux directs (face à face).<br>",
-  labels: ["<br>1<br> pas du tout d'accord", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> complètement d'accord"],
-  required: true
-};   
-
-frenchQuestions.item_16 = {
-  prompt: "Typiquement, j'ai un fort besoin de contact social.<br>",
+  prompt: "J'ai très peur que la pandémie du coronavirus ne surcharge le système de santé de mon pays.<br>",
   labels: ["<br>1<br> pas du tout d'accord", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> complètement d'accord"],
   required: true
 };
 
+frenchQuestions.item_16 = {
+  prompt: "En règle générale, j'ai beaucoup de contacts sociaux directs (en face à face).<br>",
+  labels: ["<br>1<br> pas du tout", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> complètement"],
+  required: true
+};   
+
 frenchQuestions.item_17 = {
-  prompt: "En général, j'aime être seul.<br>",
-  labels: ["<br>1<br> pas du tout d'accord", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> complètement d'accord"],
+  prompt: "En règle générale, j'ai un fort besoin de contact social.<br>",
+  labels: ["<br>1<br> pas du tout", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> complètement"],
+  required: true
+};
+
+frenchQuestions.item_18 = {
+  prompt: "En règle générale, j'aime être seul.e.<br>",
+  labels: ["<br>1<br> pas du tout", "<br>2", "<br>3", "<br>4", "<br>5", "<br>6", "<br>7<br> complètement"],
   required: true
 };

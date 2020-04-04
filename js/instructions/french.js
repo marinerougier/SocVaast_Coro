@@ -18,7 +18,7 @@ frenchInstructions.welcome = {
         "<p class='instructions'>Durant cette étude, vous devrez compléter une tâche simple de jeu vidéo et répondre à quelques questions sur vos comportements et ressentis. "+
         "Notez que <b>vous avez besoin d'un ordinateur et d'un vrai clavier (c'est-à-dire non virtuel) </b>pour effectuer la tâche. </p>" +
         "<p class='instructions'>Si vous êtes intéressé.e, <b>vous recevrez une analyse individuelle de vos réponses </b>en relation avec les réponses moyennes des participants précédents.</p>" +
-        "<p class='instructions'>L'étude prendra environ xx minutes. </p>" +
+        "<p class='instructions'>L'étude prendra environ 10-15 minutes. </p>" +
         "<p class='instructions'>En cliquant ci-dessous pour commencer l'étude, vous confirmez que :</p>" +
         "<ul class='instructions'>" +
             "<li>Vous avez au moins 18 ans. </li>" +

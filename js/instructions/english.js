@@ -18,7 +18,7 @@ englishInstructions.welcome = {
         "<p class='instructions'>During this study, you will complete a simple video game task and answer some questions regarding your behavior and feelings. "+
         "Note that <b>you need a computer and a real (i.e., not a virtual) keyboard </b>to complete the task. </p>" +
         "<p class='instructions'>If you are interested, <b>you can receive an individual analysis of your responses </b>in relation to the average responses of previous participants.</p>" +
-        "<p class='instructions'>Completion of the study will take approximately xx minutes. </p>" +
+        "<p class='instructions'>Completion of the study will take approximately 10-15 minutes. </p>" +
         "<p class='instructions'>By clicking below to start the study, you confirm that:</p>" +
         "<ul class='instructions'>" +
             "<li>You are at least 18 years old. </li>" +
@@ -225,3 +225,4 @@ englishInstructions.extra_information = {
     "<p class='continue-instructions'>Press <strong>space</strong> to continue.</p>",
   choices: [32]
 };
+
