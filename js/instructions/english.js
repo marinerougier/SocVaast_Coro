@@ -1,7 +1,7 @@
 
 var englishInstructions = {};
 
-englishInstructions.persons = "persons";
+englishInstructions.persons = "people";
 englishInstructions.plants = "plants";
 
 englishInstructions.welcome = {
@@ -63,7 +63,7 @@ englishInstructions.vaast_instructions_2 = {
     type: "html-keyboard-response",
     stimulus:
       "<h1 class ='custom-title'>Video Game task </h1>" +
-      "<p class='instructions'> Your task is to move toward or away from the items as a function of their category " +
+      "<p class='instructions'> Your task is to move toward or away from people or plants " +
       "(more specific instructions following). To do so, use the upward and downward arrow keys on your keyboard: </p>" +
       "<p class='instructions'><center>" +
         "<img src = 'media/keyboard-vaastt_en.png'>" +
@@ -162,7 +162,7 @@ englishInstructions.vaast_instructions_7 = {
   choices: [32]
 };
 
-englishInstructions.feedback = {
+englishInstructions.feedback_firstblock = {
   type: "html-keyboard-response",
   on_load: function() {
     document.getElementById('FeedbackMeanReactionTime').innerHTML = FeedbackMeanReactionTime;
@@ -181,6 +181,24 @@ englishInstructions.feedback = {
   choices: [32]
 };
 
+englishInstructions.feedback = {
+  type: "html-keyboard-response",
+  on_load: function() {
+    document.getElementById('FeedbackMeanReactionTime').innerHTML = FeedbackMeanReactionTime;
+    document.getElementById('FeedbackNumberOfCorrectRespones').innerHTML = FeedbackNumberOfCorrectResponses;
+    document.getElementById('FeedbackNumberOfTotalRespones').innerHTML = FeedbackNumberOfCorrectResponses + FeedbackNumberOfWrongResponses;
+  },
+  stimulus:
+    "<p class='instructions'><center>Good job!<br><br>" + 
+    "Here is your average Reaction Time: <b><span id='FeedbackMeanReactionTime'></span> milli seconds</b><br>" +
+    "You reacted <b><span id='FeedbackNumberOfCorrectRespones'></span> of " +
+    "<span id='FeedbackNumberOfTotalRespones'></span> times correctly.</b>" +
+    "</p></center>" +
+    "<p class='instructions'><center><b>Try your best to improve your performance in the next section.</b><br>" +
+    "<p class = 'continue-instructions'>Press <strong>space</strong> to continue</p>",
+  choices: [32]
+};
+
 englishInstructions.feedback_lastblock = {
   type: "html-keyboard-response",
   on_load: function() {
@@ -194,7 +212,6 @@ englishInstructions.feedback_lastblock = {
     "You reacted <b><span id='FeedbackNumberOfCorrectRespones'></span> of " +
     "<span id='FeedbackNumberOfTotalRespones'></span> times correctly.</b>" +
     "</p></center>" +
-    "<p class='instructions'><center>If you are interested, you will later be able to compare your performance rates<br> with the average performance of previous participants.<br><br>" + 
     "<p class = 'continue-instructions'>Press <strong>space</strong> to continue</p>",
   choices: [32]
 };

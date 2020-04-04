@@ -63,7 +63,7 @@ frenchInstructions.vaast_instructions_2 = {
     type: "html-keyboard-response",
     stimulus:
       "<h1 class ='custom-title'> Tâche du Jeu Vidéo </h1>" +
-      "<p class='instructions'> Votre tâche sera d'aller vers ces dessins ou de vous en éloigner en fonction de leur catégorie " +
+      "<p class='instructions'> Votre tâche sera d'aller vers les personnes ou les plantes ou de vous en éloigner " +
       "(des instructions plus spécifiques vont suivre). Pour cela, utiliser les flèches haut/bas de votre clavier : </p>" +
       "<p class='instructions'><center>" +
         "<img src = 'media/keyboard-vaastt_fr.png'>" +
@@ -166,7 +166,7 @@ frenchInstructions.vaast_instructions_7 = {
   choices: [32]
 };
 
-frenchInstructions.feedback = {
+frenchInstructions.feedback_firstblock = {
   type: "html-keyboard-response",
   on_load: function() {
     document.getElementById('FeedbackMeanReactionTime').innerHTML = FeedbackMeanReactionTime;
@@ -186,6 +186,25 @@ frenchInstructions.feedback = {
   choices: [32]
 };
 
+frenchInstructions.feedback = {
+  type: "html-keyboard-response",
+  on_load: function() {
+    document.getElementById('FeedbackMeanReactionTime').innerHTML = FeedbackMeanReactionTime;
+    document.getElementById('FeedbackNumberOfCorrectRespones').innerHTML = FeedbackNumberOfCorrectResponses;
+    document.getElementById('FeedbackNumberOfTotalRespones').innerHTML = FeedbackNumberOfCorrectResponses + FeedbackNumberOfWrongResponses;
+  },
+  stimulus:
+    "<p class='instructions'><center>Bien joué !<br><br>" + 
+    "Voici votre temps moyen de réaction : <b><span id='FeedbackMeanReactionTime'></span> millisecondes</b><br>" +
+    "Vous avez réagi <b><span id='FeedbackNumberOfCorrectRespones'></span> sur " +
+    "<span id='FeedbackNumberOfTotalRespones'></span> fois correctement.</b>" +
+    "</p></center>" +
+    "<p class='instructions'><center><b>Faites de votre mieux pour améliorer votre performance à la prochaine section.</b><br>" +
+    "<p class = 'continue-instructions'>Appuyez sur <strong>espace</strong> pour" +
+    " continuer.</p>",
+  choices: [32]
+};
+
 frenchInstructions.feedback_lastblock = {
   type: "html-keyboard-response",
   on_load: function() {
@@ -199,7 +218,6 @@ frenchInstructions.feedback_lastblock = {
     "Vous avez réagi <b><span id='FeedbackNumberOfCorrectRespones'></span> sur " +
     "<span id='FeedbackNumberOfTotalRespones'></span> fois correctement.</b>" +
     "</p></center>" +
-    "<p class='instructions'><center>Si vous êtes intéressé.e, vous pourrez par la suite comparer votre performance <br> avec la performance moyenne des participants précédents.<br><br>" + 
     "<p class = 'continue-instructions'>Appuyez sur <strong>espace</strong> pour" +
     " continuer.</p>",
   choices: [32]

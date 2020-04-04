@@ -322,8 +322,8 @@ var vaast_stim = [
   {movement_1: movement_plant_1, movement_2: movement_plant_2,  movement_3: movement_plant_3, movement_4: movement_plant_4, group: "plant",  stimulus: "stimuli/plant8.png"}
 ];
 
-var vaast_stim_human = _.sampleSize(_.filter(vaast_stim, { 'group': 'human'}), 2); //here, put 4
-var vaast_stim_plant = _.sampleSize(_.filter(vaast_stim, { 'group': 'plant'}), 2); // here, put 4
+var vaast_stim_human = _.sampleSize(_.filter(vaast_stim, { 'group': 'human'}), 4); //here, put 4
+var vaast_stim_plant = _.sampleSize(_.filter(vaast_stim, { 'group': 'plant'}), 4); // here, put 4
 
 vaast_stim_training.push(vaast_stim_human);
 vaast_stim_training.push(vaast_stim_plant);
@@ -700,7 +700,7 @@ var vaast_test_block_1 = {
     movement: jsPsych.timelineVariable('movement_1'),
     group:   jsPsych.timelineVariable('group'),
   },
-  on_finish: function(data) { updateFeedback(36); } // 32 test + 4 training
+  on_finish: function(data) { updateFeedback(40); } // 32 test + 4 training
 };
 
 var vaast_training_block_2 = {
@@ -739,7 +739,7 @@ var vaast_test_block_2 = {
     movement: jsPsych.timelineVariable('movement_2'),
     group:    jsPsych.timelineVariable('group'),
   },
-  on_finish: function(data) { updateFeedback(36); }
+  on_finish: function(data) { updateFeedback(40); }
 };
 
 var vaast_test_block_3 = {
@@ -898,7 +898,7 @@ var setup_experiment = {
           instructions.vaast_instructions_4,
           vaast_training_block_1,
           vaast_test_block_1,
-          instructions.feedback,
+          instructions.feedback_firstblock,
           instructions.vaast_instructions_5,
           vaast_training_block_2,
           vaast_test_block_2,
