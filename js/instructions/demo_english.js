@@ -294,9 +294,9 @@ englishDemo.extra_information_2 = {
       
       <tr><td>What is your gender? </td>
       <td style="vertical-align:top; font-size:smaller">
-        <label><input type='radio' name='SEX' required>&nbspfemale&nbsp&nbsp</label>
-        <label><input type='radio' name='SEX' required>&nbspmale&nbsp&nbsp</label>
-        <label><input type='radio' name='SEX' required>&nbspother&nbsp&nbsp</label>
+        <label><input type='radio' name='SEX' value='female' required>&nbspfemale&nbsp&nbsp</label>
+        <label><input type='radio' name='SEX' value='male'  required>&nbspmale&nbsp&nbsp</label>
+        <label><input type='radio' name='SEX' value='other' required>&nbspother&nbsp&nbsp</label>
       </td></tr>
 
       <tr><td>Do you have professional contact with COVID-19 patients (e.g. as nursing staff, physician, etc.)?</td>
@@ -327,7 +327,7 @@ englishDemo.extra_information_3 = {
     type: 'html-button-response',
     // the way I'm extractin the email here is a but hacky, but document.getElementById('EMAIL') returns null in on_finish
     stimulus: `
-      <div class='instructions' style='text-align:left' id='test'>
+      <div class='instructions' style='text-align:left;' >
       <p><b><center>The study is complete. Thank you very much for your participation!</center></b></p>
       <p>
       If you are interested in receiving invitations to future studies of the SCC-project, please enter your email-address in the field below:<br />
