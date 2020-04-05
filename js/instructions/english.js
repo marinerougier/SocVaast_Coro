@@ -41,6 +41,21 @@ englishInstructions.fullscreen_trial = {
   fullscreen_mode: true
 }
 
+englishInstructions.vaast_instructions_0 = {
+  type: "html-keyboard-response",
+  stimulus:
+    "<h1 class ='custom-title'> Video Game task</h1>" +
+    "<p class='instructions'>We now ask you to complete a task that assesses <b>spontaneous behavioral tendencies to approach or avoid other people.</b></p> " +
+    "<p class='instructions'>Completion of this task can be a bit tedious because it requires many repetitions of the same reactions.</b> " +
+    "Yet, for a reliable measurement of behavioral tendencies, it is very important to have all these repetitions. </p> " +
+   "<p class='instructions'> Therefore, please <b>don’t give up and complete the entire task.</b> "+
+   "By your participation you make a valuable contribution to better understanding the social consequences of the corona pandemic. </p>" +
+    "<br>" +
+    "<p class = 'continue-instructions'>Press <strong>space</strong> to" +
+    " continue.</p>",
+  choices: [32]
+};
+
 englishInstructions.vaast_instructions_1 = {
   type: "html-keyboard-response",
   stimulus:
@@ -175,7 +190,9 @@ englishInstructions.feedback_firstblock = {
     "You reacted <b><span id='FeedbackNumberOfCorrectRespones'></span> of " +
     "<span id='FeedbackNumberOfTotalRespones'></span> times correctly.</b>" +
     "</p></center>" +
-    "<p class='instructions'><center><b>Try your best to improve your performance in the next section.</b><br>" +
+    "<p class='instructions'><center><b>Try your best to improve your performance in the next section.</b>" +
+    "<p class='instructions'><center>Even if the task may appear a little tedious, please, don’t give up. Completion of this task helps science <br>to better understand "+
+    "how the corona pandemic affects spontaneous behavioral tendencies towards other people.</b><br>" +
     "<p class='instructions'><center>If you are interested, you will later be able to compare your performance rates<br> with the average performance of previous participants.<br><br>" + 
     "<p class = 'continue-instructions'>Press <strong>space</strong> to continue</p>",
   choices: [32]
@@ -194,7 +211,9 @@ englishInstructions.feedback = {
     "You reacted <b><span id='FeedbackNumberOfCorrectRespones'></span> of " +
     "<span id='FeedbackNumberOfTotalRespones'></span> times correctly.</b>" +
     "</p></center>" +
-    "<p class='instructions'><center><b>Try your best to improve your performance in the next section.</b><br>" +
+    "<p class='instructions'><center><b>Try your best to improve your performance in the next section.</b>" +
+    "<p class='instructions'><center>Even if the task may appear a little tedious, please, don’t give up. Completion of this task helps science <br>to better understand "+
+    "how the corona pandemic affects spontaneous behavioral tendencies towards other people.</b><br>" +
     "<p class = 'continue-instructions'>Press <strong>space</strong> to continue</p>",
   choices: [32]
 };
@@ -220,7 +239,7 @@ englishInstructions.feedback_lastblock = {
 englishInstructions.extra_information = {
   type: 'html-keyboard-response',
   stimulus:
-    "<p class='instructions'>You are almost done with the study. Please continue to answer some questions.</p>" +
+    "<p class='instructions'>You will start by answering some questions.</p>" +
     "<p class='instructions'>If you are interested, you will later be provided with an individual analysis of your answers and can compare your answers to the average answers from previous participants.</p>" +
     "<p class='continue-instructions'>Press <strong>space</strong> to continue.</p>",
   choices: [32]

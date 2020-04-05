@@ -41,6 +41,21 @@ frenchInstructions.fullscreen_trial = {
   fullscreen_mode: true
 }
 
+frenchInstructions.vaast_instructions_0 = {
+  type: "html-keyboard-response",
+  stimulus:
+    "<h1 class ='custom-title'> Tâche du Jeu Vidéo </h1>" +
+    "<p class='instructions'>Nous allons maintenant vous demander d'effectuer une tâche qui mesure <b>les tendances spontannées d'approche et d'évitement envers les individus.</b></p> " +
+    "<p class='instructions'>La réalisation de cette tâche peut être un peu fastidieuse car elle nécessite de nombreuses répétitions des mêmes réactions.</b> " +
+    "Cependant, pour une mesure fiable des tendances comportementales, il est très important d'avoir toutes ces répétitions. </p> " +
+   "<p class='instructions'> Par conséquent, <b>merci de ne pas abandonner.</b> "+
+   "Par votre participation, vous apportez une précieuse contribution à une meilleure compréhension des conséquences sociales de la pandémie du coronavirus. </p>" +
+    "<br>" +
+    "<p class = 'continue-instructions'>Appuyez sur <strong>espace</strong> pour" +
+    " continuer.</p>",
+  choices: [32]
+};
+
 frenchInstructions.vaast_instructions_1 = {
   type: "html-keyboard-response",
   stimulus:
@@ -179,7 +194,9 @@ frenchInstructions.feedback_firstblock = {
     "Vous avez réagi <b><span id='FeedbackNumberOfCorrectRespones'></span> sur " +
     "<span id='FeedbackNumberOfTotalRespones'></span> fois correctement.</b>" +
     "</p></center>" +
-    "<p class='instructions'><center><b>Faites de votre mieux pour améliorer votre performance à la prochaine section.</b><br>" +
+    "<p class='instructions'><center><b>Faites de votre mieux pour améliorer votre performance à la prochaine section.<br>" +
+    "<p class='instructions'><center>Même si la tâche peut sembler un peu fastidieuse, n’abandonnez pas. La réalisation de cette tâche aide la science <br> à mieux comprendre "+
+    "comment la pandémie du coronavirus affecte les tendances comportementales spontanées envers autrui.</b><br>" +
     "<p class='instructions'><center>Si vous êtes intéressé.e, vous pourrez par la suite comparer votre performance <br> avec la performance moyenne des participants précédents.<br><br>" + 
     "<p class = 'continue-instructions'>Appuyez sur <strong>espace</strong> pour" +
     " continuer.</p>",
@@ -199,7 +216,9 @@ frenchInstructions.feedback = {
     "Vous avez réagi <b><span id='FeedbackNumberOfCorrectRespones'></span> sur " +
     "<span id='FeedbackNumberOfTotalRespones'></span> fois correctement.</b>" +
     "</p></center>" +
-    "<p class='instructions'><center><b>Faites de votre mieux pour améliorer votre performance à la prochaine section.</b><br>" +
+    "<p class='instructions'><center><b>Faites de votre mieux pour améliorer votre performance à la prochaine section.<br>" +
+    "<p class='instructions'><center>Même si la tâche peut sembler un peu fastidieuse, n’abandonnez pas. La réalisation de cette tâche aide la science <br> à mieux comprendre "+
+    "comment la pandémie du coronavirus affecte les tendances comportementales spontanées envers autrui.</b><br>" +
     "<p class = 'continue-instructions'>Appuyez sur <strong>espace</strong> pour" +
     " continuer.</p>",
   choices: [32]
@@ -227,9 +246,10 @@ frenchInstructions.feedback_lastblock = {
   frenchInstructions.extra_information = {
     type: 'html-keyboard-response',
     stimulus:
-      "<p class='instructions'>Vous avez presque terminé l'étude. Merci de continuer pour répondre à quelques questions.</p>" +
+      "<p class='instructions'>Vous allez commencer par répondre à quelques questions.</p>" +
       "<p class='instructions'>Si vous êtes intéressé.e, vous pourrez par la suite avoir une analyse individuelle de vos réponses et ainsi les comparer avec les réponses moyennes des participants précédents.</p>" +
     "<p class = 'continue-instructions'>Appuyez sur <strong>espace</strong> pour" +
     " continuer.</p>",
     choices: [32]
   };
+

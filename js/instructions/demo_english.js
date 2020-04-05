@@ -307,6 +307,25 @@ englishDemo.extra_information_2 = {
       <td style="vertical-align:top"><label><input type='radio' name='FEEDBACK' value='Yes' required> Yes </label>&nbsp&nbsp<label><input type='radio' name='FEEDBACK' value='No'>&nbsp No</label></td></tr>
       -->
 
+      </table></div>`,
+    button_label: "OK",
+  }],
+  on_finish: function(data) {
+    console.log(data.responses);
+    // Add these properties to all data entries if desired
+    jsPsych.data.addProperties(JSON.parse(data.responses));
+    // add the tag only the last data item so we can save that separately
+    jsPsych.data.get().addToLast({tag: "extra_data"});
+  }
+}
+
+englishDemo.extra_information_techdiff = {
+  timeline: [{
+    type: 'survey-html-form',
+    html: `
+      <div class='instructions' style='width:700px text-align:left; font-size:medium vertical-align:top; line-height: 1.0'>
+      <table style='width:100%; border-collapse: separate; border-spacing: 1em'; vertical-align:top> 
+
       <tr><td style="vertical-align:top">Did you experience technical difficulties during completion of the video game task? If so, please describe.</td>
       <td><input type='textarea' rows='3' cols='20' maxlength='256' wrap='soft' name='TECH_DIFF'></td></tr>
 

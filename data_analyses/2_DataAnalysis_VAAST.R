@@ -68,11 +68,11 @@ load("Data_VAAST/data_VAAST.RData")
 DF <- data.table(dataset_vaast_trial)
 
 # # Loading the browser info to remove pp who did not complete the whole expe
-# load("Data_VAAST/data_vaast_browser.RData")
-# data_browser <- data.table(dataset_vaast_browser_event)
-# 
-# # Merging VAAST with completion infos
-# LOT(DF, data_browser, "id")
+load("Data_VAAST/data_extra.RData")
+data_extra <- data.table(dataset_extra)
+
+# Merging VAAST with other infos
+LOT(DF, data_extra, "jspsych_id")
 
 # Defining some variabls as factors.
 DF$jspsych_id  <- factor(DF$jspsych_id)

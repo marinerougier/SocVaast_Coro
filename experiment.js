@@ -534,11 +534,13 @@ function set_language(language) {
       instructions = frenchInstructions;
       questions = frenchQuestions;
       demo = frenchDemo;
+      feedbackending = frenchFeedback;
       break;
     default:
       instructions = englishInstructions;
       questions = englishQuestions;
       demo = englishDemo;
+      feedbackending = englishFeedback;
   }
   // update the description variables with the right names
   // this is not pretty, but works - I'd much rather put the entire experiment setup in an object
@@ -911,30 +913,7 @@ function questionnaire_feedback(feedback_order) {
       }
       document.getElementById('RESPONSES').innerHTML = html;
     },
-    stimulus:
-      `<div class='instructions' id=FEEDBACK>
-        <div>
-        <p>
-        Note, that we have not yet collected a sufficient amount of data to show average responses from previous participants.
-        If you are interested in this summary, please enter your Email address in the field below.
-        </p><p>
-          Email-address:&nbsp <input type='text' name='EMAIL' id='EMAIL' size=60 onchange='window.email = this.value'>
-        </p><p>
-          Your email-address will be stored separately from your responses in the study. It is not possible to connect your email-address with any of your responses.
-        </p><p>
-          <h3><center>Here is a summary of your responses</center></h3>
-          <p>Please save this page for your future reference.</p>
-        </div>
-        <div id=REACTIONS >
-          Your average reaction time has been: <b><span id='FeedbackMeanReactionTime'></span> milliseconds</b><br>
-          You reacted <b><span id='FeedbackNumberOfCorrectRespones'></span> of <span id='FeedbackNumberOfTotalRespones'></span> times correctly.</b>
-        </div>
-        <div id='RESPONSES'></div>
-      </div>
-      <!--
-      <div class='instructions'><button id="downloadPDF" style="float: right;">Download PDF</button></div>
-      -->
-      `,
+    stimulus: feedbackending.instr,
     choices: ['Finish Study'],
     on_finish: function(data) {
       // this would add the email to every data point collected,
@@ -968,24 +947,6 @@ var setup_experiment = {
 
           instructions.welcome,
           instructions.fullscreen_trial,
-          hiding_cursor,
-          instructions.vaast_instructions_1,
-          instructions.vaast_instructions_2,
-          instructions.vaast_instructions_4,
-          //vaast_training_block_1,
-          //vaast_test_block_1,
-          instructions.feedback_firstblock,
-          instructions.vaast_instructions_5,
-          //vaast_training_block_2,
-          //vaast_test_block_2,
-          instructions.feedback,
-          instructions.vaast_instructions_6,
-          //vaast_test_block_3,
-          instructions.feedback,
-          instructions.vaast_instructions_7,
-          //vaast_test_block_4,
-          instructions.feedback_lastblock,
-          showing_cursor,
           instructions.extra_information,
           
           survey_slider_questions(['item_1', 'item_2'], questions.preamble_apply_situation),
@@ -1008,7 +969,29 @@ var setup_experiment = {
           demo.extra_information_1,
           demo.extra_information_2,
           save_extra,
-  
+
+          hiding_cursor,
+          instructions.vaast_instructions_0,
+          instructions.vaast_instructions_1,
+          instructions.vaast_instructions_2,
+          instructions.vaast_instructions_4,
+          vaast_training_block_1,
+          vaast_test_block_1,
+          instructions.feedback_firstblock,
+          instructions.vaast_instructions_5,
+          vaast_training_block_2,
+          vaast_test_block_2,
+          instructions.feedback,
+          instructions.vaast_instructions_6,
+          vaast_test_block_3,
+          instructions.feedback,
+          instructions.vaast_instructions_7,
+          vaast_test_block_4,
+          instructions.feedback_lastblock,
+          showing_cursor,
+
+          demo.extra_information_techdiff,
+          save_extra,
           demo.extra_information_3,
           { // show feedback only if desired
             timeline: [questionnaire_feedback(items_to_give_feedback_on)],

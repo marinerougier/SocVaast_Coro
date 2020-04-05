@@ -307,6 +307,25 @@ frenchDemo.extra_information_2 = {
       <td style="vertical-align:top"><label><input type='radio' name='FEEDBACK' value='oui' required> oui </label>&nbsp&nbsp<label><input type='radio' name='FEEDBACK' value='non'>&nbsp non</label></td></tr>
       -->
 
+      </table></div>`,
+    button_label: "OK",
+  }],
+  on_finish: function(data) {
+    console.log(data.responses);
+    // Add these properties to all data entries if desired
+    jsPsych.data.addProperties(JSON.parse(data.responses));
+    // add the tag only the last data item so we can save that separately
+    jsPsych.data.get().addToLast({tag: "extra_data"});
+  }
+}
+
+frenchDemo.extra_information_techdiff = {
+  timeline: [{
+    type: 'survey-html-form',
+    html: `
+      <div class='instructions' style='width:700px text-align:left; font-size:medium vertical-align:top; line-height: 1.0'>
+      <table style='width:100%; border-collapse: separate; border-spacing: 1em'; vertical-align:top> 
+
       <tr><td style="vertical-align:top">Avez-vous fait l'expérience de difficultés techniques durant l'étude ? Si oui, merci de les décrire.</td>
       <td><input type='textarea' rows='3' cols='20' maxlength='256' wrap='soft' name='TECH_DIFF'></td></tr>
 

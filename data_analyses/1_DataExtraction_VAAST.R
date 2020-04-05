@@ -46,7 +46,6 @@ dataset_vaast_browser_event <-
   unnest()
 
 # connections -------------------------------------------------------------
-
 dataset_vaast_connection <-
   database %>% 
   pluck("VAAST_corona_en") %>%
@@ -94,6 +93,7 @@ save(dataset_vaast_trial, file = "data_VAAST/data_VAAST.RData")
 save(dataset_vaast_browser_event, file = "data_VAAST/data_vaast_browser.RData")
 save(dataset_vaast_connection, file = "data_VAAST/data_vaast_connection.RData")
 save(dataset_extra, file = "data_VAAST/data_extra.RData")
-save(dataset_language, file = "data_VAAST/data_language.RData")
+save(dataset_questions, file = "data_VAAST/data_questions.RData")
+save(dataset_email, file = "data_VAAST/data_email.RData")
 
 
