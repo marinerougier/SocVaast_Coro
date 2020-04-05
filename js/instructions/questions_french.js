@@ -54,20 +54,27 @@ frenchQuestions.item_8 = {
   required: true
 };
 
+
 frenchQuestions.item_9 = {
   timeline: [{
-    type: 'survey-multi-choice',
-    questions: [{
-      prompt: "<div class='instructions' style='width:100%'><p>Merci de sélectionner ce qui s'applique à vous.</p><p>J'étais/je suis actuellement infecté.e par le coronavirus</p></div>",
-      options: ["oui&nbsp&nbsp", "je ne sais pas&nbsp&nbsp", "non&nbsp&nbsp"],
-      required: true, horizontal: true
-    }],
+    type: 'survey-html-form',
+    html: `
+        <div class='instructions' style='text-align:center'>
+        <p>Merci de sélectionner ce qui s'applique à vous.</p>
+        <p>J'étais/je suis actuellement infecté.e par le coronavirus.</p></div>
+        <p>
+            <label><input type='radio' name='item_9' value="1" required>&nbsp oui &nbsp&nbsp</label>
+            <label><input type='radio' name='item_9' value="2" required>&nbsp non &nbsp&nbsp</label>
+            <label><input type='radio' name='item_9' value="3" required>&nbsp je ne sais pas &nbsp&nbsp</label>
+        </p>
+        </div>
+    `,
     button_label: "OK"
   }],
   on_finish: function(data) {
     console.log(data.responses);
-    jsPsych.data.addProperties({item_9: JSON.parse(data.responses)["Q0"]});
-    jsPsych.data.get().addToLast({tag: "extra_data"});
+    jsPsych.data.addProperties(JSON.parse(data.responses));
+    jsPsych.data.get().addToLast({tag: "questions_data"});
   }
 }
 

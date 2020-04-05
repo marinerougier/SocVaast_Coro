@@ -294,13 +294,13 @@ frenchDemo.extra_information_2 = {
       
       <tr><td>Quel est votre genre ? </td>
       <td style="vertical-align:top; font-size:smaller">
-        <label><input type='radio' name='SEX' required>&nbspfemme&nbsp&nbsp</label>
-        <label><input type='radio' name='SEX' required>&nbsphomme&nbsp&nbsp</label>
-        <label><input type='radio' name='SEX' required>&nbspautre&nbsp&nbsp</label>
+        <label><input type='radio' name='SEX' value="1" required>&nbspfemme&nbsp&nbsp</label>
+        <label><input type='radio' name='SEX' value="2" required>&nbsphomme&nbsp&nbsp</label>
+        <label><input type='radio' name='SEX' value="3" required>&nbspautre&nbsp&nbsp</label>
       </td></tr>
 
       <tr><td>Avez-vous un contact professionnel avec des patients du coronavirus (par ex. en tant qu'infirmier.ère, médecin, etc.) ?</td>
-      <td><label><input type='radio' name='OCCUPATION' value='oui' required> oui </label>&nbsp&nbsp<label><input type='radio' name='OCCUPATION' value='non'>&nbsp non</label></td></tr>
+      <td><label><input type='radio' name='OCCUPATION' value='1' required> Oui </label>&nbsp&nbsp<label><input type='radio' name='OCCUPATION' value='2'>&nbsp Non</label></td></tr>
       
       <!--
       <tr><td>Cela vous intéresse-t-il de recevoir un feedback individuel de vos réponses <br>en comparaison aux réponses moyennes de tous les participant.es ?</td>
