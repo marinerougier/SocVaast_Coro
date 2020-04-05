@@ -472,21 +472,6 @@ var next_position_training = function(){
       }
   }
 
-// I suggest adding the language to all datapoints using add_properties
-// Plus, we also have a global variable: selected language
-/*
-var saving_language = function() {
-  database
-    .ref("language_info_corona_en/")
-    .push()
-    .set({jspsych_id: jspsych_id,
-        timestamp: firebase.database.ServerValue.TIMESTAMP,
-        vaast_first_block: vaast_first_block,
-        language_data: jsPsych.data.get().last(1).json(),
-      })
-}
-*/
-
 // saving blocks ------------------------------------------------------------------------
 var save_id = {
     type: 'call-function',
@@ -508,15 +493,6 @@ var save_extra = {
     func: saving_extra
 }
 
-// I suggest adding the language to all datapoints using add_properties
-// Plus, we also have a global variable: selected language
-/*
-var save_language = {
-    type: 'call-function',
-    func: saving_language
-}
-*/
-
 // EXPERIMENT ---------------------------------------------------------------------------
 const LANGUAGECHOICES = ['English', 'Français'];
 var selected_language = LANGUAGECHOICES[0];
@@ -534,13 +510,11 @@ function set_language(language) {
       instructions = frenchInstructions;
       questions = frenchQuestions;
       demo = frenchDemo;
-      feedbackending = frenchFeedback;
       break;
     default:
       instructions = englishInstructions;
       questions = englishQuestions;
       demo = englishDemo;
-      feedbackending = englishFeedback;
   }
   // update the description variables with the right names
   // this is not pretty, but works - I'd much rather put the entire experiment setup in an object
@@ -913,7 +887,7 @@ function questionnaire_feedback(feedback_order) {
       }
       document.getElementById('RESPONSES').innerHTML = html;
     },
-    stimulus: feedbackending.instr,
+    stimulus: instructions.feedback_summary,
     choices: ['Finish Study'],
     on_finish: function(data) {
       // this would add the email to every data point collected,
@@ -1006,7 +980,7 @@ var setup_experiment = {
 }
 
 // prolific verification
-timeline.push(save_id);
+timeline.push(save_id); // why do you need this?
 
 timeline.push(
   languageSelection,
