@@ -15,7 +15,7 @@ englishInstructions.welcome = {
         "</center></p>" +
         "<p class='instructions'>Thank you for taking part in this study: <b>You make a valuable contribution to scientific research on social " +
         "consequences of the corona pandemic. </b></p>" +
-        "<p class='instructions'>During this study, you will complete a simple video game task and answer some questions regarding your behavior and feelings. "+
+        "<p class='instructions'>During this study, you will answer some questions regarding your behavior and feelings, and you will complete a simple video game task. "+
         "Note that <b>you need a computer and a real (i.e., not a virtual) keyboard </b>to complete the task. </p>" +
         "<p class='instructions'>If you are interested, <b>you can receive an individual analysis of your responses </b>in relation to the average responses of previous participants.</p>" +
         "<p class='instructions'>Completion of the study will take approximately 10-15 minutes. </p>" +

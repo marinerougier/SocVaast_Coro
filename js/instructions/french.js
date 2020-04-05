@@ -15,7 +15,7 @@ frenchInstructions.welcome = {
         "</center></p>" +
         "<p class='instructions'>Merci de prendre part à cette étude : <b>Vous apportez une précieuse contribution à la recherche scientifique sur les " +
         "conséquences sociales de la pandémie du coronavirus. </b></p>" +
-        "<p class='instructions'>Durant cette étude, vous devrez compléter une tâche simple de jeu vidéo et répondre à quelques questions sur vos comportements et ressentis. "+
+        "<p class='instructions'>Durant cette étude, vous devrez répondre à quelques questions sur vos comportements et ressentis et compléter une tâche simple de jeu vidéo. "+
         "Notez que <b>vous avez besoin d'un ordinateur et d'un vrai clavier (c'est-à-dire non virtuel) </b>pour effectuer la tâche. </p>" +
         "<p class='instructions'>Si vous êtes intéressé.e, <b>vous recevrez une analyse individuelle de vos réponses </b>en relation avec les réponses moyennes des participants précédents.</p>" +
         "<p class='instructions'>L'étude prendra environ 10-15 minutes. </p>" +
