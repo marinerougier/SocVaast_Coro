@@ -77,7 +77,8 @@ if(!is_compatible) {
   var prolific_id = jsPsych.data.getURLVariable('prolific_id');
   if (prolific_id == null) {prolific_id = "undefined";}
 
-  var jspsych_id = "testuser";
+  var jspsych_id = jsPsych.data.getURLVariable("jspsych_id");
+  if (jspsych_id == null) { jspsych_id = jsPsych.randomization.randomID(15) };
 
   // Preload images
   var preloadimages = [];
