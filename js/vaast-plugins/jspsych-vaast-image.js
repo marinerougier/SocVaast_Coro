@@ -134,7 +134,7 @@
 
     var html_str = "";
     
-    html_str += "<div style='position:absolute;right:0;top:0; width:100%; height:100%; background:url(" + trial.background_images[trial.position] + ") center no-repeat; background-color:#000000; background-size:" + background_width + "px " + background_height + "px;'>";
+    html_str += "<div style='position:absolute;right:0;top:0; width:100%; height:100%; background:url(" + trial.background_images[trial.position] + ") center no-repeat; background-color:#FFFFFF; background-size:" + background_width + "px " + background_height + "px;'>";
     html_str += "<img src='" + trial.stimulus + "' style='position: absolute; top:" + stimulus_top + "px; left:" + background_center_width + "px; height:" + stimulus_height + "px; transform:translate(-50%, 0); z-order:1;' id='jspsych-vaast-stim'/>";
     html_str += "</div>";
 
