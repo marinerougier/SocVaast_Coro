@@ -62,10 +62,22 @@
     var duration_range = trial.max_duration- trial.min_duration;
     var duration = Math.random() * duration_range + trial.min_duration;
 
+    // we need to rescale to the window if the window happens to be smaller than the background image!
+    const window_width = window.innerWidth;
+    const window_height = window.innerHeight;
+
+    const max_background_width = 1800;
+    const max_background_height = 1200;
+    
+    const background_scale = Math.min(Math.min(window_width / max_background_width, 1), Math.min(window_height / max_background_height, 1));
+
+    const background_height = background_scale * max_background_height;
+    const background_width = background_scale * max_background_width;
+
     // Affichage du stimulus
     var html_str = "";
     
-    html_str += "<div style='position:absolute;right:0;top:0;width:100%; height:100%;background:url("+trial.background_images[trial.position]+") center no-repeat;z-index:-1; background-color:#000000'></div>";
+    html_str += "<div style='position:absolute;right:0;top:0; width:100%; height:100%; background:url(" + trial.background_images[trial.position] + ") center no-repeat; background-color:#000000; background-size:" + background_width + "px " + background_height + "px;'>";
     html_str += "<div style='height: 100vh; display: flex; justify-content: center; align-items: center;z-index:1; color: #000000; font-size: "+trial.font_size+"px' id='jspsych-iat-stim'>"+trial.fixation+"</div>";
 
     display_element.innerHTML = html_str;

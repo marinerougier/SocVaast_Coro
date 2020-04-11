@@ -3,6 +3,7 @@ var frenchInstructions = {};
 
 frenchInstructions.persons = "personnes";
 frenchInstructions.plants = "plantes";
+frenchInstructions.finish = "Terminer l'étude";
 
 frenchInstructions.welcome = {
     type: "html-button-response",
@@ -10,11 +11,13 @@ frenchInstructions.welcome = {
         "<p class='instructions'><center>" +
         "<img src = 'media/UHH.png'>" +
         "<img src = 'media/UCL.jpg'>" +
+        "<img src = 'media/Bicocca_Bianco.png'>" +
+        "<br>"+
         "<img src = 'media/UR.png'>" +
         "<br><b>Projet CSC (Contact Social durant la pandémie du Coronavirus)</b>" + 
         "</center></p>" +
         "<p class='instructions'>Merci de prendre part à cette étude : <b>Vous apportez une précieuse contribution à la recherche scientifique sur les " +
-        "conséquences sociales de la pandémie du coronavirus. </b></p>" +
+        "conséquences sociales de la pandémie du coronavirus. </b>Pour plus d’information sur ce projet de recherche, veuillez cliquer <a href='https://www.psy.uni-hamburg.de/arbeitsbereiche/sozialpsychologie/scc.html' target='_blank'>ici</a>.</p>" +
         "<p class='instructions'>Durant cette étude, vous devrez répondre à quelques questions sur vos comportements et ressentis et compléter une tâche simple de jeu vidéo. "+
         "Notez que <b>vous avez besoin d'un ordinateur et d'un vrai clavier (c'est-à-dire non virtuel) </b>pour effectuer la tâche. </p>" +
         "<p class='instructions'>Si vous êtes intéressé.e, <b>vous recevrez une analyse individuelle de vos réponses </b>en relation avec les réponses moyennes des participants précédents.</p>" +
@@ -33,10 +36,15 @@ frenchInstructions.welcome = {
 
 frenchInstructions.fullscreen_trial = {
   type: 'fullscreen',
-    message:  '<p><b>Avant de commencer...</b></p>' + 
-          '<li>Minimisez tout distracteur potentiel (fermez les autres programmes informatiques, mettez votre téléphone portable en mode silencieux, etc.). </li>'+
-          '<li>Désactivez votre logiciel de blocage des publicités car il peut interférer avec la collecte de données. <br><br></li>'+
-          '<p>Pour participer à cette étude, votre navigateur doit être configuré en mode plein écran.<br></p>',
+    message:  `
+      <div class='instructions'>
+      <p><b>Avant de commencer...</b></p> 
+      <ul>
+        <li>Minimisez tout distracteur potentiel (fermez les autres programmes informatiques, mettez votre téléphone portable en mode silencieux, etc.). </li>
+        <li>Désactivez votre logiciel de blocage des publicités car il peut interférer avec la collecte de données. <br><br></li>
+      </ul>
+      <p>Pour participer à cette étude, votre navigateur doit être configuré en mode plein écran.<br></p>
+      </div>`,
     button_label: 'Passer au mode plein écran',
   fullscreen_mode: true
 }
@@ -253,3 +261,26 @@ frenchInstructions.feedback_lastblock = {
     choices: [32]
   };
 
+  frenchInstructions.feedback_summary = `<div class='instructions' id=FEEDBACK>
+  <div>
+  <p>
+    Malheureusement, nous n'avons pas collecté suffisamment de données pour vous montrer un résumé des réponses moyennes des autres participants.
+    Si vous êtes intéressé par ce résumé, veuillez entrer votre adresse e-mail dans le champ ci-dessous.
+  </p><p>
+    Adresse email :&nbsp <input type='text' name='EMAIL' id='EMAIL' size=60 onchange='window.email = this.value'>
+  </p><p>
+    Votre adresse e-mail sera stockée séparément de vos réponses dans l'étude. Il n'est possible de connecter votre adresse e-mail à aucune de vos réponses.
+  </p><p>
+    <h3><center>Voici un résumé de vos réponses</center></h3>
+    <p>Veuillez enregistrer cette page pour plus tard.</p>
+  </div>
+  <div id=REACTIONS >
+    Votre temps de réaction moyen a été : <b><span id='FeedbackMeanReactionTime'></span> millisecondes</b><br>
+    Vous avez réagi <b><span id='FeedbackNumberOfCorrectRespones'></span> sur <span id='FeedbackNumberOfTotalRespones'></span> fois correctement.</b>
+  </div>
+  <div id='RESPONSES'></div>
+  </div>
+  <!--
+  <div class='instructions'><button id="downloadPDF" style="float: right;">Télécharger en PDF</button></div>
+  -->
+`;

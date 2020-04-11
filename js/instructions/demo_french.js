@@ -327,7 +327,7 @@ frenchDemo.extra_information_techdiff = {
       <table style='width:100%; border-collapse: separate; border-spacing: 1em'; vertical-align:top> 
 
       <tr><td style="vertical-align:top">Avez-vous fait l'expérience de difficultés techniques durant l'étude ? Si oui, merci de les décrire.</td>
-      <td><input type='textarea' rows='3' cols='20' maxlength='256' wrap='soft' name='TECH_DIFF'></td></tr>
+      <td><textarea rows='3' cols='20' maxlength='256' wrap='soft' name='TECH_DIFF'></textarea></td></tr>
 
       </table></div>`,
     button_label: "OK",

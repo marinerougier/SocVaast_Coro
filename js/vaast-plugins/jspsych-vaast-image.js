@@ -108,12 +108,37 @@
 
   plugin.trial = function(display_element, trial) {
 
+    const window_width = window.innerWidth;
+    const window_height = window.innerHeight;
+
+    const max_background_width = 1800;
+    const max_background_height = 1200;
+    
+    const background_scale = Math.min(Math.min(window_width / max_background_width, 1), Math.min(window_height / max_background_height, 1));
+
+    const background_height = background_scale * max_background_height;
+    const background_width = background_scale * max_background_width;
+
+    // all font sizes and Regina's magic numbers were calcutated for a background image 600px high, hence the number 2 here
+    const stimulus_scaling = background_scale * 2;
+
+    // Regina's magic numbers for the position of the stimuli, all measured for 800x600 backgrounds
+    const ideal_center = [null, 294 , 312, 332];
+    
+    const background_center_width = Math.floor(window_width / 2);
+    const background_center_height = Math.floor(window_height / 2);
+
+    const stimulus_center_height = background_center_height - (background_height / 2 - ideal_center[trial.position] * stimulus_scaling);
+    const stimulus_height = Math.floor(trial.font_sizes[trial.position] * stimulus_scaling);
+    const stimulus_top = Math.floor(stimulus_center_height - stimulus_height / 2);
+
     var html_str = "";
     
-    html_str += "<div style='position:absolute;right:0;top:0;width:100%; height:100%;background:url("+trial.background_images[trial.position]+") center no-repeat; background-color:#000000'></div>";
-    html_str += "<div style='position:relative;right:0;top:0;height:"+trial.font_sizes[trial.position]+"px'><img height='"+trial.font_sizes[trial.position]+"' src='"+trial.stimulus+"' id='jspsych-vaast-stim'></img></div>";
+    html_str += "<div style='position:absolute;right:0;top:0; width:100%; height:100%; background:url(" + trial.background_images[trial.position] + ") center no-repeat; background-color:#000000; background-size:" + background_width + "px " + background_height + "px;'>";
+    html_str += "<img src='" + trial.stimulus + "' style='position: absolute; top:" + stimulus_top + "px; left:" + background_center_width + "px; height:" + stimulus_height + "px; transform:translate(-50%, 0); z-order:1;' id='jspsych-vaast-stim'/>";
+    html_str += "</div>";
 
-    html_str += "<div id='wrongImgID' style='position:relative; top: 100px; margin-left: auto; margin-right: auto; left: 0; right: 0'>";
+    html_str += "<div id='wrongImgID' style='position:absolute; bottom: 20%; margin-left: auto; margin-right: auto; left: 0; right: 0'>";
 
     if(trial.display_feedback === true) {
       html_str += "<div id='wrongImgContainer' style='visibility: hidden; position: absolute; top: -75px; margin-left: auto; margin-right: auto; left: 0; right: 0'><p>"+trial.html_when_wrong+"</p></div>";

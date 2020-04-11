@@ -3,6 +3,7 @@ var englishInstructions = {};
 
 englishInstructions.persons = "people";
 englishInstructions.plants = "plants";
+englishInstructions.finish = "Finish study";
 
 englishInstructions.welcome = {
     type: "html-button-response",
@@ -10,12 +11,14 @@ englishInstructions.welcome = {
         "<p class='instructions'><center>" +
         "<img src = 'media/UHH.png'>" +
         "<img src = 'media/UCL.jpg'>" +
+        "<img src = 'media/Bicocca_Bianco.png'>" +
+        "<br>"+
         "<img src = 'media/UR.png'>" +
         "<br><b>SCC-Project (Social Contact during the Corona Pandemic)</b>" + 
         "</center></p>" +
         "<p class='instructions'>Thank you for taking part in this study: <b>You make a valuable contribution to scientific research on social " +
-        "consequences of the corona pandemic. </b></p>" +
-        "<p class='instructions'>During this study, you will answer some questions regarding your behavior and feelings, and you will complete a simple video game task. "+
+        "consequences of the corona pandemic. </b>For more information on this research project, please click <a href='https://www.psy.uni-hamburg.de/arbeitsbereiche/sozialpsychologie/scc.html' target='_blank'>here</a>.</p>" +
+        "<p class='instructions'>During this study, you will answer some questions regarding your behavior and feelings and complete a simple video game task. "+
         "Note that <b>you need a computer and a real (i.e., not a virtual) keyboard </b>to complete the task. </p>" +
         "<p class='instructions'>If you are interested, <b>you can receive an individual analysis of your responses </b>in relation to the average responses of previous participants.</p>" +
         "<p class='instructions'>Completion of the study will take approximately 10-15 minutes. </p>" +
@@ -24,7 +27,7 @@ englishInstructions.welcome = {
             "<li>You are at least 18 years old. </li>" +
             "<li>You know you can stop your participation at any time </li>" +
             "<li>You know you can contact our team for any questions or dissatisfaction " +
-            "at scc-project@ur.de. </li>" + //The principle investigator is PD Dr. Regina Reichardt.
+            "at <a href='mailto:scc-project@ur.de'>scc-project@ur.de</a>. </li>" + //The principle investigator is PD Dr. Regina Reichardt.
             "<li>You know that you participate anonymously. We do not record any data that allows to personally identify you. We do not record your IP address.</li>" +
             "<li>You know that the anonymous data collected will be shared with researchers via the Open Science Framework.</li>" +
         "</ul>" ,
@@ -33,10 +36,16 @@ englishInstructions.welcome = {
 
 englishInstructions.fullscreen_trial = {
   type: 'fullscreen',
-    message:  '<p><b>Before you start...</b></p>' + 
-          '<li>Minimize any potential distractor (close other computer programs, silence your cell phone, etc.). </li>'+
-          '<li>Disable your ad-blocking software, which may interfere with data collection. <br><br></li>'+
-          '<p>To take part in this study, your browser needs to be set to fullscreen.<br></p>',
+    message:  `
+      <div class='instructions'>
+      <p><b>Before you start...</b></p>
+      <ul>
+        <li>Minimize any potential distractor (close other computer programs, silence your cell phone, etc.). </li>
+        <li>Disable your ad-blocking software, which may interfere with data collection.</li>
+      </ul>
+      <p>To take part in this study, your browser needs to be set to fullscreen.<br></p>
+      </div>
+      `,
     button_label: 'Switch to fullscreen',
   fullscreen_mode: true
 }
@@ -186,7 +195,7 @@ englishInstructions.feedback_firstblock = {
   },
   stimulus:
     "<p class='instructions'><center>Good job!<br><br>" + 
-    "Here is your average Reaction Time: <b><span id='FeedbackMeanReactionTime'></span> milli seconds</b><br>" +
+    "Here is your average Reaction Time: <b><span id='FeedbackMeanReactionTime'></span> milliseconds</b><br>" +
     "You reacted <b><span id='FeedbackNumberOfCorrectRespones'></span> of " +
     "<span id='FeedbackNumberOfTotalRespones'></span> times correctly.</b>" +
     "</p></center>" +
@@ -207,7 +216,7 @@ englishInstructions.feedback = {
   },
   stimulus:
     "<p class='instructions'><center>Good job!<br><br>" + 
-    "Here is your average Reaction Time: <b><span id='FeedbackMeanReactionTime'></span> milli seconds</b><br>" +
+    "Here is your average Reaction Time: <b><span id='FeedbackMeanReactionTime'></span> milliseconds</b><br>" +
     "You reacted <b><span id='FeedbackNumberOfCorrectRespones'></span> of " +
     "<span id='FeedbackNumberOfTotalRespones'></span> times correctly.</b>" +
     "</p></center>" +
@@ -245,3 +254,27 @@ englishInstructions.extra_information = {
   choices: [32]
 };
 
+englishInstructions.feedback_summary = `
+  <div class='instructions' id=FEEDBACK>
+      <div>
+      <p>
+      Note, that we have not yet collected a sufficient amount of data to show average responses from previous participants.
+      If you are interested in this summary, please enter your Email address in the field below.
+      </p><p>
+        Email-address:&nbsp <input type='text' name='EMAIL' id='EMAIL' size=60 onchange='window.email = this.value'>
+      </p><p>
+        Your email-address will be stored separately from your responses in the study. It is not possible to connect your email-address with any of your responses.
+      </p><p>
+        <h3><center>Here is a summary of your responses</center></h3>
+        <p>Please save this page for your future reference.</p>
+      </div>
+      <div id=REACTIONS >
+        Your average reaction time has been: <b><span id='FeedbackMeanReactionTime'></span> milliseconds</b><br>
+        You reacted <b><span id='FeedbackNumberOfCorrectRespones'></span> of <span id='FeedbackNumberOfTotalRespones'></span> times correctly.</b>
+      </div>
+      <div id='RESPONSES'></div>
+    </div>
+    <!--
+    <div class='instructions'><button id="downloadPDF" style="float: right;">Download PDF</button></div>
+    -->
+`;

@@ -63,13 +63,22 @@ if(!is_compatible) {
     databaseURL: "https://vaastcoro.firebaseio.com/"
   };
 
+  // Test-Database
+  //firebase_config = {
+  //  apiKey: "AIzaSyDgX8As3mxMjpnRS84bTYX7y5li9WdJKbk",
+  //  databaseURL: "https://scc-testdatabase.firebaseio.com"
+  // }
+
   firebase.initializeApp(firebase_config);
   var database = firebase.database();
 
   // id variables
-  var jspsych_id = jsPsych.data.getURLVariable("jspsych_id");
-  if (jspsych_id == null) { jspsych_id = jsPsych.randomization.randomID(15) };
- 
+  const PROLIFIC_VALIDATION_LINK = "https://app.prolific.co/submissions/complete?cc=7F12A7AD";
+  var prolific_id = jsPsych.data.getURLVariable('prolific_id');
+  if (prolific_id == null) {prolific_id = "undefined";}
+
+  var jspsych_id = "testuser";
+
   // Preload images
   var preloadimages = [];
 
@@ -85,14 +94,18 @@ if(!is_compatible) {
     if (snap.val() === true) {
       connection
         .push()
-        .set({status: "connection",
-              timestamp: firebase.database.ServerValue.TIMESTAMP})
+        .set({
+          status: "connection",
+          timestamp: firebase.database.ServerValue.TIMESTAMP
+        });
 
       connection
         .push()
         .onDisconnect()
-        .set({status: "disconnection",
-              timestamp: firebase.database.ServerValue.TIMESTAMP})
+        .set({
+          status: "disconnection",
+          timestamp: firebase.database.ServerValue.TIMESTAMP
+        });
 
     if(!first_connection) {
       dialog.modal('hide');
@@ -119,10 +132,10 @@ if(!is_compatible) {
       "stimuli/people_group2.png",
       "stimuli/people_group3.png",
       "stimuli/people_group4.png",
+      "stimuli/people_group5.png",
+      "stimuli/people_group6.png",
       "stimuli/people_group7.png",
       "stimuli/people_group8.png",
-      "stimuli/people_group1.png",
-      "stimuli/people_group1.png",
       "stimuli/people_male1.png",
       "stimuli/people_male2.png",
       "stimuli/people_male3.png",
@@ -249,42 +262,7 @@ switch(vaast_first_block) {
 // vaast image stimuli ------------------------------------------------------------------
 // Ici, on ajoute un nouveau mouvement, en fonction du bloc de la vaast on appellera soit
 // movement_1 ou movement_2.
-  var stim_vaast = [
-      "stimuli/Gruppe1.png",
-      "stimuli/Gruppe2.png",
-      "stimuli/Gruppe3.png",
-      "stimuli/Gruppe4.png",
-      "stimuli/Gruppe5.png",
-      "stimuli/Gruppe6.png",
-      "stimuli/Gruppe7.png",
-      "stimuli/Gruppe8.png",
-      "stimuli/pair1_female.png",
-      "stimuli/pair1_male.png",
-      "stimuli/pair2_female.png",
-      "stimuli/pair2_male.png",
-      "stimuli/pair3_female.png",
-      "stimuli/pair3_male.png",
-      "stimuli/pair4_female.png",
-      "stimuli/pair4_male.png",
-      "stimuli/PGruppe1.png",
-      "stimuli/PGruppe2.png",
-      "stimuli/PGruppe3.png",
-      "stimuli/PGruppe4.png",
-      "stimuli/PGruppe5.png",
-      "stimuli/PGruppe6.png",
-      "stimuli/PGruppe7.png",
-      "stimuli/PGruppe8.png",
-      "stimuli/Pflanze1.png",
-      "stimuli/Pflanze2.png",
-      "stimuli/Pflanze3.png",
-      "stimuli/Pflanze4.png",
-      "stimuli/Pflanze5.png",
-      "stimuli/Pflanze6.png",
-      "stimuli/Pflanze7.png",
-      "stimuli/Pflanze8.png"
-  ];
-
-
+ 
 var vaast_stim_training = [];
 
 var vaast_stim = [
@@ -330,29 +308,22 @@ vaast_stim_training.push(vaast_stim_plant);
 vaast_stim_training = _.flattenDeep(vaast_stim_training);
 
 // vaast background images --------------------------------------------------------------,
-
 var background = [
-    "background/3.jpg",
-    "background/4.jpg",
-    "background/5.jpg",
-    "background/6.jpg"
-];
+  "stimuli/corridor_medium_distance.jpg",
+  "stimuli/corridor_avoidance.jpg",
+  "stimuli/corridor_medium_distance.jpg",
+  "stimuli/corridor_approach.jpg"
+]
 
 
 // vaast stimuli sizes -------------------------------------------------------------------
 
 var stim_sizes = [
-    26,
-    32,
-    40,
-    46,
-    56,
-    66,
-    76
+    null,
+    210,
+    252,
+    302
   ];
-
-  var resize_factor = 12;
-  var image_sizes = stim_sizes.map(function(x) { return x * resize_factor; });
 
 // Helper functions ---------------------------------------------------------------------
 // next_position():
@@ -393,19 +364,22 @@ var next_position_training = function(){
         .ref("participant_id_corona_en/")
         .push()
         .set({jspsych_id: jspsych_id,
-               vaast_first_block: vaast_first_block,
-               timestamp: firebase.database.ServerValue.TIMESTAMP})
+             prolific_id: prolific_id,
+             vaast_first_block: vaast_first_block,
+             timestamp: firebase.database.ServerValue.TIMESTAMP})
   }
 
 // vaast trial --------------------------------------------------------------------------
   var saving_vaast_trial = function(){
     database
-      .ref("vaast_trial_corona_en/").
-      push()
-        .set({jspsych_id: jspsych_id,
-          vaast_first_block: vaast_first_block,
-          timestamp: firebase.database.ServerValue.TIMESTAMP,
-          vaast_trial_data: jsPsych.data.get().last(3).json()})
+      .ref("vaast_trial_corona_en/")
+      .push()
+      .set({jspsych_id: jspsych_id,
+        prolific_id: prolific_id,
+        vaast_first_block: vaast_first_block,
+        timestamp: firebase.database.ServerValue.TIMESTAMP,
+        vaast_trial_data: jsPsych.data.get().last(3).json()
+      })
   }
 
 
@@ -413,13 +387,16 @@ var next_position_training = function(){
 
   var saving_browser_events = function(completion) {
     database
-     .ref("browser_event_corona_en/")
-     .push()
-     .set({jspsych_id: jspsych_id,
-      timestamp: firebase.database.ServerValue.TIMESTAMP,
-      vaast_first_block: vaast_first_block,
-      completion: completion,
-      event_data: jsPsych.data.getInteractionData().json()})
+      .ref("browser_event_corona_en/")
+      .push()
+      .set({
+        jspsych_id: jspsych_id,
+        prolific_id: prolific_id,
+        vaast_first_block: vaast_first_block,
+        timestamp: firebase.database.ServerValue.TIMESTAMP,
+        completion: completion,
+        event_data: jsPsych.data.getInteractionData().json()
+      })
   }
 
   var saving_questions = function() {
@@ -429,11 +406,11 @@ var next_position_training = function(){
     database
      .ref("questions_info_corona_en/")
      .push()
-     .set({jspsych_id: jspsych_id,
-        timestamp: firebase.database.ServerValue.TIMESTAMP,
+     .set({
+        jspsych_id: jspsych_id,
+        prolific_id: prolific_id,
         vaast_first_block: vaast_first_block,
-        // here, too, we should not use a number but rather a tag
-        //questions_data: jsPsych.data.get().last(6).json(),
+        timestamp: firebase.database.ServerValue.TIMESTAMP,
         questions_data: questions_data,
       })
   }
@@ -445,12 +422,11 @@ var next_position_training = function(){
     database
      .ref("extra_info_corona_en/")
      .push()
-     .set({jspsych_id: jspsych_id,
-        timestamp: firebase.database.ServerValue.TIMESTAMP,
+     .set({
+        jspsych_id: jspsych_id,
+        prolific_id: prolific_id,
         vaast_first_block: vaast_first_block,
-        // having this number hardcoded here is a recipe for desaster ....
-        // better tag your data
-        // extra_data: jsPsych.data.get().last(8).json(),
+        timestamp: firebase.database.ServerValue.TIMESTAMP,
         extra_data: extra_data
       })
   }
@@ -471,21 +447,6 @@ var next_position_training = function(){
         console.log('no email was saved');
       }
   }
-
-// I suggest adding the language to all datapoints using add_properties
-// Plus, we also have a global variable: selected language
-/*
-var saving_language = function() {
-  database
-    .ref("language_info_corona_en/")
-    .push()
-    .set({jspsych_id: jspsych_id,
-        timestamp: firebase.database.ServerValue.TIMESTAMP,
-        vaast_first_block: vaast_first_block,
-        language_data: jsPsych.data.get().last(1).json(),
-      })
-}
-*/
 
 // saving blocks ------------------------------------------------------------------------
 var save_id = {
@@ -508,17 +469,9 @@ var save_extra = {
     func: saving_extra
 }
 
-// I suggest adding the language to all datapoints using add_properties
-// Plus, we also have a global variable: selected language
-/*
-var save_language = {
-    type: 'call-function',
-    func: saving_language
-}
-*/
 
 // EXPERIMENT ---------------------------------------------------------------------------
-const LANGUAGECHOICES = ['English', 'Français'];
+const LANGUAGECHOICES = ['English', 'Français', 'Deutsch', 'Italiano'];
 var selected_language = LANGUAGECHOICES[0];
 
 // english as default
@@ -534,13 +487,21 @@ function set_language(language) {
       instructions = frenchInstructions;
       questions = frenchQuestions;
       demo = frenchDemo;
-      feedbackending = frenchFeedback;
+      break;
+    case LANGUAGECHOICES[2]:  
+      instructions = germanInstructions;
+      questions = germanQuestions;
+      demo = germanDemo;
+      break;
+    case LANGUAGECHOICES[3]:  
+      instructions = italianInstructions;
+      questions = italianQuestions;
+      demo = italianDemo;
       break;
     default:
       instructions = englishInstructions;
       questions = englishQuestions;
       demo = englishDemo;
-      feedbackending = englishFeedback;
   }
   // update the description variables with the right names
   // this is not pretty, but works - I'd much rather put the entire experiment setup in an object
@@ -572,20 +533,6 @@ var languageSelection = {
 // Ici encore tout est dupliqué pour correspondre aux deux blocs de la vaast, les trials
 // et les procédures, training compris.
 
-var vaast_start = {
-  type: 'vaast-text',
-  stimulus: "o",
-  position: 2,
-  background_images: background,
-  font_sizes:  stim_sizes,
-  approach_key: "uparrow",
-  stim_movement: "approach",
-  html_when_wrong: '<span style="color: red; font-size: 80px">&times;</span>',
-  force_correct_key_press: true,
-  display_feedback: true,
-  response_ends_trial: true
-}
-
 var vaast_fixation = {
   type: 'vaast-fixation',
   fixation: "+",
@@ -599,7 +546,7 @@ var vaast_first_step_training_1 = {
   stimulus: jsPsych.timelineVariable('stimulus'),
   position: 2,
   background_images: background,
-  font_sizes:  image_sizes,
+  font_sizes:  stim_sizes,
   approach_key: "uparrow",
   avoidance_key: "downarrow",
   stim_movement: jsPsych.timelineVariable('movement_1'),
@@ -614,7 +561,7 @@ var vaast_second_step_training_1 = {
   position: next_position_training,
   stimulus: jsPsych.timelineVariable('stimulus'),
   background_images: background,
-  font_sizes:  image_sizes,
+  font_sizes:  stim_sizes,
   stim_movement: jsPsych.timelineVariable('movement_1'),
   response_ends_trial: false,
   trial_duration: 650
@@ -625,7 +572,7 @@ var vaast_first_step_training_2 = {
   stimulus: jsPsych.timelineVariable('stimulus'),
   position: 2,
   background_images: background,
-  font_sizes:  image_sizes,
+  font_sizes:  stim_sizes,
   approach_key: "uparrow",
   avoidance_key: "downarrow",
   stim_movement: jsPsych.timelineVariable('movement_2'),
@@ -640,7 +587,7 @@ var vaast_second_step_training_2 = {
   position: next_position_training,
   stimulus: jsPsych.timelineVariable('stimulus'),
   background_images: background,
-  font_sizes:  image_sizes,
+  font_sizes:  stim_sizes,
   stim_movement: jsPsych.timelineVariable('movement_2'),
   response_ends_trial: false,
   trial_duration: 650
@@ -651,7 +598,7 @@ var vaast_first_step_training_3 = {
   stimulus: jsPsych.timelineVariable('stimulus'),
   position: 2,
   background_images: background,
-  font_sizes:  image_sizes,
+  font_sizes:  stim_sizes,
   approach_key: "uparrow",
   avoidance_key: "downarrow",
   stim_movement: jsPsych.timelineVariable('movement_3'),
@@ -666,7 +613,7 @@ var vaast_second_step_training_3 = {
   position: next_position_training,
   stimulus: jsPsych.timelineVariable('stimulus'),
   background_images: background,
-  font_sizes:  image_sizes,
+  font_sizes:  stim_sizes,
   stim_movement: jsPsych.timelineVariable('movement_3'),
   response_ends_trial: false,
   trial_duration: 650
@@ -677,7 +624,7 @@ var vaast_first_step_training_4 = {
   stimulus: jsPsych.timelineVariable('stimulus'),
   position: 2,
   background_images: background,
-  font_sizes:  image_sizes,
+  font_sizes:  stim_sizes,
   approach_key: "uparrow",
   avoidance_key: "downarrow",
   stim_movement: jsPsych.timelineVariable('movement_4'),
@@ -692,7 +639,7 @@ var vaast_second_step_training_4 = {
   position: next_position_training,
   stimulus: jsPsych.timelineVariable('stimulus'),
   background_images: background,
-  font_sizes:  image_sizes,
+  font_sizes:  stim_sizes,
   stim_movement: jsPsych.timelineVariable('movement_4'),
   response_ends_trial: false,
   trial_duration: 650
@@ -701,7 +648,6 @@ var vaast_second_step_training_4 = {
 // VAAST training block -----------------------------------------------------------------
 var vaast_training_block_1 = {
   timeline: [
-    //vaast_start,
     vaast_fixation,
     vaast_first_step_training_1,
     vaast_second_step_training_1,
@@ -720,7 +666,6 @@ var vaast_training_block_1 = {
 
 var vaast_test_block_1 = {
   timeline: [
-    //vaast_start,
     vaast_fixation,
     vaast_first_step_training_1,
     vaast_second_step_training_1,
@@ -740,7 +685,6 @@ var vaast_test_block_1 = {
 
 var vaast_training_block_2 = {
   timeline: [
-    //vaast_start,
     vaast_fixation,
     vaast_first_step_training_2,
     vaast_second_step_training_2,
@@ -759,7 +703,6 @@ var vaast_training_block_2 = {
 
 var vaast_test_block_2 = {
   timeline: [
-    //vaast_start,
     vaast_fixation,
     vaast_first_step_training_2,
     vaast_second_step_training_2,
@@ -779,7 +722,6 @@ var vaast_test_block_2 = {
 
 var vaast_test_block_3 = {
   timeline: [
-    //vaast_start,
     vaast_fixation,
     vaast_first_step_training_3,
     vaast_second_step_training_3,
@@ -799,7 +741,6 @@ var vaast_test_block_3 = {
 
 var vaast_test_block_4 = {
   timeline: [
-    //vaast_start,
     vaast_fixation,
     vaast_first_step_training_4,
     vaast_second_step_training_4,
@@ -913,8 +854,8 @@ function questionnaire_feedback(feedback_order) {
       }
       document.getElementById('RESPONSES').innerHTML = html;
     },
-    stimulus: feedbackending.instr,
-    choices: ['Finish Study'],
+    stimulus: instructions.feedback_summary,
+    choices: [instructions.finish],
     on_finish: function(data) {
       // this would add the email to every data point collected,
       // exactly what you promise not to do....
@@ -944,7 +885,7 @@ var setup_experiment = {
     jsPsych.addNodeToEndOfTimeline(
       {
         timeline: [
-
+/*
           instructions.welcome,
           instructions.fullscreen_trial,
           instructions.extra_information,
@@ -965,11 +906,11 @@ var setup_experiment = {
           survey_slider_questions(['item_14', 'item_15'], questions.preamble_agreement),
           survey_slider_questions(['item_16', 'item_17', 'item_18'], questions.preamble_apply_typical),
           save_questions,
-          
           demo.extra_information_1,
           demo.extra_information_2,
           save_extra,
-
+*/
+instructions.fullscreen_trial,
           hiding_cursor,
           instructions.vaast_instructions_0,
           instructions.vaast_instructions_1,
@@ -992,6 +933,7 @@ var setup_experiment = {
 
           demo.extra_information_techdiff,
           save_extra,
+          
           demo.extra_information_3,
           { // show feedback only if desired
             timeline: [questionnaire_feedback(items_to_give_feedback_on)],
@@ -1022,9 +964,12 @@ var loading_gif               = ["media/loading.gif"]
 var vaast_instructions_images = ["media/UHH.png",
                                  "media/UCL.jpg",
                                  "media/UR.png",
+                                 "media/Bicocca_Bianco.png",
                                  "media/vaast-background.png", 
                                  "media/keyboard-vaastt_en.png",
-                                 "media/keyboard-vaastt_fr.png"];
+                                 "media/keyboard-vaastt_fr.png",
+                                 "media/keyboard-vaastt_gr.png",
+                                 "media/keyboard-vaastt_it.png"];
 var vaast_bg_filename         = background;
 
 jsPsych.pluginAPI.preloadImages(loading_gif);
@@ -1047,10 +992,11 @@ if(is_compatible) {
     },
     on_finish: function() {
         saving_browser_events(completion = true);
-        jsPsych.data.addProperties({
-          vaast_first_block: vaast_first_block,
-        });
-        //window.location.href = "https://www.google.com/";
+        if (prolific_id == "undefined")  {
+          window.location.href = "https://www.psy.uni-hamburg.de/arbeitsbereiche/sozialpsychologie/scc.html";
+        } else {
+          window.location.href = PROLIFIC_VALIDATION_LINK;
+        }
     }
   });
 }
